@@ -1,0 +1,89 @@
+Main.java
+package sample;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+    Scene scene1, scene2, scene3, scene4,scene5;
+
+    @Override
+    public void start(Stage primaryStage) {
+
+        primaryStage.setTitle("My First JavaFX GUI");
+
+//Scene 1
+        Label label1= new Label("GMU Computer Science Scheduler");
+        Button button1= new Button("Begin");
+        button1.setOnAction(e -> primaryStage.setScene(scene2));
+        VBox layout1 = new VBox(20);
+        layout1.getChildren().addAll(label1, button1);
+        scene1= new Scene(layout1, 300, 250);
+
+//Scene 2
+        Label label2= new Label("Are you a freshmen?");
+        Button button2= new Button("Yes");
+        button2.setOnAction(e -> primaryStage.setScene(scene3));
+        VBox layout2= new VBox(20);
+
+        Button button3= new Button("No");
+        button3.setOnAction(e -> primaryStage.setScene(scene4));
+        layout2.getChildren().addAll(label2, button3,button2);
+        scene2= new Scene(layout2,300,250);
+
+        //Scene 3
+        Label label3= new Label("Questions");
+        Button button4= new Button("Sumbit");
+        button4.setOnAction(e -> primaryStage.setScene(scene5));
+        VBox layout3= new VBox(20);
+        layout3.getChildren().addAll(label3, button4);
+        scene3= new Scene(layout3,300,250);
+//Scene 4
+        Label label4= new Label("List all your completed classes and grades");
+        Button button5= new Button("Submit");
+        button5.setOnAction(e -> primaryStage.setScene(scene1));
+        VBox layout4= new VBox(20);
+        layout4.getChildren().addAll(label4, button5);
+        scene4= new Scene(layout4,300,250);
+        //Scene 5
+        Label label5= new Label("These are the classes you can take:");
+        Button button6= new Button("Done");
+        button6.setOnAction(e -> primaryStage.setScene(scene1));
+        VBox layout5= new VBox(20);
+        layout5.getChildren().addAll(label5, button6);
+        scene5= new Scene(layout5,300,250);
+
+        primaryStage.setScene(scene1);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+}
+
+
+Controller.java
+package sample;
+
+public class Controller {
+}
+
+
+sample.fxml
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<GridPane fx:controller="sample.Controller"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+</GridPane>
