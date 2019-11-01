@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class ListOfCourses{
 
-   public static ArrayList <Course> list;
+   public ArrayList <Course> list;
    
    public ListOfCourses(){
       list = new ArrayList <Course>();}
@@ -15,6 +15,18 @@ public class ListOfCourses{
       
    public void removeCourse(Course c){
       list.remove(c);}
+   
+   public Course get(int index){
+      return list.get(index);}
+   
+   public int indexOf(Course c){
+      for(int i = 0; i< list.size(); i++){
+         if (list.get(i).getCourseName().equals(c.getCourseName()))
+            return i;  }
+      return -1;}
+      
+   public int size(){
+      return list.size();}
       
    public void display(){
       for (int i = 0; i < list.size(); i++){
