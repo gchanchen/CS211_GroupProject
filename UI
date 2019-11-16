@@ -1,0 +1,77 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package cs211_gproject;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.*; 
+import javafx.scene.text.*; 
+import javafx.geometry.*; 
+import javafx.scene.layout.*; 
+import javafx.scene.shape.*; 
+
+
+/**
+ *
+ * @author chanchen
+ */
+public class CS211_GProject extends Application {
+   
+    Scene scene1, scene2, scene3, scene4;
+    @Override
+    public void start(Stage primaryStage){
+        primaryStage.setTitle("GMU CS Clas Scheduler");
+        
+        //scene1: Start
+        Label label1= new Label("TGMU Computer Science Department");
+        Button button1= new Button("Start");
+        button1.setOnAction(e -> primaryStage.setScene(scene2));   
+        VBox layout1 = new VBox(20);     
+        layout1.getChildren().addAll(label1, button1);
+        scene1= new Scene(layout1, 300, 250);
+       
+         //Scene 2: Class Input
+        Label label2= new Label("What classes did you take so far?");
+        Button button2= new Button("Go to Scence 3");
+        button2.setOnAction(e -> primaryStage.setScene(scene3));
+        VBox layout2= new VBox(20);
+        layout2.getChildren().addAll(label2, button2);
+        scene2= new Scene(layout2,300,250);
+        
+         //Scene 3: Questions
+        Label label3= new Label("scene3");
+        Button button3= new Button("Go to Scence 3");
+        button3.setOnAction(e -> primaryStage.setScene(scene4));
+        VBox layout3= new VBox(20);
+        layout3.getChildren().addAll(label3, button3);
+        scene3= new Scene(layout3,300,250);
+        
+         //Scene 4: Class Output
+        Label label4= new Label("scene4");
+        Button button4= new Button("Go to Scence 3");
+        button4.setOnAction(e -> primaryStage.setScene(scene1));
+        VBox layout4= new VBox(20);
+        layout4.getChildren().addAll(label4, button4);
+        scene4= new Scene(layout4,300,250);
+        
+        
+        
+        primaryStage.setScene(scene1);
+        primaryStage.show();
+}
+
+public static void main(String[] args) {
+    launch(args);
+}
+    
+}
+
