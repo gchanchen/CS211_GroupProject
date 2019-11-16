@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cs211_gproject;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +17,7 @@ import javafx.scene.text.*;
 import javafx.geometry.*; 
 import javafx.scene.layout.*; 
 import javafx.scene.shape.*; 
-
+import javafx.scene.control.CheckBox;
 
 /**
  *
@@ -27,6 +26,9 @@ import javafx.scene.shape.*;
 public class CS211_GProject extends Application {
    
     Scene scene1, scene2, scene3, scene4;
+    ListOfCourses canTake = new ListOfCourses();
+    String message;
+    
     @Override
     public void start(Stage primaryStage){
         primaryStage.setTitle("GMU CS Clas Scheduler");
@@ -39,23 +41,66 @@ public class CS211_GProject extends Application {
         layout1.getChildren().addAll(label1, button1);
         scene1= new Scene(layout1, 300, 250);
        
-         //Scene 2: Class Input
-        Label label2= new Label("What classes did you take so far?");
-        Button button2= new Button("Go to Scence 3");
-        button2.setOnAction(e -> primaryStage.setScene(scene3));
-        VBox layout2= new VBox(20);
-        layout2.getChildren().addAll(label2, button2);
-        scene2= new Scene(layout2,300,250);
+        //Scene 2: Class Input [Susan]
+        Label label2 = new Label("Listed below are the prerequisites for required CS classes." + "\n" + 
+                                "Select all of them that you have successfully completed or" + "\n" + 
+                                "expect yourself to complete by the end of this semester with a" + "\n" + 
+                                "C or higher." + "\n" + 
+                                "Please click “submit” when you are done");
+        Button button2= new Button("Proceed to Scene 3");
+        button2.setOnAction(e -> primaryStage.setScene(scene2));
+        VBox layout2= new VBox(1);
+        CheckBox box1 = new CheckBox("COMM 100");
+        CheckBox box2 = new CheckBox("CS 101");
+        CheckBox box3 = new CheckBox("CS 105");
+        CheckBox box4 = new CheckBox("CS 110");
+        CheckBox box5 = new CheckBox("CS 112");
+        CheckBox box6 = new CheckBox("CS 211");
+        CheckBox box7 = new CheckBox("CS 222");
+        CheckBox box8 = new CheckBox("CS 262");
+        CheckBox box9 = new CheckBox("CS 306");
+        CheckBox box10 = new CheckBox("CS 310");
+        CheckBox box11 = new CheckBox("CS 321");
+        CheckBox box12 = new CheckBox("CS 330");
+        CheckBox box13 = new CheckBox("CS 367");
+        CheckBox box14 = new CheckBox("CS 471");
+        CheckBox box15 = new CheckBox("CS 483");
+        CheckBox box16 = new CheckBox("ECE 445");
+        CheckBox box17 = new CheckBox("ENGH 302");
+        CheckBox box18 = new CheckBox("HNRS 110");
+        CheckBox box19 = new CheckBox("HNRS 122");
+        CheckBox box20 = new CheckBox("HNRS 130");
+        CheckBox box21 = new CheckBox("HNRS 131");
+        CheckBox box22 = new CheckBox("HNRS 230");
+        CheckBox box23 = new CheckBox("HNRS 240");
+        CheckBox box24 = new CheckBox("MATH 104");
+        CheckBox box25 = new CheckBox("MATH 105");
+        CheckBox box26 = new CheckBox("MATH 108");
+        CheckBox box27 = new CheckBox("MATH 113");
+        CheckBox box28 = new CheckBox("MATH 114");
+        CheckBox box29 = new CheckBox("MATH 116");
+        CheckBox box30 = new CheckBox("MATH 123");
+        CheckBox box31 = new CheckBox("MATH 124");
+        CheckBox box32 = new CheckBox("MATH 125");
+        CheckBox box33 = new CheckBox("MATH 203");
+        CheckBox box34 = new CheckBox("MATH 213");
+        CheckBox box35 = new CheckBox("STAT 344");
+        Button submit = new Button("Submit");
+        submit.setOnAction(e -> handleOptions(box1, box2, box3, box4, box5, box6,box7, box8, box9, box10, box11, box12, box13, box14, box15, box16, box17, box18, box19, box20,
+                                             box21, box22, box23, box24, box25,box26, box27, box28, box29, box30, box31, box32, box33, box34, box35));
+        layout2.getChildren().addAll(label2, box1, box2, box3, box4, box5, box6,box7, box8, box9, box10, box11, box12, box13, box14, box15, box16, box17, box18, box19, box20,
+                                             box21, box22, box23, box24, box25,box26, box27, box28, box29, box30, box31, box32, box33, box34, box35, submit, button2);
+        scene2= new Scene(layout2,500,500);
         
-         //Scene 3: Questions
+        //Scene 3: Questions
         Label label3= new Label("scene3");
         Button button3= new Button("Go to Scence 3");
         button3.setOnAction(e -> primaryStage.setScene(scene4));
-        VBox layout3= new VBox(20);
+        VBox layout3= new VBox(25);
         layout3.getChildren().addAll(label3, button3);
         scene3= new Scene(layout3,300,250);
         
-         //Scene 4: Class Output
+        //Scene 4: Class Output
         Label label4= new Label("scene4");
         Button button4= new Button("Go to Scence 3");
         button4.setOnAction(e -> primaryStage.setScene(scene1));
@@ -67,7 +112,101 @@ public class CS211_GProject extends Application {
         
         primaryStage.setScene(scene1);
         primaryStage.show();
-}
+   }
+   private void handleOptions(CheckBox box1, CheckBox box2, CheckBox box3, CheckBox box4, CheckBox box5, CheckBox box6, CheckBox box7, CheckBox box8, CheckBox box9, CheckBox box10, 
+                              CheckBox box11, CheckBox box12, CheckBox box13, CheckBox box14, CheckBox box15, CheckBox box16, CheckBox box17, CheckBox box18, CheckBox box19, CheckBox box20,
+                              CheckBox box21, CheckBox box22, CheckBox box23, CheckBox box24, CheckBox box25, CheckBox box26, CheckBox box27, CheckBox box28, CheckBox box29, CheckBox box30,
+                              CheckBox box31, CheckBox box32, CheckBox box33, CheckBox box34, CheckBox box35){
+      
+      //cs 110
+      if(!box4.isSelected())
+         canTake.addCourse(new Course("CS 110", 3));
+      
+      //cs 112
+      if((box24.isSelected() || box25.isSelected() || box27.isSelected()) && !box5.isSelected())
+         canTake.addCourse(new Course("CS 112", 4));
+      
+      //cs 211
+      if(box5.isSelected() && !box6.isSelected())
+         canTake.addCourse(new Course("CS 211", 3));
+       
+      //cs 262
+      if( (box2.isSelected() || box4.isSelected()) && (box6.isSelected() || box7.isSelected()) && !box8.isSelected())
+         canTake.addCourse(new Course("CS 262", 3));
+              
+      //cs 306
+      if( (box1.isSelected() && box17.isSelected()) 
+      || (box18.isSelected() && (box19.isSelected() 
+      || box20.isSelected() || box21.isSelected()
+      || box22.isSelected() || box23.isSelected())) 
+      && (box3.isSelected() || box4.isSelected()) 
+      && !box9.isSelected() )
+         canTake.addCourse(new Course("CS 306", 3));
+       
+      //cs 310
+      if( box6.isSelected() && box27.isSelected() && !box10.isSelected())
+         canTake.addCourse(new Course("CS 310", 3));
+          
+      //cs 321
+      if( box10.isSelected() && (box17.isSelected() 
+      || (box18.isSelected() && (box19.isSelected() 
+      || box20.isSelected() || box22.isSelected()
+      || box23.isSelected())))
+      && !box11.isSelected() )
+         canTake.addCourse(new Course ("CS 321", 3));
+      
+      //cs 330 
+      if(box6.isSelected() && box32.isSelected() && !box12.isSelected() )
+         canTake.addCourse(new Course("CS 330", 3));
+          
+      //cs 367
+      if( (box7.isSelected() || box8.isSelected()) && box32.isSelected() && box4.isSelected()
+      && !box12.isSelected())
+         canTake.addCourse(new Course("CS 367", 4));
+       
+      //cs 471
+      if( box10.isSelected() && (box13.isSelected() || box16.isSelected())
+      && !(box14.isSelected()))
+         canTake.addCourse(new Course("CS 471", 3));
+       
+      //cs 483
+      if( box10.isSelected() && box12.isSelected() && box32.isSelected() 
+      && !box15.isSelected())
+         canTake.addCourse(new Course("CS 483", 3));
+        
+      //math 113
+      if( (box24.isSelected() || box25.isSelected())
+      && !box27.isSelected())
+         canTake.addCourse(new Course ("MATH 113", 4));
+      
+      //math 114
+      if( (box24.isSelected() && box25.isSelected()) || box27.isSelected()
+      && !box28.isSelected())
+         canTake.addCourse(new Course ("MATH 114", 4));
+       
+      //math 125
+      if( (box25.isSelected() || box26.isSelected() || box27.isSelected())
+      && !box28.isSelected())
+         canTake.addCourse(new Course ("MATH 125", 3));
+          
+      //math 203
+      if( (box28.isSelected() || box29.isSelected())
+      && !box30.isSelected())
+         canTake.addCourse(new Course ("MATH 203", 3));
+         
+      //math 213
+      if( (box28.isSelected() || box29.isSelected())
+      && !box34.isSelected())
+         canTake.addCourse(new Course ("MATH 213", 3));
+      
+      //stat 344
+      if( (box28.isSelected() || box29.isSelected())
+      && !box30.isSelected())
+         canTake.addCourse(new Course ("STAT 344", 3));
+      
+      message = canTake.toString();
+      System.out.println(message);
+      }
 
 public static void main(String[] args) {
     launch(args);
