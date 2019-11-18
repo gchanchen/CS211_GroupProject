@@ -1,0 +1,41 @@
+Team Name: GMYOUPlan
+
+ Members:
+Team Lead: Geraldine (Chan) Chen
+Lani Dang
+Susan Ngo
+
+Professor Approved: Friday October 4, 2019
+
+Idea: 
+CS Class Organizer/ Planner Program
+
+Issue: 
+Audience-GMU CS Students
+Registration Issue
+Planning and Organizing Class Issues
+Students are faced with scheduling issues all the time. 
+
+Description:
+Create a program which allows you to input classes already taken or plan to take.
+Output a list of what you can take the next semester
+
+Features:
+The program is able to detect if you can choose a certain class if you meet the preq for that class. 
+The program also lets you know that you need a certain grade to take a certain class.
+
+Special Feature:
+Questionnaire which helps narrow down the list of available classes 
+based on your interest (for like mason core electives)
+ 
+
+
+
+
+
+
+
+
+
+
+
