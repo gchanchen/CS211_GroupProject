@@ -1,0 +1,29 @@
+GMUYOUPlan [The GMU CS Class Scheduler]
+
+Team Lead: Geraldine Chan Chen
+Project Progress
+
+Goal: We are trying to create a class scheduler which will assist CS students in scheduling for their classes.
+Our program's key features which differentiates us from the rest is:
+Questionnaire which helps select classes based off your interest
+GMYOUPlan caughts if you have fulfilled prereqs based off what you have taken 
+
+Progress:
+Scene1 [Welcome Screen]
+Completed: [Chan]
+Created Welcome Screen Display
+Need to work on: Added more information about the CS degree. We are thinking about adding possibly another scene before the class inputs with basic CS degree information such as Termination from Major, Retake Rules, and Grading Rules. 
+
+Scene2 [Input classes already taken]
+Completed: [Susan] 
+Created an algorithm which provides a list of classes where the user checks the box if taken and if passed with a C. Depending on the input, the program displays what they can take. 
+Need to work on: The output currently is displayed to command line. We need to incorporate that into our next scene which is the questionnaire portion of the program.    
+
+Scene3 [Questionnaire]
+Completed: [Lani]
+Need to work on: Still in the process of creating this portion of the program. 
+
+Scene4[Class list]
+Completed: [Chan]
+Need to work on:  Still in the process of creating this portion of the program.
+
