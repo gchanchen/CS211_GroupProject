@@ -222,7 +222,6 @@ public class CS211_GProject2 extends Application {
       
       this.message = canTake.toString();
       System.out.println(message);
-      System.out.println(canTake.toString());
       }
 
 public static void main(String[] args) {
