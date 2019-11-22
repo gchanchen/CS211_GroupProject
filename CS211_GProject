@@ -18,94 +18,28 @@ import javafx.geometry.*;
 import javafx.scene.layout.*; 
 import javafx.scene.shape.*; 
 import javafx.scene.control.CheckBox;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;  
 
 /**
  *
  * @author chanchen
  */
-public class CS211_GProject extends Application {
+public class CS211_GProject2 extends Application {
    
     Scene scene1, scene2, scene3, scene4;
     ListOfCourses canTake = new ListOfCourses();
-    
+    String message;    
+        
     @Override
     public void start(Stage primaryStage){
-        primaryStage.setTitle("GMUYOUPlan");
+        primaryStage.setTitle("GMU CS Clas Scheduler");
         
         //scene1: Start
-        VBox layout1 = new VBox();
-        layout1.setSpacing(10);
-        layout1.setAlignment(Pos.CENTER);  
-        layout1.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-font-size: 15;");
-   
-
-        String imageUrl = "https://live.staticflickr.com/65535/49081808031_50c82e282e_q.jpg";
-        Image image = new Image(imageUrl,200,200,false,true);
-         
-        // Create the ImageView
-        ImageView imageView = new ImageView(image);
-         
-        // Create the HBox      
-        HBox root1 = new HBox();
-        // Add Children to the HBox
-        root1.getChildren().add(imageView);
-         
-        // Set the padding of the HBox
-        root1.setStyle("-fx-padding: 10;");
-        // Set the border-style of the HBox
-        root1.setStyle("-fx-border-style: solid inside;");
-        // Set the border-width of the HBox
-        root1.setStyle("-fx-border-width: 12;");
-        // Set the border-insets of the HBox
-        root1.setStyle("-fx-border-insets: 14;");
-        // Set the border-radius of the HBox
-        root1.setStyle("-fx-border-radius: 14;");
-        // Set the border-color of the HBox
-        root1.setStyle("-fx-border-color: white;");       
-        // Set the size of the HBox
-        root1.setPrefSize(200, 200);
-        root1.setAlignment(Pos.TOP_CENTER);
-        
-        layout1.getChildren().addAll(root1);
-       
-        TextFlow text_flow = new TextFlow(); 
-        Text text_1 = new Text("George Mason University\n");
-        text_1.setFill(Color.GREEN);
-        Font font = Font.font("Verdana", FontWeight.EXTRA_BOLD, 45);  
-        text_1.setFont(font);
-        
-        Text text_2 = new Text("Computer Science\n");
-        text_2.setFill(Color.DARKGREEN);
-        text_2.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 35));
-        
-        Text text_3 = new Text("Class Scheduler");
-        text_3.setFill(Color.DARKGREEN);
-        text_3.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 35));
-
-        text_flow.getChildren().add(text_1);
-        text_flow.getChildren().add(text_2);
-        text_flow.getChildren().add(text_3);
-        text_flow.setTextAlignment(TextAlignment.CENTER);
-        text_flow.setLineSpacing(20.0f);
-        
-
-        layout1.getChildren().addAll(text_flow);
-     
-    
-        Label label1= new Label("This program is a tool to help you find what classes you can take this upcoming semester.");
-        Label label11= new Label(" Let's get started! ");
-        Label instructions = new Label("Disclaimer: This scheduler is for CS Majors Only! ");
+        Label label1= new Label("TGMU Computer Science Department");
         Button button1= new Button("Start");
         button1.setOnAction(e -> primaryStage.setScene(scene2));   
-        
-                  
-        layout1.getChildren().addAll(label1,label11, instructions, button1);
-
-        scene1= new Scene(layout1, 800, 750);
-        
-
+        VBox layout1 = new VBox(20);     
+        layout1.getChildren().addAll(label1, button1);
+        scene1= new Scene(layout1, 300, 250);
        
         //Scene 2: Class Input [Susan]
         Label label2 = new Label("Listed below are the prerequisites for required CS classes." + "\n" + 
@@ -113,9 +47,9 @@ public class CS211_GProject extends Application {
                                 "expect yourself to complete by the end of this semester with a" + "\n" + 
                                 "C or higher." + "\n" + 
                                 "Please click “submit” when you are done");
-        Button button2 = new Button("Proceed to Scene 3; Once all classes are added");
+        Button button2= new Button("Proceed to Scene 3");
         button2.setOnAction(e -> primaryStage.setScene(scene3));
-        VBox layout2 = new VBox(1);
+        VBox layout2= new VBox(1);
         CheckBox box1 = new CheckBox("COMM 100");
         CheckBox box2 = new CheckBox("CS 101");
         CheckBox box3 = new CheckBox("CS 105");
@@ -154,40 +88,26 @@ public class CS211_GProject extends Application {
         Button submit = new Button("Submit");
         submit.setOnAction(e -> handleOptions(box1, box2, box3, box4, box5, box6,box7, box8, box9, box10, box11, box12, box13, box14, box15, box16, box17, box18, box19, box20,
                                              box21, box22, box23, box24, box25,box26, box27, box28, box29, box30, box31, box32, box33, box34, box35));
-        layout2.setStyle("-fx-background-color: cornsilk; -fx-padding: 10; -fx-font-size: 10;");
-
         layout2.getChildren().addAll(label2, box1, box2, box3, box4, box5, box6,box7, box8, box9, box10, box11, box12, box13, box14, box15, box16, box17, box18, box19, box20,
                                              box21, box22, box23, box24, box25,box26, box27, box28, box29, box30, box31, box32, box33, box34, box35, submit, button2);
-        scene2= new Scene(layout2, 800, 750);
+        scene2= new Scene(layout2,500,950);
         
         //Scene 3: Questions
-        VBox layout3= new VBox(20);
-        layout3.setStyle("-fx-background-color: cornsilk; -fx-padding: 10; -fx-font-size: 20;");
-        
-        Label label3= new Label("What to do you like?");
-        layout3.getChildren().addAll(label3);
-        CheckBox c1 = new CheckBox("TCP/IP");  
-        CheckBox c2 = new CheckBox("Networking");  
-        CheckBox c3 = new CheckBox("Secure Computers");  
-        CheckBox c4 = new CheckBox("Database");  
-        layout3.getChildren().addAll(c1,c2,c3,c4);
-        
-        Button button3= new Button("Go to Scence 4");
+        Label label3 = new Label("scene3");
+        Button button3 = new Button("Go to Scence 4");
         button3.setOnAction(e -> primaryStage.setScene(scene4));
-        layout3.getChildren().addAll(button3);
-        layout3.setSpacing(5);
-        scene3= new Scene(layout3,800,750);
-
+        VBox layout3= new VBox(25);
+        layout3.getChildren().addAll(label3, button3);
+        scene3= new Scene(layout3,300,250);
         
         //Scene 4: Class Output
-        Label label4= new Label("Class List Results");
-        Button button4= new Button("Start Over");
+        Label label4 = new Label("scene4");
+        Button button4 = new Button("Display results");
+        Text text = new Text("You can take these classes: \n" + canTake.toString());
         button4.setOnAction(e -> primaryStage.setScene(scene1));
         VBox layout4= new VBox(20);
-        layout4.getChildren().addAll(label4, button4);
-        scene4= new Scene(layout4,300,250);
-        
-        
+        layout4.getChildren().addAll(label4, button4, text);
+        scene4= new Scene(layout4, 300, 250);
         
         primaryStage.setScene(scene1);
         primaryStage.show();
@@ -198,20 +118,24 @@ public class CS211_GProject extends Application {
                               CheckBox box31, CheckBox box32, CheckBox box33, CheckBox box34, CheckBox box35){
       
       //cs 110
-      if(!box4.isSelected())
-         canTake.addCourse(new Course("CS 110", 3));
+      if(!box4.isSelected()){
+         String [] cs110PR = {"none"};
+         canTake.addCourse(new Course("CS 110", 3, cs110PR));}
       
       //cs 112
-      if((box24.isSelected() || box25.isSelected() || box27.isSelected()) && !box5.isSelected())
-         canTake.addCourse(new Course("CS 112", 4));
+      if((box24.isSelected() || box25.isSelected() || box27.isSelected()) && !box5.isSelected()){
+         String [] cs112PR = {"MATH 113"};
+         canTake.addCourse(new Course("CS 112", 4, cs112PR));}
       
       //cs 211
-      if(box5.isSelected() && !box6.isSelected())
-         canTake.addCourse(new Course("CS 211", 3));
+      if(box5.isSelected() && !box6.isSelected()){
+         String [] cs211PR = {"CS 112"};
+         canTake.addCourse(new Course("CS 211", 3, cs211PR));}
        
       //cs 262
-      if( (box2.isSelected() || box4.isSelected()) && (box6.isSelected() || box7.isSelected()) && !box8.isSelected())
-         canTake.addCourse(new Course("CS 262", 3));
+      if( (box2.isSelected() || box4.isSelected()) && (box6.isSelected() || box7.isSelected()) && !box8.isSelected()){
+         String [] cs262PR = {"CS 110", "CS 211"};
+         canTake.addCourse(new Course("CS 262", 3, cs262PR));}
               
       //cs 306
       if( (box1.isSelected() && box17.isSelected()) 
@@ -219,69 +143,86 @@ public class CS211_GProject extends Application {
       || box20.isSelected() || box21.isSelected()
       || box22.isSelected() || box23.isSelected())) 
       && (box3.isSelected() || box4.isSelected()) 
-      && !box9.isSelected() )
-         canTake.addCourse(new Course("CS 306", 3));
+      && !box9.isSelected() ){
+         String [] cs306PR = {"CS 110"};
+         canTake.addCourse(new Course("CS 306", 3, cs306PR));}
        
       //cs 310
-      if( box6.isSelected() && box27.isSelected() && !box10.isSelected())
-         canTake.addCourse(new Course("CS 310", 3));
+      if( box6.isSelected() && box27.isSelected() && !box10.isSelected()){
+         String [] cs310PR = {"CS 211", "MATH 113"};
+         canTake.addCourse(new Course("CS 310", 3, cs310PR));}
           
       //cs 321
       if( box10.isSelected() && (box17.isSelected() 
       || (box18.isSelected() && (box19.isSelected() 
       || box20.isSelected() || box22.isSelected()
       || box23.isSelected())))
-      && !box11.isSelected() )
-         canTake.addCourse(new Course ("CS 321", 3));
+      && !box11.isSelected() ){
+         String [] cs321PR = {"CS 310"};
+         canTake.addCourse(new Course ("CS 321", 3, cs321PR));}
       
       //cs 330 
-      if(box6.isSelected() && box32.isSelected() && !box12.isSelected() )
-         canTake.addCourse(new Course("CS 330", 3));
+      if(box6.isSelected() && box32.isSelected() && !box12.isSelected() ){
+         String [] cs330PR = {"CS 211", "MATH 125"};
+         canTake.addCourse(new Course("CS 330", 3, cs330PR));}
           
       //cs 367
       if( (box7.isSelected() || box8.isSelected()) && box32.isSelected() && box4.isSelected()
-      && !box12.isSelected())
-         canTake.addCourse(new Course("CS 367", 4));
+      && !box12.isSelected()){
+         String [] cs367PR = {"CS 262", "MATH 125", "CS 110"};
+         canTake.addCourse(new Course("CS 367", 4, cs367PR));}
        
       //cs 471
       if( box10.isSelected() && (box13.isSelected() || box16.isSelected())
-      && !(box14.isSelected()))
-         canTake.addCourse(new Course("CS 471", 3));
+      && !(box14.isSelected())){
+         String [] cs471PR = {"CS 310", "CS 367"};
+         canTake.addCourse(new Course("CS 471", 3, cs471PR));}
        
       //cs 483
       if( box10.isSelected() && box12.isSelected() && box32.isSelected() 
-      && !box15.isSelected())
-         canTake.addCourse(new Course("CS 483", 3));
+      && !box15.isSelected()){
+         String [] cs483PR = {"CS 310", "CS330", "MATH 125"};
+         canTake.addCourse(new Course("CS 483", 3, cs483PR));}
         
       //math 113
       if( (box24.isSelected() || box25.isSelected())
-      && !box27.isSelected())
-         canTake.addCourse(new Course ("MATH 113", 4));
+      && !box27.isSelected()){
+         String [] math113PR = {"none"};
+         canTake.addCourse(new Course ("MATH 113", 4, math113PR));}
       
       //math 114
       if( (box24.isSelected() && box25.isSelected()) || box27.isSelected()
-      && !box28.isSelected())
-         canTake.addCourse(new Course ("MATH 114", 4));
+      && !box28.isSelected()){
+         String [] math114PR = {"MATH 113"};
+         canTake.addCourse(new Course ("MATH 114", 4, math114PR));}
        
       //math 125
       if( (box25.isSelected() || box26.isSelected() || box27.isSelected())
-      && !box28.isSelected())
-         canTake.addCourse(new Course ("MATH 125", 3));
+      && !box28.isSelected()){
+         String [] math125PR = {"MATH 113"};
+         canTake.addCourse(new Course ("MATH 125", 3, math125PR));}
           
       //math 203
       if( (box28.isSelected() || box29.isSelected())
-      && !box30.isSelected())
-         canTake.addCourse(new Course ("MATH 203", 3));
+      && !box30.isSelected()){
+         String [] math203PR = {"MATH 114"};
+         canTake.addCourse(new Course ("MATH 203", 3, math203PR));}
          
       //math 213
       if( (box28.isSelected() || box29.isSelected())
-      && !box34.isSelected())
-         canTake.addCourse(new Course ("MATH 213", 3));
+      && !box34.isSelected()){
+         String [] math213PR = {"MATH 114"};
+         canTake.addCourse(new Course ("MATH 213", 3, math213PR));}
       
       //stat 344
       if( (box28.isSelected() || box29.isSelected())
-      && !box30.isSelected())
-         canTake.addCourse(new Course ("STAT 344", 3));
+      && !box30.isSelected()){
+         String [] stat344PR = {"MATH 114"};
+         canTake.addCourse(new Course ("STAT 344", 3, stat344PR));}
+      
+      this.message = canTake.toString();
+      System.out.println(message);
+      System.out.println(canTake.toString());
       }
 
 public static void main(String[] args) {
@@ -289,4 +230,3 @@ public static void main(String[] args) {
 }
     
 }
-
