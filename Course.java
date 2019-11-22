@@ -2,10 +2,12 @@ public class Course{
    
    private String courseName;
    private int credit;
+   private String [] preReqs;
       
-   public Course(String courseName, int credit){
+   public Course(String courseName, int credit, String [] preReqs){
       this.courseName = courseName;
-      this.credit = credit;}
+      this.credit = credit;
+      this.preReqs = preReqs;}
    
    public String getCourseName(){
       return courseName;}
@@ -13,7 +15,7 @@ public class Course{
    public int getCredit(){
       return credit;} 
    
-   public void setCredit(int credit){
-      this.credit = credit;}
+   public String[] getPreReqs(){
+      return preReqs;}
       
    }
