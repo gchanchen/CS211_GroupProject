@@ -23,7 +23,7 @@ import javafx.scene.control.CheckBox;
  *
  * @author chanchen
  */
-public class CS211_GProject2 extends Application {
+public class CS211_GProject extends Application {
    
     Scene scene1, scene2, scene3, scene4;
     ListOfCourses canTake = new ListOfCourses();
