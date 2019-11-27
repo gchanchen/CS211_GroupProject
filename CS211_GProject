@@ -20,20 +20,22 @@ import javafx.scene.shape.*;
 import javafx.scene.control.CheckBox;
 
 /**
- *
- * @author chanchen
- */
+  * 
+  * @author chanchen
+  */
 public class CS211_GProject extends Application {
    
     Scene scene1, scene2, scene3, scene4;
+    ListOfCourses hasTaken = new ListOfCourses();
     ListOfCourses canTake = new ListOfCourses();
-    String message;    
+    String canTakeText;
+    boolean isValidInput = false; 
         
     @Override
     public void start(Stage primaryStage){
-        primaryStage.setTitle("GMU CS Clas Scheduler");
+        primaryStage.setTitle("gmYOUplan Scheduler");
         
-        //scene1: Start
+        //scene1: Start [Chan]
         Label label1= new Label("TGMU Computer Science Department");
         Button button1= new Button("Start");
         button1.setOnAction(e -> primaryStage.setScene(scene2));   
@@ -47,8 +49,7 @@ public class CS211_GProject extends Application {
                                 "expect yourself to complete by the end of this semester with a" + "\n" + 
                                 "C or higher." + "\n" + 
                                 "Please click “submit” when you are done");
-        Button button2= new Button("Proceed to Scene 3");
-        button2.setOnAction(e -> primaryStage.setScene(scene3));
+        
         VBox layout2= new VBox(1);
         CheckBox box1 = new CheckBox("COMM 100");
         CheckBox box2 = new CheckBox("CS 101");
@@ -86,56 +87,171 @@ public class CS211_GProject extends Application {
         CheckBox box34 = new CheckBox("MATH 213");
         CheckBox box35 = new CheckBox("STAT 344");
         Button submit = new Button("Submit");
-        submit.setOnAction(e -> handleOptions(box1, box2, box3, box4, box5, box6,box7, box8, box9, box10, box11, box12, box13, box14, box15, box16, box17, box18, box19, box20,
-                                             box21, box22, box23, box24, box25,box26, box27, box28, box29, box30, box31, box32, box33, box34, box35));
-        layout2.getChildren().addAll(label2, box1, box2, box3, box4, box5, box6,box7, box8, box9, box10, box11, box12, box13, box14, box15, box16, box17, box18, box19, box20,
-                                             box21, box22, box23, box24, box25,box26, box27, box28, box29, box30, box31, box32, box33, box34, box35, submit, button2);
-        scene2= new Scene(layout2,500,950);
+        Button cont = new Button("Continue");
         
-        //Scene 3: Questions
+        cont.setVisible(false);
+        cont.setOnAction(e -> primaryStage.setScene(scene3));
+        
+        submit.setOnAction(e -> handleOptions(box1, box2, box3, box4, box5, box6,box7, box8, box9, box10, box11, box12, box13, box14, box15, box16, box17, box18, box19, box20,
+                                             box21, box22, box23, box24, box25,box26, box27, box28, box29, box30, box31, box32, box33, box34, box35, cont));
+        
+        layout2.getChildren().addAll(label2, box1, box2, box3, box4, box5, box6,box7, box8, box9, box10, box11, box12, box13, box14, box15, box16, box17, box18, box19, box20,
+                                             box21, box22, box23, box24, box25,box26, box27, box28, box29, box30, box31, box32, box33, box34, box35, submit, cont);
+        scene2 = new Scene(layout2, 500, 950);
+     
+        //Scene 3: Questions [Lani]
         Label label3 = new Label("scene3");
         Button button3 = new Button("Go to Scence 4");
         button3.setOnAction(e -> primaryStage.setScene(scene4));
         VBox layout3= new VBox(25);
         layout3.getChildren().addAll(label3, button3);
-        scene3= new Scene(layout3,300,250);
+        scene3 = new Scene(layout3, 500, 500);
         
         //Scene 4: Class Output
-        Label label4 = new Label("scene4");
-        Button button4 = new Button("Display results");
-        Text text = new Text("You can take these classes: \n" + canTake.toString());
-        button4.setOnAction(e -> primaryStage.setScene(scene1));
-        VBox layout4= new VBox(20);
-        layout4.getChildren().addAll(label4, button4, text);
-        scene4= new Scene(layout4, 300, 250);
+        Label summary = new Label("The results are in! \n");
+        Label firstResults = new Label("Next semester, you can take the following required courses: ");
+        Label secondResults = new Label("According to your interests, we recommend you take the following electives: ");
+
+        VBox layout4 = new VBox(20);
+        layout4.getChildren().addAll(summary, firstResults, new Label(canTakeText), secondResults);
+        scene4 = new Scene(layout4, 600, 400);
         
         primaryStage.setScene(scene1);
         primaryStage.show();
    }
+      
    private void handleOptions(CheckBox box1, CheckBox box2, CheckBox box3, CheckBox box4, CheckBox box5, CheckBox box6, CheckBox box7, CheckBox box8, CheckBox box9, CheckBox box10, 
                               CheckBox box11, CheckBox box12, CheckBox box13, CheckBox box14, CheckBox box15, CheckBox box16, CheckBox box17, CheckBox box18, CheckBox box19, CheckBox box20,
                               CheckBox box21, CheckBox box22, CheckBox box23, CheckBox box24, CheckBox box25, CheckBox box26, CheckBox box27, CheckBox box28, CheckBox box29, CheckBox box30,
-                              CheckBox box31, CheckBox box32, CheckBox box33, CheckBox box34, CheckBox box35){
+                              CheckBox box31, CheckBox box32, CheckBox box33, CheckBox box34, CheckBox box35, Button cont){
       
       //cs 110
-      if(!box4.isSelected()){
+      if(box4.isSelected()){
          String [] cs110PR = {"none"};
-         canTake.addCourse(new Course("CS 110", 3, cs110PR));}
-      
+         hasTaken.addCourse(new Course ("CS 110", 3, cs110PR));}
       //cs 112
-      if((box24.isSelected() || box25.isSelected() || box27.isSelected()) && !box5.isSelected()){
+      if(box5.isSelected()){
          String [] cs112PR = {"MATH 113"};
-         canTake.addCourse(new Course("CS 112", 4, cs112PR));}
+         hasTaken.addCourse(new Course("CS 112", 4, cs112PR));}
+      //cs 211
+      if(box6.isSelected()){      
+         String [] cs211PR = {"CS 112", "MATH 113"};
+         hasTaken.addCourse(new Course("CS 211", 3, cs211PR));}     
+      //cs 262
+      if(box8.isSelected()){
+         String [] cs262PR = {"CS 110", "CS 112", "CS 211", "MATH 113"};
+         hasTaken.addCourse(new Course("CS 262", 3, cs262PR));}             
+      //cs 306
+      if(box9.isSelected()){
+         String [] cs306PR = {"CS 110"};
+         hasTaken.addCourse(new Course("CS 306", 3, cs306PR));}
+      //cs 310
+      if(box10.isSelected()){
+         String [] cs310PR = {"CS 112", "CS 211", "MATH 113"};
+         hasTaken.addCourse(new Course("CS 310", 3, cs310PR));}   
+      //cs 321
+      if(box11.isSelected()){
+         String [] cs321PR = {"CS 112", "CS 211", "CS 310", "MATH 113"};
+         hasTaken.addCourse(new Course ("CS 321", 3, cs321PR));}
+      //cs 330 
+      if(box12.isSelected()){
+         String [] cs330PR = {"CS 112","CS 211", "MATH 113", "MATH 125"};
+         hasTaken.addCourse(new Course("CS 330", 3, cs330PR));}
+      //cs 367
+      if(box13.isSelected()){
+         String [] cs367PR = {"CS 110", "CS 112", "CS 211","CS 262", "MATH 125"};
+         hasTaken.addCourse(new Course("CS 367", 4, cs367PR));}  
+      //cs 471
+      if(box14.isSelected()){
+         String [] cs471PR = {"CS 110", "CS 112", "CS 211", "CS 262", "CS 310", "CS 367", "MATH 113"};
+         hasTaken.addCourse(new Course("CS 471", 3, cs471PR));}
+      //cs 483
+      if(box15.isSelected()){
+         String [] cs483PR = {"CS 112", "CS 211", "CS 310", "CS 330", "MATH 113", "MATH 125"};
+         hasTaken.addCourse(new Course("CS 483", 3, cs483PR));}
+      //math 113
+      if(box27.isSelected()){
+         String [] math113PR = {"none"};
+         hasTaken.addCourse(new Course ("MATH 113", 4, math113PR));}
+      //math 114
+      if(box28.isSelected()){
+         String [] math114PR = {"MATH 113"};
+         hasTaken.addCourse(new Course ("MATH 114", 4, math114PR));}
+      //math 125
+      if(box32.isSelected()){
+         String [] math125PR = {"MATH 113"};
+         hasTaken.addCourse(new Course ("MATH 125", 3, math125PR));}
+      //math 203
+      if(box33.isSelected()){
+         String [] math203PR = {"MATH 113", "MATH 114"};
+         hasTaken.addCourse(new Course ("MATH 203", 3, math203PR));}
+      //math 213
+      if(box34.isSelected()){
+         String [] math213PR = {"MATH 113", "MATH 114"};
+         hasTaken.addCourse(new Course ("MATH 213", 3, math213PR));}
+      //stat 344
+      if(box35.isSelected()){
+         String [] stat344PR = {"MATH 113", "MATH 114"};
+         hasTaken.addCourse(new Course ("STAT 344", 3, stat344PR));}
+      
+      while(!validateClasses()){
+         box1.setSelected(false);
+         box2.setSelected(false);
+         box3.setSelected(false);
+         box4.setSelected(false);
+         box5.setSelected(false);
+         box6.setSelected(false);
+         box7.setSelected(false);
+         box8.setSelected(false);
+         box9.setSelected(false);
+         box10.setSelected(false);
+         box11.setSelected(false);
+         box12.setSelected(false);
+         box13.setSelected(false);
+         box14.setSelected(false);
+         box15.setSelected(false);
+         box16.setSelected(false);
+         box17.setSelected(false);
+         box18.setSelected(false);
+         box19.setSelected(false);
+         box20.setSelected(false);
+         box21.setSelected(false);
+         box22.setSelected(false);
+         box23.setSelected(false);
+         box24.setSelected(false);
+         box25.setSelected(false);
+         box26.setSelected(false);
+         box27.setSelected(false);
+         box28.setSelected(false);
+         box29.setSelected(false);
+         box30.setSelected(false);
+         box31.setSelected(false);
+         box32.setSelected(false);
+         box33.setSelected(false);
+         box34.setSelected(false);
+         box35.setSelected(false);
+         hasTaken.clear();
+         canTake.clear();
+         }  
+      
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      if(validateClasses()){
+           
+      //cs 110
+      if(!box4.isSelected())
+         canTake.addCourse(new Course("CS 110", 3));
+ 
+      //cs 112
+      if((box24.isSelected() || box25.isSelected() || box27.isSelected()) && !box5.isSelected())
+         canTake.addCourse(new Course("CS 112", 4));
       
       //cs 211
-      if(box5.isSelected() && !box6.isSelected()){
-         String [] cs211PR = {"CS 112"};
-         canTake.addCourse(new Course("CS 211", 3, cs211PR));}
+      if(box5.isSelected() && !box6.isSelected())
+         canTake.addCourse(new Course("CS 211", 3));
        
       //cs 262
-      if( (box2.isSelected() || box4.isSelected()) && (box6.isSelected() || box7.isSelected()) && !box8.isSelected()){
-         String [] cs262PR = {"CS 110", "CS 211"};
-         canTake.addCourse(new Course("CS 262", 3, cs262PR));}
+      if( (box2.isSelected() || box4.isSelected()) && (box6.isSelected() || box7.isSelected()) && !box8.isSelected())
+         canTake.addCourse(new Course("CS 262", 3));
               
       //cs 306
       if( (box1.isSelected() && box17.isSelected()) 
@@ -143,89 +259,90 @@ public class CS211_GProject extends Application {
       || box20.isSelected() || box21.isSelected()
       || box22.isSelected() || box23.isSelected())) 
       && (box3.isSelected() || box4.isSelected()) 
-      && !box9.isSelected() ){
-         String [] cs306PR = {"CS 110"};
-         canTake.addCourse(new Course("CS 306", 3, cs306PR));}
+      && !box9.isSelected() )
+         canTake.addCourse(new Course("CS 306", 3));
        
       //cs 310
-      if( box6.isSelected() && box27.isSelected() && !box10.isSelected()){
-         String [] cs310PR = {"CS 211", "MATH 113"};
-         canTake.addCourse(new Course("CS 310", 3, cs310PR));}
+      if( box6.isSelected() && box27.isSelected() && !box10.isSelected())
+         canTake.addCourse(new Course("CS 310", 3));
           
       //cs 321
       if( box10.isSelected() && (box17.isSelected() 
       || (box18.isSelected() && (box19.isSelected() 
       || box20.isSelected() || box22.isSelected()
       || box23.isSelected())))
-      && !box11.isSelected() ){
-         String [] cs321PR = {"CS 310"};
-         canTake.addCourse(new Course ("CS 321", 3, cs321PR));}
+      && !box11.isSelected() )
+         canTake.addCourse(new Course ("CS 321", 3));
       
       //cs 330 
-      if(box6.isSelected() && box32.isSelected() && !box12.isSelected() ){
-         String [] cs330PR = {"CS 211", "MATH 125"};
-         canTake.addCourse(new Course("CS 330", 3, cs330PR));}
+      if(box6.isSelected() && box32.isSelected() && !box12.isSelected() )
+         canTake.addCourse(new Course("CS 330", 3));
           
       //cs 367
       if( (box7.isSelected() || box8.isSelected()) && box32.isSelected() && box4.isSelected()
-      && !box12.isSelected()){
-         String [] cs367PR = {"CS 262", "MATH 125", "CS 110"};
-         canTake.addCourse(new Course("CS 367", 4, cs367PR));}
+      && !box12.isSelected())
+         canTake.addCourse(new Course("CS 367", 4));
        
       //cs 471
       if( box10.isSelected() && (box13.isSelected() || box16.isSelected())
-      && !(box14.isSelected())){
-         String [] cs471PR = {"CS 310", "CS 367"};
-         canTake.addCourse(new Course("CS 471", 3, cs471PR));}
+      && !(box14.isSelected()))
+         canTake.addCourse(new Course("CS 471", 3));
        
       //cs 483
       if( box10.isSelected() && box12.isSelected() && box32.isSelected() 
-      && !box15.isSelected()){
-         String [] cs483PR = {"CS 310", "CS330", "MATH 125"};
-         canTake.addCourse(new Course("CS 483", 3, cs483PR));}
+      && !box15.isSelected())
+         canTake.addCourse(new Course("CS 483", 3));
         
       //math 113
       if( (box24.isSelected() || box25.isSelected())
-      && !box27.isSelected()){
-         String [] math113PR = {"none"};
-         canTake.addCourse(new Course ("MATH 113", 4, math113PR));}
+      && !box27.isSelected())
+         canTake.addCourse(new Course ("MATH 113", 4));
       
       //math 114
       if( (box24.isSelected() && box25.isSelected()) || box27.isSelected()
-      && !box28.isSelected()){
-         String [] math114PR = {"MATH 113"};
-         canTake.addCourse(new Course ("MATH 114", 4, math114PR));}
+      && !box28.isSelected())
+         canTake.addCourse(new Course ("MATH 114", 4));
        
       //math 125
       if( (box25.isSelected() || box26.isSelected() || box27.isSelected())
-      && !box28.isSelected()){
-         String [] math125PR = {"MATH 113"};
-         canTake.addCourse(new Course ("MATH 125", 3, math125PR));}
+      && !box28.isSelected())
+         canTake.addCourse(new Course ("MATH 125", 3));
           
       //math 203
       if( (box28.isSelected() || box29.isSelected())
-      && !box30.isSelected()){
-         String [] math203PR = {"MATH 114"};
-         canTake.addCourse(new Course ("MATH 203", 3, math203PR));}
+      && !box30.isSelected())
+         canTake.addCourse(new Course ("MATH 203", 3));
          
       //math 213
       if( (box28.isSelected() || box29.isSelected())
-      && !box34.isSelected()){
-         String [] math213PR = {"MATH 114"};
-         canTake.addCourse(new Course ("MATH 213", 3, math213PR));}
+      && !box34.isSelected())
+         canTake.addCourse(new Course ("MATH 213", 3));
       
       //stat 344
       if( (box28.isSelected() || box29.isSelected())
-      && !box30.isSelected()){
-         String [] stat344PR = {"MATH 114"};
-         canTake.addCourse(new Course ("STAT 344", 3, stat344PR));}
+      && !box30.isSelected())
+         canTake.addCourse(new Course ("STAT 344", 3));
       
-      this.message = canTake.toString();
-      System.out.println(message);
-      }
-
+      System.out.println("You have taken: \n" + hasTaken.toString());         
+      System.out.println("You can take: \n" + canTake.toString());
+      
+      if(isValidInput && hasTaken.size() > 0)
+            cont.setVisible(true);}
+            
+      //this.canTakeText = canTake.toString();      
+      this.canTakeText = "classes go here - note this should be what is displayed in scene 4, but the value isn't changed";
+      }        
+         
+      private boolean validateClasses(){
+         for(Course c : hasTaken.getList())
+         if(!c.hasPreReqs(hasTaken)){
+            AlertBox.display("Error", "You have not selected ALL of the classes you have taken. Please review your input and click submit again.");
+            isValidInput = false;
+            return false;}
+         isValidInput = true;
+         return true;}
+         
 public static void main(String[] args) {
-    launch(args);
-}
+    launch(args);}
     
 }
