@@ -1,0 +1,804 @@
+import javafx.application.Application;
+import javafx.geometry.Orientation;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.control.ToggleButton; 
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Separator;
+import javafx.scene.text.Text;
+import javafx.scene.text.Font; 
+import javafx.scene.text.FontPosture; 
+import javafx.scene.text.FontWeight; 
+import javafx.scene.control.RadioButton; 
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.*;  
+import javafx.scene.layout.*; 
+import javafx.stage.Stage;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.*; 
+import javafx.scene.text.*; 
+import javafx.geometry.*; 
+import javafx.scene.layout.*; 
+import javafx.scene.shape.*; 
+import javafx.scene.control.CheckBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView; 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.*; 
+
+
+
+import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.HBoxBuilder;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.control.SelectionMode;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+
+public class Main extends Application {
+Scene scene1, scene2, scene3, scene4;
+final ObservableList<String> selected = FXCollections.observableArrayList();
+final ObservableList<String> canTake = FXCollections.observableArrayList();
+final ArrayList<String> one = new ArrayList<String>( Arrays.asList("CS 110", "CS 112", "MTH 113"));
+final  ArrayList<String> two = new ArrayList<String>( Arrays.asList("CS 211","MTH 114","MTH 125"));
+final ArrayList<String> three = new ArrayList<String>( Arrays.asList("MTH 114","MTH 125","CS 262","CS 306","CS 310", "CS 330","MTH 203"));
+final ArrayList<String> four = new ArrayList<String>( Arrays.asList("MTH 213","MTH 203","STAT 344", "CS 367", "CS 483"));
+final ArrayList<String> five = new ArrayList<String>( Arrays.asList("CS 471","CS 455","CS 468","CS 475"));
+Button logo = new Button();
+
+
+  @Override
+  public void start(Stage primaryStage) {
+   
+    HBox logoButton = new HBox();
+    String imageUrl = "https://live.staticflickr.com/65535/49081808031_50c82e282e_q.jpg";
+               
+        Image image2 = new Image(imageUrl,150,150,false,true);
+         
+        // Create the ImageView
+        ImageView imageView2 = new ImageView(image2);
+         
+        Button logo = new Button("",imageView2);
+        logoButton.getChildren().add(logo);
+        logoButton.setAlignment(Pos.BOTTOM_RIGHT);
+       
+
+   final Database db = new Database();
+        
+        primaryStage.setTitle("GMyoUplan Scheduler");
+
+        //scene1: Start 
+        VBox layout1 = new VBox();
+        layout1.setSpacing(10);
+        layout1.setAlignment(Pos.CENTER);  
+        layout1.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-font-size: 15;");
+   
+
+    
+        Image image = new Image(imageUrl,150,150,false,true);
+         
+        // Create the ImageView
+        ImageView imageView = new ImageView(image);
+         
+        // Create the HBox      
+        HBox root1 = new HBox();
+        // Add Children to the HBox
+        root1.getChildren().add(imageView);
+         
+        // Set the padding of the HBox
+        root1.setStyle("-fx-padding: 10;");
+        // Set the border-style of the HBox
+        root1.setStyle("-fx-border-style: solid inside;");
+        // Set the border-width of the HBox
+        root1.setStyle("-fx-border-width: 12;");
+        // Set the border-insets of the HBox
+        root1.setStyle("-fx-border-insets: 14;");
+        // Set the border-radius of the HBox
+        root1.setStyle("-fx-border-radius: 14;");
+        // Set the border-color of the HBox
+        root1.setStyle("-fx-border-color: white;");       
+        // Set the size of the HBox
+        root1.setPrefSize(200, 200);
+        root1.setAlignment(Pos.TOP_CENTER);
+        
+        layout1.getChildren().addAll(root1);
+       
+        TextFlow text_flow = new TextFlow(); 
+        Text text_1 = new Text("George Mason University\n");
+        text_1.setFill(Color.GREEN);
+        Font font = Font.font("Verdana", FontWeight.EXTRA_BOLD, 45);  
+        text_1.setFont(font);
+        
+        Text text_2 = new Text("Computer Science\n");
+        text_2.setFill(Color.DARKGREEN);
+        text_2.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 35));
+        
+        Text text_3 = new Text("Class Scheduler");
+        text_3.setFill(Color.DARKGREEN);
+        text_3.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 35));
+
+        text_flow.getChildren().add(text_1);
+        text_flow.getChildren().add(text_2);
+        text_flow.getChildren().add(text_3);
+        text_flow.setTextAlignment(TextAlignment.CENTER);
+        text_flow.setLineSpacing(20.0f);
+        
+
+        layout1.getChildren().addAll(text_flow);
+     
+    
+        Label label1= new Label("This program is a tool to help you find what classes you can take this upcoming semester.");
+        Label label11= new Label(" Let's get started! ");
+        Label instructions = new Label("Disclaimer: This scheduler is for CS Majors Only! ");
+        Button button1= new Button("Start");
+        button1.setOnAction(e -> primaryStage.setScene(scene2));   
+        
+                  
+        layout1.getChildren().addAll(label1,label11, instructions, button1);
+
+        scene1= new Scene(layout1, 800, 750);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        
+        //scene2: Start 
+        
+                          
+        
+        
+        Label label2 = new Label("Listed below are the prerequisites for required CS classes." + "\n" +
+                                "Select all of them that you have successfully completed or" + "\n" +
+                                "expect yourself to complete by the end of this semester with a" + "\n" +
+                                "C or higher." + "\n" +
+                                "Please click “submit” when you are done");
+                                Alert alertSelect = new Alert(AlertType.INFORMATION);
+    BorderPane root = new BorderPane();
+    scene2 = new Scene(root, 800, 750);
+    
+    
+    //class info
+  
+        
+        HBox infoStuff = new HBox();
+        root.setBottom(infoStuff);
+        
+        
+        ObservableList<Choice> choices = FXCollections.observableArrayList();
+        choices.add(new Choice(null, "No selection"));
+        for (Database.DegreeReq degreeReq : db.findAllDegreeReqs()) {
+          choices.add(new Choice(degreeReq.id, degreeReq.name));
+        }
+
+        
+        final ListView<Choice> courseList = new ListView(choices);
+        courseList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        courseList.getSelectionModel().select(new Choice(null, "No selection"));
+        courseList.setMinSize(340, 270);
+        courseList.setMaxSize(340, 270);
+        System.out.println(courseList);
+        infoStuff.getChildren().add(courseList);
+        
+      // a display (as a list of checkboxes) of potential weapons usable by a given opponent.
+        final VBox hasTaken= new VBox(10);
+        hasTaken.getChildren().add(new Label("No Classes"));
+        infoStuff.getChildren().add(hasTaken);
+        
+        // remembers the checkbox selections for a given selected item choice.
+        final Map<Choice, List<CheckBox>> checkbox = new HashMap();
+
+        // act on a choice.
+        courseList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Choice>() {
+          @Override public void changed(ObservableValue<? extends Choice> observableValue, Choice oldChoice, Choice newChoice) {
+            hasTaken.getChildren().clear();
+            System.out.println(courseList);
+
+            if (newChoice.id == null) {
+              hasTaken.getChildren().add(new Label("No Classes"));
+            } else {
+              List<CheckBox> rememberedChecks = checkbox.get(newChoice);
+              if (rememberedChecks != null) {
+                hasTaken.getChildren().addAll(rememberedChecks);
+              } else {
+                // lookup weapons for the animal in the database.
+                Database.DegreeReq course = db.findDegreeReq(newChoice.id);
+
+                // create weapons choices.
+                List<CheckBox> courseChoices = new ArrayList();
+                for (int classId : course.classIds) {
+                  final Database.ClassList courseList = db.findClassList(classId);
+                  final CheckBox hasTakenCheck = new CheckBox(courseList.name);
+                  hasTakenCheck.setSelected(true);
+                  hasTakenCheck.setUserData(courseList.id);
+                  hasTaken.getChildren().add(hasTakenCheck);
+                 
+                  courseChoices.add(hasTakenCheck);
+                }
+
+                // store a memento of the weapons selected for the animal.
+                checkbox.put(newChoice, courseChoices);
+                System.out.println(checkbox.put(newChoice, courseChoices));
+                //System.out.println(weaponChoices);
+              }
+            }
+          }
+           });
+     infoStuff.getChildren().addAll(logoButton);
+      logo.setOnAction(e -> {
+      selected.clear();
+      canTake.clear();
+       primaryStage.close();
+    primaryStage.setScene(scene1);
+    primaryStage.show();
+       
+       });
+           
+    //////////////////////////////////////////
+    GridPane gridpane = new GridPane();
+    gridpane.setPadding(new Insets(5));
+    gridpane.setHgap(10);
+    gridpane.setVgap(10);
+    ColumnConstraints column1 = new ColumnConstraints(150, 150,
+        Double.MAX_VALUE);
+    ColumnConstraints column2 = new ColumnConstraints(50);
+    ColumnConstraints column3 = new ColumnConstraints(150, 150,
+        Double.MAX_VALUE);
+    column1.setHgrow(Priority.ALWAYS);
+    column3.setHgrow(Priority.ALWAYS);
+    gridpane.getColumnConstraints().addAll(column1, column2, column3);
+
+    Label candidatesLbl = new Label("Candidates");
+    GridPane.setHalignment(candidatesLbl, HPos.CENTER);
+    gridpane.add(candidatesLbl, 0, 0);
+
+    Label selectedLbl = new Label("selected");
+    gridpane.add(selectedLbl, 2, 0);
+    GridPane.setHalignment(selectedLbl, HPos.CENTER);
+
+    // Course List
+    final ObservableList<String> candidates = FXCollections
+        .observableArrayList("COMM 100","CS 101", 
+         "CS 105", 
+         "CS 110", 
+         "CS 112", 
+         "CS 211",
+         "CS 222",
+         "CS 306",
+         "CS 310",
+         "CS 321",
+         "CS 330",
+         "CS 367",
+         "CS 471",
+         "CS 483",
+         "ECE 445",
+         "ENGH 302",
+         "HNRS 110",
+         "HNRS 122",
+         "HNRS 130",
+         "HNRS 131",
+          "HNRS 230",
+         "HNRS 240",
+         "MATH 104",
+         "MATH 105",
+         "MATH 108",
+         "MATH 113",
+         "MATH 114",
+         "MATH 116",
+         "MATH 123",
+         "MATH 124",
+         "MATH 125",
+         "MATH 203",
+         "MATH 213",
+         "STAT 344");
+    final ListView<String> candidatesListView = new ListView<>(candidates);
+    gridpane.add(candidatesListView, 0, 1);
+
+        final ListView<String> heroListView = new ListView<>(selected);
+    gridpane.add(heroListView, 2, 1);
+
+    Button sendRightButton = new Button(" > ");
+    sendRightButton.setOnAction((ActionEvent event) -> {
+     String potential = candidatesListView.getSelectionModel()
+          .getSelectedItem();
+      if (potential != null) {
+        candidatesListView.getSelectionModel().clearSelection();
+        candidates.remove(potential);
+        selected.add(potential);
+        }
+    });
+
+    Button sendLeftButton = new Button(" < ");
+    sendLeftButton.setOnAction((ActionEvent event) -> {
+      String s = heroListView.getSelectionModel().getSelectedItem();
+      if (s != null) {
+        heroListView.getSelectionModel().clearSelection();
+        selected.remove(s);
+        candidates.add(s);
+     
+      }
+    });
+    VBox vbox = new VBox(10);
+    vbox.getChildren().addAll(sendRightButton, sendLeftButton);
+    
+   
+
+    gridpane.add(vbox, 1, 1);
+    root.setCenter(gridpane);
+
+    GridPane.setVgrow(root, Priority.ALWAYS);
+    
+    Button submit = new Button("Add");
+     submit.setStyle("-fx-text-fill: #0000ff; -fx-font-size: 0.8em; ");
+     submit.setWrapText(true);
+    vbox.getChildren().add(submit);
+    
+    Button cont1 = new Button("Continue");
+    cont1.setStyle("-fx-text-fill: #0000ff; -fx-font-size: 0.6em; ");
+     cont1.setWrapText(true);
+
+        
+        cont1.setVisible(false);
+    vbox.getChildren().add(cont1);
+
+    submit.setOnAction(e -> 
+    { 
+    System.out.println(selected);
+    //delete below after fixing if-else statements
+    cont1.setVisible(true);
+   /* 
+   boolean ans = false;
+
+ if (selected.isEmpty() == true){
+    canTake.add("CS 110");}
+    else{
+    for (int i=0; i<selected.size(); i++){
+      for ( int j= 0; i < one.size(); i++){
+         if(selected.get(i) != one.get(i)){
+            ans = false;
+
+          }
+         else{
+         ans = true;
+         continue;}}
+      if (ans == false){
+       selected.removeAll();
+         alertSelect.setTitle("You are missing a prerequsite class. ");
+         alertSelect.setHeaderText("Look, an Information Dialog");
+         alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
+         alertSelect.showAndWait();
+         break;}
+
+      else{
+      cont1.setVisible(true);}
+     }
+     */
+    
+  
+    System.out.println(canTake);
+         });
+         
+    cont1.setOnAction(e ->
+        primaryStage.setScene(scene3));
+        
+    
+    //Scene 3: Questions
+        Label label3 = new Label("Answer a few questions to find out what computer science classes you are most interested in:");
+        Separator separator = new Separator(Orientation.HORIZONTAL);
+         Separator separator1 = new Separator(Orientation.HORIZONTAL);
+         
+
+          Alert alert = new Alert(AlertType.INFORMATION);
+   
+                
+        VBox layout3= new VBox(25);
+        layout3.getChildren().add(label3);
+        layout3.getChildren().add(separator1);
+        layout3.setPadding(new Insets(10)); 
+        layout3.setSpacing(5);
+        
+        Text q = new Text("Which of the following are you most interested in:");
+        q.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+        
+        layout3.getChildren().add(q);
+        
+        // Creating a ToggleGroup 
+        ToggleGroup group = new ToggleGroup(); 
+  
+        // Creating new Toggle buttons. 
+        RadioButton CSTcp = new RadioButton("CS 455");
+        Text titleCSTcp= new Text("Network protocols such as TCP");
+        titleCSTcp.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        Text labelCSTcp = new Text("Computer Communications and Networking.\nTopics include role of various media and software components, \n local and wide area network protocols, network performance, and emerging advanced commercial technologies.");
+ 
+        RadioButton CSCryp = new RadioButton("CS 468");
+        Text titleCSCryp= new Text("Cryptography and Security Development");
+        titleCSCryp.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        Text labelCSCryp = new Text("Secure Programming and Systems\n Topics include security and cryptography basics, vulnerability analysis,\n secure software development, and distributed system security");
+ 
+
+        RadioButton CSSysInteg = new RadioButton("CS 475");
+        Text titleCSSysInteg= new Text("System Integration and Multithreading Concepts");
+        titleCSSysInteg.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        Text labelCSSysInteg = new Text("Concurrent and Distributed Systems \n Topics include concurrent programming, synchronization, multithreading, \n local and wide-area network protocols, distributed computation, systems integration, and techniques for expressing coarse grained parallelism at the application level");
+  
+        // Set toggle group 
+        // In a group, maximum only 
+        // one button is selected 
+        CSTcp.setToggleGroup(group); 
+        CSCryp.setToggleGroup(group);
+        CSSysInteg.setToggleGroup(group);
+        
+        CSTcp.setUserData("CS 455: Computer Communications and Networking"); 
+        CSCryp.setUserData("CS 468: Secure Programming and Systems"); 
+        CSSysInteg.setUserData("CS 475: Concurrent and Distributed Systems");
+        layout3.getChildren().addAll(titleCSTcp, labelCSTcp,CSTcp,titleCSCryp,labelCSCryp,CSCryp,titleCSSysInteg, labelCSSysInteg,CSSysInteg, separator);
+ 
+        
+        
+        Button button3 = new Button("Go to Scence 4");
+        Button cont = new Button("Continue");
+        
+        cont.setVisible(false);
+
+        button3.setOnAction(e -> 
+        {
+      
+        ToggleButton selectedToggleButton =
+        (ToggleButton) group.getSelectedToggle();
+        System.out.println(selectedToggleButton);
+        if (selectedToggleButton == null){
+    
+              alert.setTitle("Information Dialog");
+              alert.setHeaderText("Look, an Information Dialog");
+              alert.setContentText("I have a great message for you!");
+
+              alert.showAndWait();}
+        else{
+            boolean isSelectedTcp = CSTcp.isSelected();
+            if (CSTcp.isSelected() == true){
+               selected.add("CS 455");
+               }
+            else if (CSCryp.isSelected() == true){
+               selected.add("CS 468");}
+            else{
+               selected.add("CS 475");}
+               
+            cont.setVisible(true);
+            System.out.println(selected);}
+        });
+         
+        
+        
+        layout3.getChildren().add(button3);
+        
+ 
+        layout3.getChildren().add(cont);
+        
+        cont.setOnAction(e ->
+        primaryStage.setScene(scene4));
+        
+        
+        HBox logoButton3 = new HBox();
+        Image image3 = new Image(imageUrl,150,150,false,true);
+         
+        // Create the ImageView
+        ImageView imageView3 = new ImageView(image3);
+         
+        Button logo3 = new Button("",imageView3);
+        logoButton3.getChildren().add(logo3);
+        logoButton3.setAlignment(Pos.BOTTOM_RIGHT);
+
+        
+        layout3.getChildren().addAll(logoButton3);
+      logo3.setOnAction(e -> {
+      selected.clear();
+      canTake.clear();
+       primaryStage.close();
+    primaryStage.setScene(scene1);
+    primaryStage.show();
+       
+       });
+
+        
+        
+        scene3 = new Scene(layout3, 800, 750);
+        
+
+        //Scene 4: Class Output
+        Label label4 = new Label("Answer a few questions to find out what computer science classes you are most interested in:");
+        Separator separator2 = new Separator(Orientation.HORIZONTAL);
+         Separator separator3 = new Separator(Orientation.HORIZONTAL);
+         
+
+          Alert alert4 = new Alert(AlertType.INFORMATION);
+   
+                
+        VBox layout4= new VBox(25);
+        layout4.getChildren().add(label4);
+        layout4.getChildren().add(separator2);
+        layout4.setPadding(new Insets(10)); 
+        layout4.setSpacing(5);
+        
+        Text q1 = new Text("Which of the following are you interested in:");
+        q1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+        
+        layout4.getChildren().add(q1);
+        
+        // Creating a ToggleGroup 
+        ToggleGroup group2 = new ToggleGroup(); 
+  
+        // Creating new Toggle buttons. 
+        RadioButton CSTcp = new RadioButton("CS 455");
+        Text titleCSTcp= new Text("Network protocols such as TCP");
+        titleCSTcp.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        Text labelCSTcp = new Text("Computer Communications and Networking.\nTopics include role of various media and software components, \n local and wide area network protocols, network performance, and emerging advanced commercial technologies.");
+ 
+        RadioButton CSCryp = new RadioButton("CS 468");
+        Text titleCSCryp= new Text("Cryptography and Security Development");
+        titleCSCryp.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        Text labelCSCryp = new Text("Secure Programming and Systems\n Topics include security and cryptography basics, vulnerability analysis,\n secure software development, and distributed system security");
+ 
+
+        RadioButton CSSysInteg = new RadioButton("CS 475");
+        Text titleCSSysInteg= new Text("System Integration and Multithreading Concepts");
+        titleCSSysInteg.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+        Text labelCSSysInteg = new Text("Concurrent and Distributed Systems \n Topics include concurrent programming, synchronization, multithreading, \n local and wide-area network protocols, distributed computation, systems integration, and techniques for expressing coarse grained parallelism at the application level");
+  
+        // Set toggle group 
+        // In a group, maximum only 
+        // one button is selected 
+        CSTcp.setToggleGroup(group); 
+        CSCryp.setToggleGroup(group);
+        CSSysInteg.setToggleGroup(group);
+        
+        CSTcp.setUserData("CS 455: Computer Communications and Networking"); 
+        CSCryp.setUserData("CS 468: Secure Programming and Systems"); 
+        CSSysInteg.setUserData("CS 475: Concurrent and Distributed Systems");
+        layout3.getChildren().addAll(titleCSTcp, labelCSTcp,CSTcp,titleCSCryp,labelCSCryp,CSCryp,titleCSSysInteg, labelCSSysInteg,CSSysInteg, separator);
+ 
+        
+        
+        Button button3 = new Button("Go to Scence 4");
+        Button cont = new Button("Continue");
+        
+        cont.setVisible(false);
+
+        button3.setOnAction(e -> 
+        {
+      
+        ToggleButton selectedToggleButton =
+        (ToggleButton) group.getSelectedToggle();
+        System.out.println(selectedToggleButton);
+        if (selectedToggleButton == null){
+    
+              alert.setTitle("Information Dialog");
+              alert.setHeaderText("Look, an Information Dialog");
+              alert.setContentText("I have a great message for you!");
+
+              alert.showAndWait();}
+        else{
+            boolean isSelectedTcp = CSTcp.isSelected();
+            if (CSTcp.isSelected() == true){
+               selected.add("CS 455");
+               }
+            else if (CSCryp.isSelected() == true){
+               selected.add("CS 468");}
+            else{
+               selected.add("CS 475");}
+               
+            cont.setVisible(true);
+            System.out.println(selected);}
+        });
+         
+        
+        
+        layout3.getChildren().add(button3);
+        
+ 
+        layout3.getChildren().add(cont);
+        
+        cont.setOnAction(e ->
+        primaryStage.setScene(scene4));
+        
+        
+        HBox logoButton3 = new HBox();
+        Image image3 = new Image(imageUrl,150,150,false,true);
+         
+        // Create the ImageView
+        ImageView imageView3 = new ImageView(image3);
+         
+        Button logo3 = new Button("",imageView3);
+        logoButton3.getChildren().add(logo3);
+        logoButton3.setAlignment(Pos.BOTTOM_RIGHT);
+
+        
+        layout3.getChildren().addAll(logoButton3);
+      logo3.setOnAction(e -> {
+      selected.clear();
+      canTake.clear();
+       primaryStage.close();
+    primaryStage.setScene(scene1);
+    primaryStage.show();
+       
+       });
+
+        
+        
+        scene3 = new Scene(layout3, 800, 750);         
+         
+         //Scene 4: Class Output
+        Label summary = new Label("The results are in! \n");
+        Label labelresponse= new Label();
+        VBox layout4 = new VBox(20);
+                Separator separator3 = new Separator(Orientation.HORIZONTAL);
+        layout4.getChildren().addAll(summary, separator3);
+        
+        Label firstResults = new Label("Next semester, you can take the following required courses: ");
+        layout4.getChildren().add(firstResults);
+        ListView<String> theList = new ListView<>(selected);
+        theList.setOrientation(Orientation.VERTICAL);
+        theList.setPrefSize(120,100);
+        layout4.getChildren().add(theList);
+
+        Label secondResults = new Label("According to your interests, we recommend you take the following electives: ");
+
+
+
+         scene4 = new Scene(layout4, 600, 400);
+
+    
+    
+    
+    primaryStage.setScene(scene1);
+    primaryStage.show();
+  }
+ class Choice {
+    Integer id; String displayString;
+    Choice(Integer id)                       { this(id, null); }
+    Choice(String  displayString)            { this(null, displayString); }
+    Choice(Integer id, String displayString) { this.id = id; this.displayString = displayString; }
+    @Override public String toString() { return displayString; }
+    @Override public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      Choice choice = (Choice) o;
+      return displayString != null && displayString.equals(choice.displayString) || id != null && id.equals(choice.id);
+    }
+    @Override public int hashCode() {
+      int result = id != null ? id.hashCode() : 0;
+      result = 31 * result + (displayString != null ? displayString.hashCode() : 0);
+      return result;
+    }
+  }
+
+  /** Quick and dirty in memory database */
+  class Database {
+    private ClassList[] classLists = {
+      new ClassList(1, "CS 110", "Essentials of Computer Science", 3), 
+      new ClassList(2, "CS 112", "Introduction to Computer Programming",3), 
+      new ClassList(3, "CS 211", "Object-Oriented Programming", 3), 
+      new ClassList(4, "CS 262", "Introduction to Low-Level Programming",3),
+      new ClassList(5, "CS 306", "Synthesis of Ethics and Law for the Computing Professional", 3), 
+      new ClassList(6, "CS 310", "Data Structures",3),
+      new ClassList(7, "CS 321", "Software Engineering", 3), 
+      new ClassList(8, "CS 330", "Formal Methods and Models",3),
+      new ClassList(9, "CS 367", "Computer Systems and Programming", 4), 
+      new ClassList(10, "CS 471", "Operating Systems",3),
+      new ClassList(11, "CS 483", "Analysis of Algorithms", 3), 
+      new ClassList(12, "None", "None", 0),
+      new ClassList(13, "ENG 302", "English", 3),
+      new ClassList(14, "MTH 113", "Calc 1", 3), 
+      new ClassList(15, "MTH 114", "Calc 2", 3), 
+      new ClassList(16, "MTH 125", "Discrete", 3),
+      new ClassList(17, "MTH 203", "Linear", 3), 
+      new ClassList(18, "MTH 213", "Calc 3", 3),
+      new ClassList(19, "MTH 203", "Linear", 3),  
+      new ClassList(20, "STAT 344", "STAT", 3)
+    };
+    private DegreeReq[] degreeReqs = {
+      new DegreeReq(1, "CS 110",12), new DegreeReq(2, "CS 112",13), new DegreeReq(3, "CS 211", 2),
+      new DegreeReq(4, "CS 262", 1,2,3), new DegreeReq(5, "CS 306",1,2,3,14), new DegreeReq(6, "CS 310",2,3,14,15),
+      new DegreeReq(10, "CS 321", 1,2,3,6,13,14,15), new DegreeReq(11, "CS 330",1,2,3,14,15,16), new DegreeReq(12, "CS 367",1,2,3,14,15,4,16),
+      new DegreeReq(13, "CS 471", 1,2,3,14,15,4,16,6), new DegreeReq(14, "CS 483",1,2,3,14,15,16), new DegreeReq(15, "CS 310",1,2,3),
+      new DegreeReq(16, "CS 262", 1,2,3), new DegreeReq(17, "CS 306",1,2,3,14), new DegreeReq(18, "CS 310",1,2,3),
+      new DegreeReq(19, "CS 262", 1,2,3), new DegreeReq(20, "CS 306",1,2,3,14), new DegreeReq(21, "CS 310",1,2,3),
+      new DegreeReq(22, "CS 262", 1,2,3), new DegreeReq(23, "CS 306",1,2,3,14), new DegreeReq(24, "CS 310",1,2,3),
+      new DegreeReq(25, "CS 262", 1,2,3), new DegreeReq(26, "CS 306",1,2,3,14), new DegreeReq(27, "CS 310",1,2,3),
+      
+    };
+
+    DegreeReq findDegreeReq(int id) { 
+      for (DegreeReq degreeReq : degreeReqs ) 
+        if (degreeReq.id == id) 
+          return degreeReq; 
+       return null; 
+     }
+    
+    DegreeReq[] findAllDegreeReqs() { return degreeReqs; }
+    
+    ClassList findClassList(int id) { 
+     for (ClassList classList : classLists) 
+      if (classList.id == id) 
+        return classList; 
+        return null; }
+
+    class DegreeReq {
+      int id; 
+      String name; 
+      int[] classIds;
+      DegreeReq(int id, String name, int... classIds) { 
+        this.id = id; 
+        this.name = name; 
+        this.classIds = classIds; 
+      }
+      @Override public String toString() { 
+        return name; 
+      }
+    }
+
+    class ClassList {
+      int id; 
+      String name; 
+      String title; 
+      int credit;
+      ClassList(int id, String name, String title, int credit) { 
+        this.id = id; 
+        this.name = name; 
+        this.title = title;
+        this.credit = credit;
+      }
+      @Override public String toString() { 
+        return name; 
+      }
+  }
+  }
+
+
+
+   
+  public static void main(String[] args) {
+    launch(args);
+  }
+}
+
+
