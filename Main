@@ -77,7 +77,7 @@ import java.util.Map;
 
 
 public class Main extends Application {
-Scene scene1, scene2, scene3, scene4;
+Scene scene1, scene2, scene3, scene4, scene5;
 final ObservableList<String> selected = FXCollections.observableArrayList();
 final ObservableList<String> canTake = FXCollections.observableArrayList();
 final ArrayList<String> one = new ArrayList<String>( Arrays.asList("CS 110", "CS 112", "MTH 113"));
@@ -666,25 +666,162 @@ Button logo = new Button();
         
         scene3 = new Scene(layout3, 800, 750);         
          
-         //Scene 4: Class Output
+        //Scene 4: Question Part2
+        Label label4 = new Label("Check all the classes you most are interested in taking:");
+        Separator separator2 = new Separator(Orientation.HORIZONTAL);
+         Separator separator3 = new Separator(Orientation.HORIZONTAL);
+
+
+          Alert alert4 = new Alert(AlertType.INFORMATION);
+
+          VBox layout4= new VBox(1);
+          Text q1 = new Text("Which of the following are you interested in:");
+          q1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+
+          layout4.getChildren().add(q1);
+
+          CheckBox box1 = new CheckBox("CS 425: Game Programming I. Introduction to technologies and techniques used in modern computer games.");
+          CheckBox box2 = new CheckBox("CS 451 Computer Graphics. Basic graphics principles and programming");
+          CheckBox box3 = new CheckBox("CCS 440: Language processors and Programming Environments. Topics include design and construction of language processors, formal syntactic definition methods, parsing techniques, and code-generation techniques.");
+          CheckBox box4 = new CheckBox("CS 450: Database Concepts(entity-relationship, entity-enhanced relationship, relational algebra, SQL, oracle database)");
+          CheckBox box5 = new CheckBox("CS 455 Computer Communications and Networking. Internet protocol suite. Network performance");
+          CheckBox box6 = new CheckBox("CS 463: comparative programming Languages. Programming mechanisms");
+          CheckBox box7 = new CheckBox("CS 465: Computer Systems Architecture Memory hierarchy, cache, and virtual memory input-output processing");
+          CheckBox box8 = new CheckBox("CS 468: Secure Programming and Systems. Topics include security and cryptography basics, vulnerability analysis, secure software development, and distributed system security");
+          CheckBox box9 = new CheckBox("CS 469: Security Engineering. Covers the software subsystems that are involved in defending computer systems");
+          CheckBox box10 = new CheckBox("CS 475: Concurrent and Distributed Systems. Concurrent programming, synchronization, multithreading, local and wide-area network protocols");
+          CheckBox box11 = new CheckBox("CS 477: Mobile Application Development. Teach principles of software development for the mobile device environment");
+          CheckBox box12 = new CheckBox("CS 480: Introduction to Artificial Intelligence. Principles and methods for knowledge representation");
+          CheckBox box13 = new CheckBox("CS 482: Computer Vision. Basic principles of visual perception and their implementation on computer systems");
+          CheckBox box14 = new CheckBox("CS 484: Data Mining. Principles and methods for data analysis and knowledge discovery");
+          CheckBox box15 = new CheckBox("CS 485: Autonomous Robotics. Covers topics in autonomous robotic");
+          CheckBox box16 = new CheckBox("CS 490: Design Exhibition. Capstone course, focuses on design and implementation of software");
+          CheckBox box17 = new CheckBox("CS 491: Industry-sponsored senior design project. Focus on design and succesful implementation of software project");
+          CheckBox box18 = new CheckBox("CS 499: Special Topics in Computer Science. Free course where undergrads can pick a topic of interest");
+
+
+        layout4.getChildren().add(label4);
+        layout4.getChildren().add(separator2);
+        layout4.setPadding(new Insets(10));
+        layout4.setSpacing(5);
+
+        layout4.getChildren().addAll(box1, box2, box3, box4, box5, box6,box7, box8, box9, box10, box11, box12, box13, box14, box15, box16, box17, box18);
+
+
+
+        Button button4 = new Button("Submit");
+        layout4.getChildren().add(button4);
+
+        button4.setOnAction(e ->
+        {
+          if (box1.isSelected()){
+            wantToTake.add("CS 425");
+          }
+          if (box2.isSelected()){
+            wantToTake.add("CS 451");
+          }
+          if (box3.isSelected()){
+            wantToTake.add("CS 440");
+          }
+          if (box4.isSelected()){
+            wantToTake.add("CS 450");
+          }
+          if (box5.isSelected()){
+            wantToTake.add("CS 455");
+          }
+          if (box6.isSelected()){
+            wantToTake.add("CS 463");
+          }
+          if (box7.isSelected()){
+            wantToTake.add("CS 465");
+          }
+          if (box8.isSelected()){
+            wantToTake.add("CS 468");
+          }
+          if (box9.isSelected()){
+            wantToTake.add("CS 469");
+          }
+          if (box10.isSelected()){
+            wantToTake.add("CS 475");
+          }
+          if (box11.isSelected()){
+            wantToTake.add("CS 477");
+          }
+          if (box12.isSelected()){
+            wantToTake.add("CS 480");
+          }
+          if (box13.isSelected()){
+            wantToTake.add("CS 482");
+          }
+          if (box14.isSelected()){
+            wantToTake.add("CS 484");
+          }
+          if (box15.isSelected()){
+            wantToTake.add("CS 485");
+          }
+          if (box16.isSelected()){
+            wantToTake.add("CS 490");
+          }
+          if (box17.isSelected()){
+            wantToTake.add("CS 491");
+          }
+          if (box18.isSelected()){
+            wantToTake.add("CS 499");
+          }
+
+          primaryStage.setScene(scene5);
+          });
+
+
+        HBox logoButton4 = new HBox();
+        Image image4 = new Image(imageUrl,150,150,false,true);
+
+        // Create the ImageView
+        ImageView imageView4 = new ImageView(image4);
+
+        Button logo4 = new Button("",imageView4);
+        logoButton4.getChildren().add(logo3);
+        logoButton4.setAlignment(Pos.BOTTOM_RIGHT);
+
+
+        layout4.getChildren().addAll(logoButton4);
+       logo4.setOnAction(e -> {
+       selected.clear();
+       canTake.clear();
+       primaryStage.close();
+      primaryStage.setScene(scene1);
+      primaryStage.show();
+
+       });
+
+
+
+        scene4 = new Scene(layout4, 800, 750);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+         //Scene 5: Class Output
         Label summary = new Label("The results are in! \n");
         Label labelresponse= new Label();
-        VBox layout4 = new VBox(20);
-                Separator separator3 = new Separator(Orientation.HORIZONTAL);
-        layout4.getChildren().addAll(summary, separator3);
-        
+        VBox layout5 = new VBox(20);
+        layout5.getChildren().addAll(summary, separator3);
+
         Label firstResults = new Label("Next semester, you can take the following required courses: ");
-        layout4.getChildren().add(firstResults);
-        ListView<String> theList = new ListView<>(selected);
+        layout5.getChildren().add(firstResults);
+        ListView<String> theList = new ListView<>(canTake);
         theList.setOrientation(Orientation.VERTICAL);
         theList.setPrefSize(120,100);
-        layout4.getChildren().add(theList);
+        layout5.getChildren().add(theList);
 
         Label secondResults = new Label("According to your interests, we recommend you take the following electives: ");
+        layout5.getChildren().add(secondResults);
+        ListView<String> interestList = new ListView<>(wantToTake);
+        interestList.setOrientation(Orientation.VERTICAL);
+        interestList.setPrefSize(120,100);
+        layout5.getChildren().add(interestList);
 
 
-
-         scene4 = new Scene(layout4, 600, 400);
+         scene5 = new Scene(layout5, 600, 400);
 
     
     */
