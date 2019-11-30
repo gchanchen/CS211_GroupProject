@@ -544,7 +544,7 @@ Button logo = new Button();
         scene3 = new Scene(layout3, 800, 750);
         
 
-        //Scene 4: Class Output
+        /*//Scene 4: Class Output
         Label label4 = new Label("Answer a few questions to find out what computer science classes you are most interested in:");
         Separator separator2 = new Separator(Orientation.HORIZONTAL);
          Separator separator3 = new Separator(Orientation.HORIZONTAL);
@@ -687,7 +687,7 @@ Button logo = new Button();
          scene4 = new Scene(layout4, 600, 400);
 
     
-    
+    */
     
     primaryStage.setScene(scene1);
     primaryStage.show();
