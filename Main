@@ -183,86 +183,199 @@ Button logo = new Button();
         
         
         //scene2: Start 
-        
-                          
-        
-        
         Label label2 = new Label("Listed below are the prerequisites for required CS classes." + "\n" +
                                 "Select all of them that you have successfully completed or" + "\n" +
                                 "expect yourself to complete by the end of this semester with a" + "\n" +
                                 "C or higher." + "\n" +
                                 "Please click “submit” when you are done");
                                 Alert alertSelect = new Alert(AlertType.INFORMATION);
-    BorderPane root = new BorderPane();
-    scene2 = new Scene(root, 800, 750);
-    
-    
-    //class info
-  
-        
+       BorderPane root = new BorderPane();
+       scene2 = new Scene(root, 800, 750);
+
+        TreeItem rootItem = new TreeItem("Computer Science Class List Resource");
+
+        TreeItem CS110Item = new TreeItem("CS 110");
+        CS110Item .getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS110Item);
+
+        TreeItem CS112Item = new TreeItem("CS 112");
+        CS112Item.getChildren().add(new TreeItem("MATH 105"));
+        CS112Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS112Item);
+
+        TreeItem CS211Item = new TreeItem("CS 211");
+        CS211Item .getChildren().add(new TreeItem("CS 112"));
+        rootItem.getChildren().add(CS211Item);
+
+        TreeItem CS262Item = new TreeItem("CS 262");
+        CS262Item.getChildren().add(new TreeItem("CS 110"));
+        CS262Item.getChildren().add(new TreeItem("CS 211"));
+        rootItem.getChildren().add(CS262Item);
+
+        TreeItem CS306Item = new TreeItem("CS 306");
+        CS306Item .getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS306Item);
+
+        TreeItem CS310Item = new TreeItem("CS 310");
+        CS310Item.getChildren().add(new TreeItem("MATH 105"));
+        CS310Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS310Item);
+
+        TreeItem CS321Item = new TreeItem("CS 321");
+        CS321Item.getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS321Item);
+
+        TreeItem CS330Item = new TreeItem("CS 330");
+        CS330Item.getChildren().add(new TreeItem("MATH 105"));
+        CS330Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS330Item);
+
+        TreeItem CS367Item = new TreeItem("CS 367");
+        CS367Item.getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS367Item);
+
+        TreeItem CS425Item = new TreeItem("CS 425");
+        CS425Item.getChildren().add(new TreeItem("MATH 105"));
+        CS425Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS425Item);
+
+        TreeItem CS440Item = new TreeItem("CS 440");
+        CS440Item.getChildren().add(new TreeItem("MATH 105"));
+        CS440Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS440Item);
+
+        TreeItem CS450Item = new TreeItem("CS 450");
+        CS450Item.getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS450Item);
+
+        TreeItem CS451Item = new TreeItem("CS 451");
+        CS451Item.getChildren().add(new TreeItem("MATH 105"));
+        CS451Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS451Item);
+
+        TreeItem CS455Item = new TreeItem("CS 455");
+        CS455Item.getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS455Item);
+
+        TreeItem CS463Item = new TreeItem("CS 463");
+        CS463Item.getChildren().add(new TreeItem("MATH 105"));
+        CS463Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS463Item);
+
+        TreeItem CS465Item = new TreeItem("CS 465");
+        CS465Item.getChildren().add(new TreeItem("MATH 105"));
+        CS465Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS465Item);
+
+        TreeItem CS468Item = new TreeItem("CS 468");
+        CS468Item.getChildren().add(new TreeItem("MATH 105"));
+        CS468Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS468Item);
+
+        TreeItem CS469Item = new TreeItem("CS 469");
+        CS469Item.getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS469Item);
+
+        TreeItem CS471Item = new TreeItem("CS 471");
+        CS471Item.getChildren().add(new TreeItem("MATH 105"));
+        CS471Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS471Item);
+
+        TreeItem CS475Item = new TreeItem("CS 475");
+        CS475Item.getChildren().add(new TreeItem("MATH 105"));
+        CS112Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS112Item);
+
+        TreeItem CS477Item = new TreeItem("CS 477");
+        CS477Item.getChildren().add(new TreeItem("MATH 105"));
+        CS477Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS477Item);
+
+        TreeItem CS480Item = new TreeItem("CS 110");
+        CS110Item .getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS110Item);
+
+        TreeItem CS482Item = new TreeItem("CS 482");
+        CS482Item.getChildren().add(new TreeItem("MATH 105"));
+        CS482Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS482Item);
+
+        TreeItem CS483Item = new TreeItem("CS 483");
+        CS483Item.getChildren().add(new TreeItem("MATH 105"));
+        CS483Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS483Item);
+
+        TreeItem CS484Item = new TreeItem("CS 484");
+        CS484Item.getChildren().add(new TreeItem("MATH 105"));
+        CS484Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS484Item);
+
+        TreeItem CS485Item = new TreeItem("CS 485");
+        CS485Item .getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS485Item);
+
+        TreeItem CS490Item = new TreeItem("CS 490");
+        CS490Item .getChildren().add(new TreeItem("MATH 105"));
+        CS490Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS490Item );
+
+        TreeItem CS491Item = new TreeItem("CS 491");
+        CS491Item.getChildren().add(new TreeItem("MATH 105"));
+        CS491Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS491Item);
+
+        TreeItem CS499Item = new TreeItem("CS 499");
+        CS499Item.getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS499Item);
+
+        TreeItem MATH113Item = new TreeItem("MATH 113");
+        MATH113Item.getChildren().add(new TreeItem("MATH 105"));
+        MATH113Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(MATH113Item);
+
+        TreeItem MATH114Item = new TreeItem("MATH 114");
+        MATH114Item.getChildren().add(new TreeItem("MATH 105"));
+        MATH114Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(MATH114Item);
+
+        TreeItem MATH125Item = new TreeItem("MATh 125");
+        MATH125Item.getChildren().add(new TreeItem("MATH 105"));
+        MATH125Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(MATH125Item);
+
+        TreeItem MATH203Item = new TreeItem("MATH 203");
+        MATH203Item.getChildren().add(new TreeItem("MATH 105"));
+        MATH203Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(MATH203Item);
+
+        TreeItem MATH213Item = new TreeItem("MATH 213");
+        MATH213Item.getChildren().add(new TreeItem("MATH 105"));
+        MATH213Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(MATH213Item);
+
+        TreeItem MATH446Item = new TreeItem("MATH 446");
+        MATH446Item.getChildren().add(new TreeItem("MATH 113 AND MATH 114"));
+        MATH446Item.getChildren().add(new TreeItem("OR MATH 116"));
+        MATH446Item.getChildren().add(new TreeItem("MATH 203"));
+        MATH446Item.getChildren().add(new TreeItem("CS 112"));
+        rootItem.getChildren().add(MATH446Item);
+
+        TreeItem STAT344Item = new TreeItem("STAT 344");
+        STAT344Item.getChildren().add(new TreeItem("MATH 113 AND MATH 114"));
+        STAT344Item.getChildren().add(new TreeItem("OR MATH 116"));
+        rootItem.getChildren().add(STAT344Item);
+
+
+        TreeView treeView = new TreeView();
+        treeView.setRoot(rootItem);
+        VBox treeVbox = new VBox(treeView);
+        treeVbox.setPadding(new Insets(10, 10, 10, 10));
+        root.setTop(treeVbox);
+        BorderPane.setMargin(treeVbox, new Insets(10, 10, 10, 10));
+       
         HBox infoStuff = new HBox();
         root.setBottom(infoStuff);
         
-        
-        ObservableList<Choice> choices = FXCollections.observableArrayList();
-        choices.add(new Choice(null, "No selection"));
-        for (Database.DegreeReq degreeReq : db.findAllDegreeReqs()) {
-          choices.add(new Choice(degreeReq.id, degreeReq.name));
-        }
-
-        
-        final ListView<Choice> courseList = new ListView(choices);
-        courseList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        courseList.getSelectionModel().select(new Choice(null, "No selection"));
-        courseList.setMinSize(340, 270);
-        courseList.setMaxSize(340, 270);
-        System.out.println(courseList);
-        infoStuff.getChildren().add(courseList);
-        
-      // a display (as a list of checkboxes) of potential weapons usable by a given opponent.
-        final VBox hasTaken= new VBox(10);
-        hasTaken.getChildren().add(new Label("No Classes"));
-        infoStuff.getChildren().add(hasTaken);
-        
-        // remembers the checkbox selections for a given selected item choice.
-        final Map<Choice, List<CheckBox>> checkbox = new HashMap();
-
-        // act on a choice.
-        courseList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Choice>() {
-          @Override public void changed(ObservableValue<? extends Choice> observableValue, Choice oldChoice, Choice newChoice) {
-            hasTaken.getChildren().clear();
-            System.out.println(courseList);
-
-            if (newChoice.id == null) {
-              hasTaken.getChildren().add(new Label("No Classes"));
-            } else {
-              List<CheckBox> rememberedChecks = checkbox.get(newChoice);
-              if (rememberedChecks != null) {
-                hasTaken.getChildren().addAll(rememberedChecks);
-              } else {
-                // lookup weapons for the animal in the database.
-                Database.DegreeReq course = db.findDegreeReq(newChoice.id);
-
-                // create weapons choices.
-                List<CheckBox> courseChoices = new ArrayList();
-                for (int classId : course.classIds) {
-                  final Database.ClassList courseList = db.findClassList(classId);
-                  final CheckBox hasTakenCheck = new CheckBox(courseList.name);
-                  hasTakenCheck.setSelected(true);
-                  hasTakenCheck.setUserData(courseList.id);
-                  hasTaken.getChildren().add(hasTakenCheck);
-                 
-                  courseChoices.add(hasTakenCheck);
-                }
-
-                // store a memento of the weapons selected for the animal.
-                checkbox.put(newChoice, courseChoices);
-                System.out.println(checkbox.put(newChoice, courseChoices));
-                //System.out.println(weaponChoices);
-              }
-            }
-          }
-           });
      infoStuff.getChildren().addAll(logoButton);
       logo.setOnAction(e -> {
       selected.clear();
@@ -829,110 +942,7 @@ Button logo = new Button();
     primaryStage.setScene(scene1);
     primaryStage.show();
   }
- class Choice {
-    Integer id; String displayString;
-    Choice(Integer id)                       { this(id, null); }
-    Choice(String  displayString)            { this(null, displayString); }
-    Choice(Integer id, String displayString) { this.id = id; this.displayString = displayString; }
-    @Override public String toString() { return displayString; }
-    @Override public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
-      Choice choice = (Choice) o;
-      return displayString != null && displayString.equals(choice.displayString) || id != null && id.equals(choice.id);
-    }
-    @Override public int hashCode() {
-      int result = id != null ? id.hashCode() : 0;
-      result = 31 * result + (displayString != null ? displayString.hashCode() : 0);
-      return result;
-    }
-  }
-
-  /** Quick and dirty in memory database */
-  class Database {
-    private ClassList[] classLists = {
-      new ClassList(1, "CS 110", "Essentials of Computer Science", 3), 
-      new ClassList(2, "CS 112", "Introduction to Computer Programming",3), 
-      new ClassList(3, "CS 211", "Object-Oriented Programming", 3), 
-      new ClassList(4, "CS 262", "Introduction to Low-Level Programming",3),
-      new ClassList(5, "CS 306", "Synthesis of Ethics and Law for the Computing Professional", 3), 
-      new ClassList(6, "CS 310", "Data Structures",3),
-      new ClassList(7, "CS 321", "Software Engineering", 3), 
-      new ClassList(8, "CS 330", "Formal Methods and Models",3),
-      new ClassList(9, "CS 367", "Computer Systems and Programming", 4), 
-      new ClassList(10, "CS 471", "Operating Systems",3),
-      new ClassList(11, "CS 483", "Analysis of Algorithms", 3), 
-      new ClassList(12, "None", "None", 0),
-      new ClassList(13, "ENG 302", "English", 3),
-      new ClassList(14, "MTH 113", "Calc 1", 3), 
-      new ClassList(15, "MTH 114", "Calc 2", 3), 
-      new ClassList(16, "MTH 125", "Discrete", 3),
-      new ClassList(17, "MTH 203", "Linear", 3), 
-      new ClassList(18, "MTH 213", "Calc 3", 3),
-      new ClassList(19, "MTH 203", "Linear", 3),  
-      new ClassList(20, "STAT 344", "STAT", 3)
-    };
-    private DegreeReq[] degreeReqs = {
-      new DegreeReq(1, "CS 110",12), new DegreeReq(2, "CS 112",13), new DegreeReq(3, "CS 211", 2),
-      new DegreeReq(4, "CS 262", 1,2,3), new DegreeReq(5, "CS 306",1,2,3,14), new DegreeReq(6, "CS 310",2,3,14,15),
-      new DegreeReq(10, "CS 321", 1,2,3,6,13,14,15), new DegreeReq(11, "CS 330",1,2,3,14,15,16), new DegreeReq(12, "CS 367",1,2,3,14,15,4,16),
-      new DegreeReq(13, "CS 471", 1,2,3,14,15,4,16,6), new DegreeReq(14, "CS 483",1,2,3,14,15,16), new DegreeReq(15, "CS 310",1,2,3),
-      new DegreeReq(16, "CS 262", 1,2,3), new DegreeReq(17, "CS 306",1,2,3,14), new DegreeReq(18, "CS 310",1,2,3),
-      new DegreeReq(19, "CS 262", 1,2,3), new DegreeReq(20, "CS 306",1,2,3,14), new DegreeReq(21, "CS 310",1,2,3),
-      new DegreeReq(22, "CS 262", 1,2,3), new DegreeReq(23, "CS 306",1,2,3,14), new DegreeReq(24, "CS 310",1,2,3),
-      new DegreeReq(25, "CS 262", 1,2,3), new DegreeReq(26, "CS 306",1,2,3,14), new DegreeReq(27, "CS 310",1,2,3),
-      
-    };
-
-    DegreeReq findDegreeReq(int id) { 
-      for (DegreeReq degreeReq : degreeReqs ) 
-        if (degreeReq.id == id) 
-          return degreeReq; 
-       return null; 
-     }
-    
-    DegreeReq[] findAllDegreeReqs() { return degreeReqs; }
-    
-    ClassList findClassList(int id) { 
-     for (ClassList classList : classLists) 
-      if (classList.id == id) 
-        return classList; 
-        return null; }
-
-    class DegreeReq {
-      int id; 
-      String name; 
-      int[] classIds;
-      DegreeReq(int id, String name, int... classIds) { 
-        this.id = id; 
-        this.name = name; 
-        this.classIds = classIds; 
-      }
-      @Override public String toString() { 
-        return name; 
-      }
-    }
-
-    class ClassList {
-      int id; 
-      String name; 
-      String title; 
-      int credit;
-      ClassList(int id, String name, String title, int credit) { 
-        this.id = id; 
-        this.name = name; 
-        this.title = title;
-        this.credit = credit;
-      }
-      @Override public String toString() { 
-        return name; 
-      }
-  }
-  }
-
-
-
-   
+  
   public static void main(String[] args) {
     launch(args);
   }
