@@ -1,4 +1,7 @@
 
+package sample;
+
+
 import javafx.application.Application;
 import javafx.geometry.Orientation;
 import javafx.collections.FXCollections;
@@ -26,86 +29,43 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.*;
 import javafx.scene.text.*;
 import javafx.geometry.*;
-import javafx.scene.layout.*;
-import javafx.scene.shape.*;
 import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.*;
-
-
-import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.HBoxBuilder;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.scene.control.SelectionMode;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 
 
 public class Main extends Application {
-Scene scene1, scene2, scene3, scene4, scene5;
-final ObservableList<String> selected = FXCollections.observableArrayList();
-final ObservableList<String> canTake = FXCollections.observableArrayList();
-final ObservableList<String> wantToTake = FXCollections.observableArrayList();
-final ArrayList<String> one = new ArrayList<String>( Arrays.asList("CS 110", "CS 112", "MATH 113"));
-final ArrayList<String> two = new ArrayList<String>( Arrays.asList("CS 211","MATH 114","MATH 125"));
-final ArrayList<String> three = new ArrayList<String>( Arrays.asList("MATH 114","MATH 125","CS 262","CS 306","CS 310", "CS 330","MATH 203"));
-final ArrayList<String> four = new ArrayList<String>( Arrays.asList("MATH 213","MATH 203","STAT 344", "CS 367", "CS 483"));
-final ArrayList<String> five = new ArrayList<String>( Arrays.asList("CS 471","CS 455","CS 468","CS 475"));
-ListOfCourses hasTaken = new ListOfCourses();
-boolean isValidInput = false;
+    Scene scene1, scene2, scene3, scene4, scene5;
+    final ObservableList<String> selected = FXCollections.observableArrayList();
+    final ObservableList<String> canTake = FXCollections.observableArrayList();
+    final ObservableList<String> wantToTake = FXCollections.observableArrayList();
 
-Button logo = new Button();
+    ListOfCourses hasTaken = new ListOfCourses();
+    boolean isValidInput = false;
+
+    Button logo = new Button();
+    Alert alertBox = new Alert(AlertType.INFORMATION);
 
 
-  @Override
-  public void start(Stage primaryStage) {
+    @Override
+    public void start(Stage primaryStage) {
 
-    HBox logoButton = new HBox();
-    String imageUrl = "https://live.staticflickr.com/65535/49081808031_50c82e282e_q.jpg";
+        HBox logoButton = new HBox();
 
+        String imageUrl = "https://live.staticflickr.com/65535/49081808031_50c82e282e_q.jpg";
         Image image2 = new Image(imageUrl,150,150,false,true);
 
         // Create the ImageView
         ImageView imageView2 = new ImageView(image2);
 
+        //Logo
         Button logo = new Button("",imageView2);
-        logoButton.getChildren().add(logo);
-        logoButton.setAlignment(Pos.BOTTOM_RIGHT);
+        logoButton.setAlignment(Pos.BASELINE_CENTER);
 
         primaryStage.setTitle("GMyoUplan Scheduler");
 
@@ -143,7 +103,7 @@ Button logo = new Button();
         root1.setPrefSize(200, 200);
         root1.setAlignment(Pos.TOP_CENTER);
 
-        layout1.getChildren().addAll(root1);
+
 
         TextFlow text_flow = new TextFlow();
         Text text_1 = new Text("George Mason University\n");
@@ -177,8 +137,9 @@ Button logo = new Button();
 
 
         layout1.getChildren().addAll(label1,label11, instructions, button1);
+        layout1.getChildren().addAll(root1);
 
-        scene1= new Scene(layout1, 800, 750);
+        scene1= new Scene(layout1, 1000, 650);
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -189,431 +150,507 @@ Button logo = new Button();
 
 
         Label label2 = new Label("Listed below are the prerequisites for required CS classes." + "\n" +
-                                "Select all of them that you have successfully completed or" + "\n" +
-                                "expect yourself to complete by the end of this semester with a" + "\n" +
-                                "C or higher." + "\n" +
-                                "Please click “submit” when you are done");
-                                Alert alertSelect = new Alert(AlertType.INFORMATION);
-       BorderPane root = new BorderPane();
-       scene2 = new Scene(root, 800, 750);
+                "Select all of them that you have successfully completed or" + "\n" +
+                "expect yourself to complete by the end of this semester with a" + "\n" +
+                "C or higher." + "\n" +
+                "Please click “submit” when you are done");
+        Alert alertSelect = new Alert(AlertType.INFORMATION);
+        BorderPane root = new BorderPane();
+        scene2 = new Scene(root, 1000, 650);
 
-        TreeItem rootItem = new TreeItem("Computer Science Class List Resource \n the prerequisites for all of the cs courses offered at gmu are listed for your convenience");
+       
+
+        HBox infoStuff = new HBox();
+        root.setBottom(infoStuff);
+
+        infoStuff.getChildren().addAll(logoButton);
+        logo.setOnAction(e -> {
+            selected.clear();
+            canTake.clear();
+            primaryStage.close();
+            primaryStage.setScene(scene1);
+            primaryStage.show();
+
+        });
+
+
+        TreeItem rootItem = new TreeItem("Computer Science Class List Resource");
 
         TreeItem CS110Item = new TreeItem("CS 110");
-        CS110Item.getChildren().add(new TreeItem("None"));
+        CS110Item .getChildren().add(new TreeItem("None"));
         rootItem.getChildren().add(CS110Item);
 
         TreeItem CS112Item = new TreeItem("CS 112");
-        CS112Item.getChildren().add(new TreeItem("MATH 104 or MATH 105 or MATH 113"));
+        CS112Item.getChildren().add(new TreeItem("MATH 105"));
+        CS112Item.getChildren().add(new TreeItem("MATH 113"));
         rootItem.getChildren().add(CS112Item);
 
         TreeItem CS211Item = new TreeItem("CS 211");
-        CS211Item.getChildren().add(new TreeItem("CS 112"));
-        CS211Item.getChildren().add(new TreeItem("MATH 113"));
+        CS211Item .getChildren().add(new TreeItem("CS 112"));
         rootItem.getChildren().add(CS211Item);
 
         TreeItem CS262Item = new TreeItem("CS 262");
-        CS262Item.getChildren().add(new TreeItem("CS 110 or CS 101"));
-        CS262Item.getChildren().add(new TreeItem("CS 112"));
-        CS262Item.getChildren().add(new TreeItem("CS 211 or CS 222"));
-        CS262Item.getChildren().add(new TreeItem("MATH 113"));
+        CS262Item.getChildren().add(new TreeItem("CS 110"));
+        CS262Item.getChildren().add(new TreeItem("CS 211"));
         rootItem.getChildren().add(CS262Item);
 
         TreeItem CS306Item = new TreeItem("CS 306");
-        CS306Item.getChildren().add(new TreeItem("CS 110"));
+        CS306Item .getChildren().add(new TreeItem("None"));
         rootItem.getChildren().add(CS306Item);
 
         TreeItem CS310Item = new TreeItem("CS 310");
-        CS310Item.getChildren().add(new TreeItem("CS 112"));
-        CS310Item.getChildren().add(new TreeItem("CS 211"));
+        CS310Item.getChildren().add(new TreeItem("MATH 105"));
         CS310Item.getChildren().add(new TreeItem("MATH 113"));
         rootItem.getChildren().add(CS310Item);
 
         TreeItem CS321Item = new TreeItem("CS 321");
-        CS321Item.getChildren().add(new TreeItem("CS 112"));
-        CS321Item.getChildren().add(new TreeItem("CS 211"));
-        CS321Item.getChildren().add(new TreeItem("CS 310"));
-        CS321Item.getChildren().add(new TreeItem("MATH 113"));
-        CS321Item.getChildren().add(new TreeItem("ENGH 302 or (HNRS 110 and (HNRS 122 or 130 or 230 or 240))"));
+        CS321Item.getChildren().add(new TreeItem("None"));
         rootItem.getChildren().add(CS321Item);
 
         TreeItem CS330Item = new TreeItem("CS 330");
-        CS330Item.getChildren().add(new TreeItem("CS 112"));
-        CS330Item.getChildren().add(new TreeItem("CS 211"));
+        CS330Item.getChildren().add(new TreeItem("MATH 105"));
         CS330Item.getChildren().add(new TreeItem("MATH 113"));
-        CS330Item.getChildren().add(new TreeItem("MATH 125"));
         rootItem.getChildren().add(CS330Item);
 
         TreeItem CS367Item = new TreeItem("CS 367");
-        CS367Item.getChildren().add(new TreeItem("CS 110"));
-        CS367Item.getChildren().add(new TreeItem("CS 112"));
-        CS367Item.getChildren().add(new TreeItem("CS 211"));
-        CS367Item.getChildren().add(new TreeItem("CS 262 or CS 222"));
-        CS367Item.getChildren().add(new TreeItem("MATH 113"));
-        CS367Item.getChildren().add(new TreeItem("MATH 125"));
+        CS367Item.getChildren().add(new TreeItem("None"));
         rootItem.getChildren().add(CS367Item);
 
+        TreeItem CS425Item = new TreeItem("CS 425");
+        CS425Item.getChildren().add(new TreeItem("MATH 105"));
+        CS425Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS425Item);
+
+        TreeItem CS440Item = new TreeItem("CS 440");
+        CS440Item.getChildren().add(new TreeItem("MATH 105"));
+        CS440Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS440Item);
+
+        TreeItem CS450Item = new TreeItem("CS 450");
+        CS450Item.getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS450Item);
+
+        TreeItem CS451Item = new TreeItem("CS 451");
+        CS451Item.getChildren().add(new TreeItem("MATH 105"));
+        CS451Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS451Item);
+
+        TreeItem CS455Item = new TreeItem("CS 455");
+        CS455Item.getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS455Item);
+
+        TreeItem CS463Item = new TreeItem("CS 463");
+        CS463Item.getChildren().add(new TreeItem("MATH 105"));
+        CS463Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS463Item);
+
+        TreeItem CS465Item = new TreeItem("CS 465");
+        CS465Item.getChildren().add(new TreeItem("MATH 105"));
+        CS465Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS465Item);
+
+        TreeItem CS468Item = new TreeItem("CS 468");
+        CS468Item.getChildren().add(new TreeItem("MATH 105"));
+        CS468Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS468Item);
+
+        TreeItem CS469Item = new TreeItem("CS 469");
+        CS469Item.getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS469Item);
+
         TreeItem CS471Item = new TreeItem("CS 471");
-        CS471Item.getChildren().add(new TreeItem("CS 112"));
-        CS471Item.getChildren().add(new TreeItem("CS 211"));
-        CS471Item.getChildren().add(new TreeItem("CS 262 or CS 222"));
-        CS471Item.getChildren().add(new TreeItem("CS 310"));
-        CS471Item.getChildren().add(new TreeItem("CS 367 or ECE 445"));
+        CS471Item.getChildren().add(new TreeItem("MATH 105"));
         CS471Item.getChildren().add(new TreeItem("MATH 113"));
-        CS471Item.getChildren().add(new TreeItem("MATH 125"));
         rootItem.getChildren().add(CS471Item);
 
+        TreeItem CS475Item = new TreeItem("CS 475");
+        CS475Item.getChildren().add(new TreeItem("MATH 105"));
+        CS112Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS112Item);
+
+        TreeItem CS477Item = new TreeItem("CS 477");
+        CS477Item.getChildren().add(new TreeItem("MATH 105"));
+        CS477Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS477Item);
+
+        TreeItem CS480Item = new TreeItem("CS 110");
+        CS110Item .getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS110Item);
+
+        TreeItem CS482Item = new TreeItem("CS 482");
+        CS482Item.getChildren().add(new TreeItem("MATH 105"));
+        CS482Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS482Item);
+
         TreeItem CS483Item = new TreeItem("CS 483");
-        CS483Item.getChildren().add(new TreeItem("CS 112"));
-        CS483Item.getChildren().add(new TreeItem("CS 211"));
-        CS483Item.getChildren().add(new TreeItem("CS 310"));
-        CS483Item.getChildren().add(new TreeItem("CS 330"));
+        CS483Item.getChildren().add(new TreeItem("MATH 105"));
         CS483Item.getChildren().add(new TreeItem("MATH 113"));
-        CS483Item.getChildren().add(new TreeItem("MATH 125"));
         rootItem.getChildren().add(CS483Item);
 
+        TreeItem CS484Item = new TreeItem("CS 484");
+        CS484Item.getChildren().add(new TreeItem("MATH 105"));
+        CS484Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS484Item);
+
+        TreeItem CS485Item = new TreeItem("CS 485");
+        CS485Item .getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS485Item);
+
+        TreeItem CS490Item = new TreeItem("CS 490");
+        CS490Item .getChildren().add(new TreeItem("MATH 105"));
+        CS490Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS490Item );
+
+        TreeItem CS491Item = new TreeItem("CS 491");
+        CS491Item.getChildren().add(new TreeItem("MATH 105"));
+        CS491Item.getChildren().add(new TreeItem("MATH 113"));
+        rootItem.getChildren().add(CS491Item);
+
+        TreeItem CS499Item = new TreeItem("CS 499");
+        CS499Item.getChildren().add(new TreeItem("None"));
+        rootItem.getChildren().add(CS499Item);
+
         TreeItem MATH113Item = new TreeItem("MATH 113");
-        MATH113Item.getChildren().add(new TreeItem("MATH 104 or MATH 105"));
+        MATH113Item.getChildren().add(new TreeItem("MATH 105"));
+        MATH113Item.getChildren().add(new TreeItem("MATH 113"));
         rootItem.getChildren().add(MATH113Item);
 
         TreeItem MATH114Item = new TreeItem("MATH 114");
-        MATH114Item.getChildren().add(new TreeItem("(MATH 123 and MATH 125) or MATH 113"));
+        MATH114Item.getChildren().add(new TreeItem("MATH 105"));
+        MATH114Item.getChildren().add(new TreeItem("MATH 113"));
         rootItem.getChildren().add(MATH114Item);
 
-        TreeItem MATH125Item = new TreeItem("MATH 125");
-        MATH125Item.getChildren().add(new TreeItem("MATH 105 or MATH 108 or MATH 113"));
+        TreeItem MATH125Item = new TreeItem("MATh 125");
+        MATH125Item.getChildren().add(new TreeItem("MATH 105"));
+        MATH125Item.getChildren().add(new TreeItem("MATH 113"));
         rootItem.getChildren().add(MATH125Item);
 
         TreeItem MATH203Item = new TreeItem("MATH 203");
-        MATH203Item.getChildren().add(new TreeItem("(MATH 113 and MATH 114) or MATH 116)"));
+        MATH203Item.getChildren().add(new TreeItem("MATH 105"));
+        MATH203Item.getChildren().add(new TreeItem("MATH 113"));
         rootItem.getChildren().add(MATH203Item);
 
         TreeItem MATH213Item = new TreeItem("MATH 213");
-        MATH213Item.getChildren().add(new TreeItem("(MATH 113 and MATH 114) or MATH 116)"));
+        MATH213Item.getChildren().add(new TreeItem("MATH 105"));
+        MATH213Item.getChildren().add(new TreeItem("MATH 113"));
         rootItem.getChildren().add(MATH213Item);
 
+        TreeItem MATH446Item = new TreeItem("MATH 446");
+        MATH446Item.getChildren().add(new TreeItem("MATH 113 AND MATH 114"));
+        MATH446Item.getChildren().add(new TreeItem("OR MATH 116"));
+        MATH446Item.getChildren().add(new TreeItem("MATH 203"));
+        MATH446Item.getChildren().add(new TreeItem("CS 112"));
+        rootItem.getChildren().add(MATH446Item);
 
         TreeItem STAT344Item = new TreeItem("STAT 344");
-        STAT344Item.getChildren().add(new TreeItem("(MATH 113 and MATH 114) or MATH 116)"));
+        STAT344Item.getChildren().add(new TreeItem("MATH 113 AND MATH 114"));
+        STAT344Item.getChildren().add(new TreeItem("OR MATH 116"));
         rootItem.getChildren().add(STAT344Item);
+
 
         TreeView treeView = new TreeView();
         treeView.setRoot(rootItem);
         VBox treeVbox = new VBox(treeView);
+        treeVbox.setPadding(new Insets(20, 5, 10, 5));
 
-        root.setTop(treeVbox);
+        root.setLeft(treeVbox);
         BorderPane.setMargin(treeVbox, new Insets(10, 10, 10, 10));
-        
-      
-        HBox infoStuff = new HBox();
-        root.setBottom(infoStuff);
-        
-     infoStuff.getChildren().addAll(logoButton);
-      logo.setOnAction(e -> {
-      selected.clear();
-      canTake.clear();
-       primaryStage.close();
-    primaryStage.setScene(scene1);
-    primaryStage.show();
-       
-       });
 
-    //////////////////////////////////////////
-    GridPane gridpane = new GridPane();
-    gridpane.setPadding(new Insets(5));
-    gridpane.setHgap(10);
-    gridpane.setVgap(10);
-    ColumnConstraints column1 = new ColumnConstraints(150, 150,
-        Double.MAX_VALUE);
-    ColumnConstraints column2 = new ColumnConstraints(50);
-    ColumnConstraints column3 = new ColumnConstraints(150, 150,
-        Double.MAX_VALUE);
-    column1.setHgrow(Priority.ALWAYS);
-    column3.setHgrow(Priority.ALWAYS);
-    gridpane.getColumnConstraints().addAll(column1, column2, column3);
 
-    Label candidatesLbl = new Label("Candidates");
-    GridPane.setHalignment(candidatesLbl, HPos.CENTER);
-    gridpane.add(candidatesLbl, 0, 0);
 
-    Label selectedLbl = new Label("selected");
-    gridpane.add(selectedLbl, 2, 0);
-    GridPane.setHalignment(selectedLbl, HPos.CENTER);
+        //////////////////////////////////////////
+        GridPane gridpane = new GridPane();
+        gridpane.setPadding(new Insets(5));
+        gridpane.setHgap(10);
+        gridpane.setVgap(10);
+        ColumnConstraints column1 = new ColumnConstraints(150, 150,
+                Double.MAX_VALUE);
+        ColumnConstraints column2 = new ColumnConstraints(50);
+        ColumnConstraints column3 = new ColumnConstraints(150, 150,
+                Double.MAX_VALUE);
+        column1.setHgrow(Priority.ALWAYS);
+        column3.setHgrow(Priority.ALWAYS);
+        gridpane.getColumnConstraints().addAll(column1, column2, column3);
 
-    // Course List
-    final ObservableList<String> candidates = FXCollections
-        .observableArrayList(
-         "COMM 100",
-         "CS 101",
-         "CS 105",
-         "CS 110",
-         "CS 112",
-         "CS 211",
-         "CS 222",
-         "CS 306",
-         "CS 310",
-         "CS 321",
-         "CS 330",
-         "CS 367",
-         "CS 471",
-         "CS 483",
-         "ECE 445",
-         "ENGHH 302",
-         "HNRS 110",
-         "HNRS 122",
-         "HNRS 130",
-         "HNRS 131",
-          "HNRS 230",
-         "HNRS 240",
-         "MATH 104",
-         "MATH 105",
-         "MATH 108",
-         "MATH 113",
-         "MATH 114",
-         "MATH 116",
-         "MATH 123",
-         "MATH 124",
-         "MATH 125",
-         "MATH 203",
-         "MATH 213",
-         "STAT 344");
-    final ListView<String> candidatesListView = new ListView<>(candidates);
-    gridpane.add(candidatesListView, 0, 1);
+        Label courseList = new Label("Course List");
+        GridPane.setHalignment(courseList, HPos.CENTER);
+        gridpane.add(courseList, 0, 0);
+
+        Label selectedLbl = new Label("selected");
+        gridpane.add(selectedLbl, 2, 0);
+        GridPane.setHalignment(selectedLbl, HPos.CENTER);
+
+        // Course List
+        final ObservableList<String> classList = FXCollections
+                .observableArrayList(
+                        "COMM 100",
+                        "CS 101",
+                        "CS 105",
+                        "CS 110",
+                        "CS 112",
+                        "CS 211",
+                        "CS 222",
+                        "CS 306",
+                        "CS 310",
+                        "CS 321",
+                        "CS 330",
+                        "CS 367",
+                        "CS 471",
+                        "CS 483",
+                        "ECE 445",
+                        "ENGHH 302",
+                        "HNRS 110",
+                        "HNRS 122",
+                        "HNRS 130",
+                        "HNRS 131",
+                        "HNRS 230",
+                        "HNRS 240",
+                        "MATH 104",
+                        "MATH 105",
+                        "MATH 108",
+                        "MATH 113",
+                        "MATH 114",
+                        "MATH 116",
+                        "MATH 123",
+                        "MATH 124",
+                        "MATH 125",
+                        "MATH 203",
+                        "MATH 213",
+                        "STAT 344");
+        final ListView<String> courseListView = new ListView<>(classList);
+        gridpane.add(courseListView, 0, 1);
+
+
 
         final ListView<String> heroListView = new ListView<>(selected);
-    gridpane.add(heroListView, 2, 1);
+        gridpane.add(heroListView, 2, 1);
 
-    Button sendRightButton = new Button(" > ");
-    sendRightButton.setOnAction((ActionEvent event) -> {
-     String potential = candidatesListView.getSelectionModel()
-          .getSelectedItem();
-      if (potential != null) {
-        candidatesListView.getSelectionModel().clearSelection();
-        candidates.remove(potential);
-        selected.add(potential);
-        }
-    });
+        Button sendRightButton = new Button(" > ");
+        sendRightButton.setOnAction((ActionEvent event) -> {
+            String potential = courseListView.getSelectionModel()
+                    .getSelectedItem();
+            if (potential != null) {
+               courseListView.getSelectionModel().clearSelection();
+                classList.remove(potential);
+                selected.add(potential);
+            }
+        });
 
-    Button sendLeftButton = new Button(" < ");
-    sendLeftButton.setOnAction((ActionEvent event) -> {
-      String s = heroListView.getSelectionModel().getSelectedItem();
-      if (s != null) {
-        heroListView.getSelectionModel().clearSelection();
-        selected.remove(s);
-        candidates.add(s);
+        Button sendLeftButton = new Button(" < ");
+        sendLeftButton.setOnAction((ActionEvent event) -> {
+            String s = heroListView.getSelectionModel().getSelectedItem();
+            if (s != null) {
+                heroListView.getSelectionModel().clearSelection();
+                selected.remove(s);
+                classList.add(s);
 
-      }
-    });
-    VBox vbox = new VBox(10);
-    vbox.getChildren().addAll(sendRightButton, sendLeftButton);
+            }
+        });
+        VBox vbox = new VBox(10);
+        vbox.getChildren().addAll(sendRightButton, sendLeftButton);
 
 
 
-    gridpane.add(vbox, 1, 1);
-    root.setCenter(gridpane);
+        gridpane.add(vbox, 1, 1);
+        root.setCenter(gridpane);
 
-    GridPane.setVgrow(root, Priority.ALWAYS);
+        GridPane.setVgrow(root, Priority.ALWAYS);
 
-    Button submit = new Button("add");
-     submit.setStyle("-fx-text-fill: #0000ff; -fx-font-size: 0.8em; ");
-     submit.setWrapText(true);
-    vbox.getChildren().add(submit);
+        Button submit = new Button("check");
+        submit.setStyle("-fx-text-fill: #0000ff; -fx-font-size: 0.8em; ");
+        submit.setWrapText(true);
+        vbox.getChildren().add(submit);
 
-    Button cont1 = new Button("->");
-    cont1.setStyle("-fx-text-fill: #0000ff; -fx-font-size: 0.6em; ");
-     cont1.setWrapText(true);
+        Button cont1 = new Button("->");
+        cont1.setStyle("-fx-text-fill: #0000ff; -fx-font-size: 0.6em; ");
+        cont1.setWrapText(true);
 
 
         cont1.setVisible(false);
-    vbox.getChildren().add(cont1);
+        vbox.getChildren().add(cont1);
 
-    submit.setOnAction(e ->
-    {
-    hasTaken.clear();
-    canTake.clear();
-    System.out.println(selected);
-    //delete below after fixing if-else statements
-    Collections.sort(one);
-    Collections.sort(two);
-    Collections.sort(three);
-    Collections.sort(four);
-    Collections.sort(five);
+        submit.setOnAction(e ->
+        {
+            hasTaken.clear();
+            System.out.println(selected);
+            //delete below after fixing if-else statements
 
-    Collections.sort(selected);
 
-      //cs 110
-      if(selected.contains("CS 110")){
-         String [] cs110PR = {"none"};
-         hasTaken.addCourse(new Course ("CS 110", 3, cs110PR));}
-      //cs 112
-      if(selected.contains("CS 112")){
-         String [] cs112PR = {"MATH 113"};
-         hasTaken.addCourse(new Course("CS 112", 4, cs112PR));}
-      //cs 211
-      if(selected.contains("CS 211")){      
-         String [] cs211PR = {"CS 112", "MATH 113"};
-         hasTaken.addCourse(new Course("CS 211", 3, cs211PR));}     
-      //cs 262
-      if(selected.contains("CS 262")){
-         String [] cs262PR = {"CS 110", "CS 112", "CS 211", "MATH 113"};
-         hasTaken.addCourse(new Course("CS 262", 3, cs262PR));}             
-      //cs 306
-      if(selected.contains("CS 306")){
-         String [] cs306PR = {"CS 110"};
-         hasTaken.addCourse(new Course("CS 306", 3, cs306PR));}
-      //cs 310
-      if(selected.contains("CS 310")){
-         String [] cs310PR = {"CS 112", "CS 211", "MATH 113"};
-         hasTaken.addCourse(new Course("CS 310", 3, cs310PR));}   
-      //cs 321
-      if(selected.contains("CS 321")){
-         String [] cs321PR = {"CS 112", "CS 211", "CS 310", "MATH 113"};
-         hasTaken.addCourse(new Course ("CS 321", 3, cs321PR));}
-      //cs 330 
-      if(selected.contains("CS 330")){
-         String [] cs330PR = {"CS 112","CS 211", "MATH 113", "MATH 125"};
-         hasTaken.addCourse(new Course("CS 330", 3, cs330PR));}
-      //cs 367
-      if(selected.contains("CS 367")){
-         String [] cs367PR = {"CS 110", "CS 112", "CS 211","CS 262", "MATH 125"};
-         hasTaken.addCourse(new Course("CS 367", 4, cs367PR));}  
-      //cs 471
-      if(selected.contains("CS 471")){
-         String [] cs471PR = {"CS 110", "CS 112", "CS 211", "CS 262", "CS 310", "CS 367", "MATH 113"};
-         hasTaken.addCourse(new Course("CS 471", 3, cs471PR));}
-      //cs 483
-      if(selected.contains("CS 483")){
-         String [] cs483PR = {"CS 112", "CS 211", "CS 310", "CS 330", "MATH 113", "MATH 125"};
-         hasTaken.addCourse(new Course("CS 483", 3, cs483PR));}
-      //math 113
-      if(selected.contains("MATH 113")){
-         String [] math113PR = {"none"};
-         hasTaken.addCourse(new Course ("MATH 113", 4, math113PR));}
-      //math 114
-      if(selected.contains("MATH 114")){
-         String [] math114PR = {"MATH 113"};
-         hasTaken.addCourse(new Course ("MATH 114", 4, math114PR));}
-      //math 125
-      if(selected.contains("MATH 125")){
-         String [] math125PR = {"MATH 113"};
-         hasTaken.addCourse(new Course ("MATH 125", 3, math125PR));}
-      //math 203
-      if(selected.contains("MATH 203")){
-         String [] math203PR = {"MATH 113", "MATH 114"};
-         hasTaken.addCourse(new Course ("MATH 203", 3, math203PR));}
-      //math 213
-      if(selected.contains("MATH 213")){
-         String [] math213PR = {"MATH 113", "MATH 114"};
-         hasTaken.addCourse(new Course ("MATH 213", 3, math213PR));}
-      //stat 344
-      if(selected.contains("STAT 344")){
-         String [] stat344PR = {"MATH 113", "MATH 114"};
-         hasTaken.addCourse(new Course ("STAT 344", 3, stat344PR));}
+            Collections.sort(selected);
 
-      if(validateClasses()){
-      
-      if(isValidInput && hasTaken.size() > 0)
-         cont1.setVisible(true);
-           
-      //cs 110
-      if(!hasTaken.contains("CS 110"))
-         canTake.add("CS 110");
-      //cs 112
-      if((hasTaken.contains("MATH 104") || hasTaken.contains("MATH 105") || hasTaken.contains("MATH 113")) && !hasTaken.contains("CS 112"))
-         canTake.add("CS 112");
-      //cs 211
-      if(hasTaken.contains("CS 112") && !hasTaken.contains("CS 211"))
-         canTake.add("CS 211");
-      //cs 262
-      if( (hasTaken.contains("CS 101") || hasTaken.contains("CS 110")) && (hasTaken.contains("CS 211") || hasTaken.contains("CS 222")) && !hasTaken.contains("CS 262"))
-         canTake.add("CS 262");     
-      //cs 306
-      if( (hasTaken.contains("COMM 100") && hasTaken.contains("ENGH 302")) 
-      || (hasTaken.contains("HNRS 110") && (hasTaken.contains("HNRS 122") 
-      || hasTaken.contains("HNRS 130") || hasTaken.contains("HNRS 131")
-      || hasTaken.contains("HNRS 230") || hasTaken.contains("HNRS 240"))) 
-      && (hasTaken.contains("CS 105") || hasTaken.contains("CS 110")) 
-      && hasTaken.contains("CS 306") )
-         canTake.add("CS 306");
-      //cs 310
-      if( hasTaken.contains("CS 211") && hasTaken.contains("MATH 113") && !hasTaken.contains("CS 310"))
-         canTake.add("CS 310"); 
-      //cs 321
-      if( hasTaken.contains("CS 310") && (hasTaken.contains("ENGH 302") 
-      || (hasTaken.contains("HNRS 110") && (hasTaken.contains("HNRS 122") 
-      || hasTaken.contains("HNRS 130") || hasTaken.contains("HNRS 131")
-      || hasTaken.contains("HNRS 240"))))
-      && !hasTaken.contains("CS 321") )
-         canTake.add("CS 321");
-      //cs 330 
-      if(hasTaken.contains("CS 211") && hasTaken.contains("MATH 125") && !hasTaken.contains("CS 330") )
-         canTake.add("CS 330");
-      //cs 367
-      if( (hasTaken.contains("CS 222") || hasTaken.contains("CS 262")) && hasTaken.contains("MATH 125") && hasTaken.contains("CS 110")
-      && !hasTaken.contains("CS 367"))
-         canTake.add("CS 367");
-      //cs 471
-      if(hasTaken.contains("CS 310") && (hasTaken.contains("CS 367") || hasTaken.contains("ECE 445"))
-      && !(hasTaken.contains("CS 471")))
-         canTake.add("CS 471");
-      //cs 483
-      if( hasTaken.contains("CS 310") && hasTaken.contains("CS 330") && hasTaken.contains("MATH 125") 
-      && !hasTaken.contains("CS 483"))
-         canTake.add("CS 483");
-      //math 113
-      if( (hasTaken.contains("MATH 104") || hasTaken.contains("MATH 105"))
-      && !hasTaken.contains("MATH 113"))
-         canTake.add("MATH 113");
-      //math 114
-      if( (hasTaken.contains("MATH 104") && hasTaken.contains("MATH 105")) || hasTaken.contains("MATH 113")
-      && !hasTaken.contains("MATH 114"))
-         canTake.add("MATH 114");
-      //math 125
-      if( (hasTaken.contains("MATH 105") || hasTaken.contains("MATH 108") || hasTaken.contains("MATH 113"))
-      && !hasTaken.contains("MATH 125"))
-         canTake.add("MATH 125");
-      //math 203
-      if( (hasTaken.contains("MATH 114") || hasTaken.contains("MATH 116"))
-      && !hasTaken.contains("MATH 203"))
-         canTake.add("MATH 203");
-      //math 213
-      if( (hasTaken.contains("MATH 114") || hasTaken.contains("MATH 116"))
-      && !hasTaken.contains("MATH 213"))
-         canTake.add("MATH 213");
-      //stat 344
-      if( (hasTaken.contains("MATH 114") || hasTaken.contains("MATH 116"))
-      && !hasTaken.contains("STAT 344"))
-         canTake.add("STAT 344");
- 
-      }        
-         
-    System.out.println(canTake);
-         });
+            //cs 110
+            if(selected.contains("CS 110")){
+                String [] cs110PR = {"none"};
+                hasTaken.addCourse(new Course ("CS 110", 3, cs110PR));}
+            //cs 112
+            if(selected.contains("CS 112")){
+                String [] cs112PR = {"MATH 113"};
+                hasTaken.addCourse(new Course("CS 112", 4, cs112PR));}
+            //cs 211
+            if(selected.contains("CS 211")){
+                String [] cs211PR = {"CS 112", "MATH 113"};
+                hasTaken.addCourse(new Course("CS 211", 3, cs211PR));}
+            //cs 262
+            if(selected.contains("CS 262")){
+                String [] cs262PR = {"CS 110", "CS 112", "CS 211", "MATH 113"};
+                hasTaken.addCourse(new Course("CS 262", 3, cs262PR));}
+            //cs 306
+            if(selected.contains("CS 306")){
+                String [] cs306PR = {"CS 110"};
+                hasTaken.addCourse(new Course("CS 306", 3, cs306PR));}
+            //cs 310
+            if(selected.contains("CS 310")){
+                String [] cs310PR = {"CS 112", "CS 211", "MATH 113"};
+                hasTaken.addCourse(new Course("CS 310", 3, cs310PR));}
+            //cs 321
+            if(selected.contains("CS 321")){
+                String [] cs321PR = {"CS 112", "CS 211", "CS 310", "MATH 113"};
+                hasTaken.addCourse(new Course ("CS 321", 3, cs321PR));}
+            //cs 330
+            if(selected.contains("CS 330")){
+                String [] cs330PR = {"CS 112","CS 211", "MATH 113", "MATH 125"};
+                hasTaken.addCourse(new Course("CS 330", 3, cs330PR));}
+            //cs 367
+            if(selected.contains("CS 367")){
+                String [] cs367PR = {"CS 110", "CS 112", "CS 211","CS 262", "MATH 125"};
+                hasTaken.addCourse(new Course("CS 367", 4, cs367PR));}
+            //cs 471
+            if(selected.contains("CS 471")){
+                String [] cs471PR = {"CS 110", "CS 112", "CS 211", "CS 262", "CS 310", "CS 367", "MATH 113"};
+                hasTaken.addCourse(new Course("CS 471", 3, cs471PR));}
+            //cs 483
+            if(selected.contains("CS 483")){
+                String [] cs483PR = {"CS 112", "CS 211", "CS 310", "CS 330", "MATH 113", "MATH 125"};
+                hasTaken.addCourse(new Course("CS 483", 3, cs483PR));}
+            //math 113
+            if(selected.contains("MATH 113")){
+                String [] math113PR = {"none"};
+                hasTaken.addCourse(new Course ("MATH 113", 4, math113PR));}
+            //math 114
+            if(selected.contains("MATH 114")){
+                String [] math114PR = {"MATH 113"};
+                hasTaken.addCourse(new Course ("MATH 114", 4, math114PR));}
+            //math 125
+            if(selected.contains("MATH 125")){
+                String [] math125PR = {"MATH 113"};
+                hasTaken.addCourse(new Course ("MATH 125", 3, math125PR));}
+            //math 203
+            if(selected.contains("MATH 203")){
+                String [] math203PR = {"MATH 113", "MATH 114"};
+                hasTaken.addCourse(new Course ("MATH 203", 3, math203PR));}
+            //math 213
+            if(selected.contains("MATH 213")){
+                String [] math213PR = {"MATH 113", "MATH 114"};
+                hasTaken.addCourse(new Course ("MATH 213", 3, math213PR));}
+            //stat 344
+            if(selected.contains("STAT 344")){
+                String [] stat344PR = {"MATH 113", "MATH 114"};
+                hasTaken.addCourse(new Course ("STAT 344", 3, stat344PR));}
 
-    cont1.setOnAction(e ->
-        primaryStage.setScene(scene3));
+            if(validateClasses()){
+
+                if(isValidInput && hasTaken.size() > 0)
+                    cont1.setVisible(true);
+
+                //cs 110
+                if(!hasTaken.contains("CS 110"))
+                    canTake.add("CS 110");
+                //cs 112
+                if((hasTaken.contains("MATH 104") || hasTaken.contains("MATH 105") || hasTaken.contains("MATH 113")) && !hasTaken.contains("CS 112"))
+                    canTake.add("CS 112");
+                //cs 211
+                if(hasTaken.contains("CS 112") && !hasTaken.contains("CS 211"))
+                    canTake.add("CS 211");
+                //cs 262
+                if( (hasTaken.contains("CS 101") || hasTaken.contains("CS 110")) && (hasTaken.contains("CS 211") || hasTaken.contains("CS 222")) && !hasTaken.contains("CS 262"))
+                    canTake.add("CS 262");
+                //cs 306
+                if( (hasTaken.contains("COMM 100") && hasTaken.contains("ENGH 302"))
+                        || (hasTaken.contains("HNRS 110") && (hasTaken.contains("HNRS 122")
+                        || hasTaken.contains("HNRS 130") || hasTaken.contains("HNRS 131")
+                        || hasTaken.contains("HNRS 230") || hasTaken.contains("HNRS 240")))
+                        && (hasTaken.contains("CS 105") || hasTaken.contains("CS 110"))
+                        && hasTaken.contains("CS 306") )
+                    canTake.add("CS 306");
+                //cs 310
+                if( hasTaken.contains("CS 211") && hasTaken.contains("MATH 113") && !hasTaken.contains("CS 310"))
+                    canTake.add("CS 310");
+                //cs 321
+                if( hasTaken.contains("CS 310") && (hasTaken.contains("ENGH 302")
+                        || (hasTaken.contains("HNRS 110") && (hasTaken.contains("HNRS 122")
+                        || hasTaken.contains("HNRS 130") || hasTaken.contains("HNRS 131")
+                        || hasTaken.contains("HNRS 240"))))
+                        && !hasTaken.contains("CS 321") )
+                    canTake.add("CS 321");
+                //cs 330
+                if(hasTaken.contains("CS 211") && hasTaken.contains("MATH 125") && !hasTaken.contains("CS 330") )
+                    canTake.add("CS 330");
+                //cs 367
+                if( (hasTaken.contains("CS 222") || hasTaken.contains("CS 262")) && hasTaken.contains("MATH 125") && hasTaken.contains("CS 110")
+                        && !hasTaken.contains("CS 367"))
+                    canTake.add("CS 367");
+                //cs 471
+                if(hasTaken.contains("CS 310") && (hasTaken.contains("CS 367") || hasTaken.contains("ECE 445"))
+                        && !(hasTaken.contains("CS 471")))
+                    canTake.add("CS 471");
+                //cs 483
+                if( hasTaken.contains("CS 310") && hasTaken.contains("CS 330") && hasTaken.contains("MATH 125")
+                        && !hasTaken.contains("CS 483"))
+                    canTake.add("CS 483");
+                //math 113
+                if( (hasTaken.contains("MATH 104") || hasTaken.contains("MATH 105"))
+                        && !hasTaken.contains("MATH 113"))
+                    canTake.add("MATH 113");
+                //math 114
+                if( (hasTaken.contains("MATH 104") && hasTaken.contains("MATH 105")) || hasTaken.contains("MATH 113")
+                        && !hasTaken.contains("MATH 114"))
+                    canTake.add("MATH 114");
+                //math 125
+                if( (hasTaken.contains("MATH 105") || hasTaken.contains("MATH 108") || hasTaken.contains("MATH 113"))
+                        && !hasTaken.contains("MATH 125"))
+                    canTake.add("MATH 125");
+                //math 203
+                if( (hasTaken.contains("MATH 114") || hasTaken.contains("MATH 116"))
+                        && !hasTaken.contains("MATH 203"))
+                    canTake.add("MATH 203");
+                //math 213
+                if( (hasTaken.contains("MATH 114") || hasTaken.contains("MATH 116"))
+                        && !hasTaken.contains("MATH 213"))
+                    canTake.add("MATH 213");
+                //stat 344
+                if( (hasTaken.contains("MATH 114") || hasTaken.contains("MATH 116"))
+                        && !hasTaken.contains("STAT 344"))
+                    canTake.add("STAT 344");
+
+            }
+
+            System.out.println(canTake);
+        });
+
+        cont1.setOnAction(e ->
+                primaryStage.setScene(scene3));
 
         logo.setOnAction(e -> {
-      selected.clear();
-      canTake.clear();
-      Collections.sort(candidates);
-       primaryStage.close();
-    primaryStage.setScene(scene1);
-    primaryStage.show();
+            selected.clear();
+            canTake.clear();
+            Collections.sort(classList);
+            primaryStage.close();
+            primaryStage.setScene(scene1);
+            primaryStage.show();
 
-       });
+        });
 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //Scene 3: Questions
+        //Scene 3: Questions
         Label label3 = new Label("Answer a few questions to find out what computer science classes you are most interested in:");
         Separator separator = new Separator(Orientation.HORIZONTAL);
-         Separator separator1 = new Separator(Orientation.HORIZONTAL);
+        Separator separator1 = new Separator(Orientation.HORIZONTAL);
 
 
-          Alert alert = new Alert(AlertType.INFORMATION);
+        Alert alert = new Alert(AlertType.INFORMATION);
 
 
         VBox layout3= new VBox(25);
@@ -661,37 +698,36 @@ Button logo = new Button();
 
 
 
-        Button button3 = new Button("Go to Scence 4");
+        Button button3 = new Button("Submit");
         Button cont = new Button("Continue");
 
         cont.setVisible(false);
 
         button3.setOnAction(e ->
-        { 
-        wantToTake.clear();
-        
-        ToggleButton selectedToggleButton =
-        (ToggleButton) group.getSelectedToggle();
-        System.out.println(selectedToggleButton);
-        if (selectedToggleButton == null){
+        {
 
-              alert.setTitle("Information Dialog");
-              alert.setHeaderText("Look, an Information Dialog");
-              alert.setContentText("I have a great message for you!");
+            ToggleButton selectedToggleButton =
+                    (ToggleButton) group.getSelectedToggle();
+            System.out.println(selectedToggleButton);
+            if (selectedToggleButton == null){
 
-              alert.showAndWait();}
-        else{
-            boolean isSelectedTcp = CSTcp.isSelected();
-            if (CSTcp.isSelected() == true){
-               wantToTake.add("CS 455");
-               }
-            else if (CSCryp.isSelected() == true){
-               wantToTake.add("CS 468");}
+                alert.setTitle("Error");
+                alert.setHeaderText("Selection Error");
+                alert.setContentText("Question was not answered. Please make sure to pick of one the classes before clicking submit.");
+
+                alert.showAndWait();}
             else{
-               wantToTake.add("CS 475");}
+                boolean isSelectedTcp = CSTcp.isSelected();
+                if (CSTcp.isSelected() == true){
+                    wantToTake.add("CS 455");
+                }
+                else if (CSCryp.isSelected() == true){
+                    wantToTake.add("CS 468");}
+                else{
+                    wantToTake.add("CS 475");}
 
-            cont.setVisible(true);
-            System.out.println(selected);}
+                cont.setVisible(true);
+                System.out.println(selected);}
         });
 
 
@@ -701,8 +737,7 @@ Button logo = new Button();
 
         layout3.getChildren().add(cont);
 
-        cont.setOnAction(e ->
-        primaryStage.setScene(scene4));
+        cont.setOnAction(e -> primaryStage.setScene(scene4));
 
 
         HBox logoButton3 = new HBox();
@@ -717,52 +752,52 @@ Button logo = new Button();
 
 
         layout3.getChildren().addAll(logoButton3);
-      logo3.setOnAction(e -> {
-      selected.clear();
-      canTake.clear();
-       primaryStage.close();
-    primaryStage.setScene(scene1);
-    primaryStage.show();
+        logo3.setOnAction(e -> {
+            selected.clear();
+            canTake.clear();
+            primaryStage.close();
+            primaryStage.setScene(scene1);
+            primaryStage.show();
 
-       });
+        });
 
 
 
-        scene3 = new Scene(layout3, 800, 750);
+        scene3 = new Scene(layout3, 1000, 650);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Scene 4: Question Part2
         Label label4 = new Label("Check all the classes you most are interested in taking:");
         Separator separator2 = new Separator(Orientation.HORIZONTAL);
-         Separator separator3 = new Separator(Orientation.HORIZONTAL);
+        Separator separator3 = new Separator(Orientation.HORIZONTAL);
 
 
-          Alert alert4 = new Alert(AlertType.INFORMATION);
+        Alert alert4 = new Alert(AlertType.INFORMATION);
 
-          VBox layout4= new VBox(1);
-          Text q1 = new Text("Which of the following are you interested in:");
-          q1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+        VBox layout4= new VBox(1);
+        Text q1 = new Text("Which of the following are you interested in:");
+        q1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 
-          layout4.getChildren().add(q1);
+        layout4.getChildren().add(q1);
 
-          CheckBox box1 = new CheckBox("CS 425: Game Programming I. Introduction to technologies and techniques used in modern computer games.");
-          CheckBox box2 = new CheckBox("CS 451 Computer Graphics. Basic graphics principles and programming");
-          CheckBox box3 = new CheckBox("CCS 440: Language processors and Programming Environments. Topics include design and construction of language processors, formal syntactic definition methods, parsing techniques, and code-generation techniques.");
-          CheckBox box4 = new CheckBox("CS 450: Database Concepts(entity-relationship, entity-enhanced relationship, relational algebra, SQL, oracle database)");
-          CheckBox box5 = new CheckBox("CS 455 Computer Communications and Networking. Internet protocol suite. Network performance");
-          CheckBox box6 = new CheckBox("CS 463: comparative programming Languages. Programming mechanisms");
-          CheckBox box7 = new CheckBox("CS 465: Computer Systems Architecture Memory hierarchy, cache, and virtual memory input-output processing");
-          CheckBox box8 = new CheckBox("CS 468: Secure Programming and Systems. Topics include security and cryptography basics, vulnerability analysis, secure software development, and distributed system security");
-          CheckBox box9 = new CheckBox("CS 469: Security Engineering. Covers the software subsystems that are involved in defending computer systems");
-          CheckBox box10 = new CheckBox("CS 475: Concurrent and Distributed Systems. Concurrent programming, synchronization, multithreading, local and wide-area network protocols");
-          CheckBox box11 = new CheckBox("CS 477: Mobile Application Development. Teach principles of software development for the mobile device environment");
-          CheckBox box12 = new CheckBox("CS 480: Introduction to Artificial Intelligence. Principles and methods for knowledge representation");
-          CheckBox box13 = new CheckBox("CS 482: Computer Vision. Basic principles of visual perception and their implementation on computer systems");
-          CheckBox box14 = new CheckBox("CS 484: Data Mining. Principles and methods for data analysis and knowledge discovery");
-          CheckBox box15 = new CheckBox("CS 485: Autonomous Robotics. Covers topics in autonomous robotic");
-          CheckBox box16 = new CheckBox("CS 490: Design Exhibition. Capstone course, focuses on design and implementation of software");
-          CheckBox box17 = new CheckBox("CS 491: Industry-sponsored senior design project. Focus on design and succesful implementation of software project");
-          CheckBox box18 = new CheckBox("CS 499: Special Topics in Computer Science. Free course where undergrads can pick a topic of interest");
+        CheckBox box1 = new CheckBox("CS 425: Game Programming I. Introduction to technologies and techniques used in modern computer games.");
+        CheckBox box2 = new CheckBox("CS 451 Computer Graphics. Basic graphics principles and programming");
+        CheckBox box3 = new CheckBox("CCS 440: Language processors and Programming Environments. Topics include design and construction of language processors, formal syntactic definition methods, parsing techniques, and code-generation techniques.");
+        CheckBox box4 = new CheckBox("CS 450: Database Concepts(entity-relationship, entity-enhanced relationship, relational algebra, SQL, oracle database)");
+        CheckBox box5 = new CheckBox("CS 455 Computer Communications and Networking. Internet protocol suite. Network performance");
+        CheckBox box6 = new CheckBox("CS 463: comparative programming Languages. Programming mechanisms");
+        CheckBox box7 = new CheckBox("CS 465: Computer Systems Architecture Memory hierarchy, cache, and virtual memory input-output processing");
+        CheckBox box8 = new CheckBox("CS 468: Secure Programming and Systems. Topics include security and cryptography basics, vulnerability analysis, secure software development, and distributed system security");
+        CheckBox box9 = new CheckBox("CS 469: Security Engineering. Covers the software subsystems that are involved in defending computer systems");
+        CheckBox box10 = new CheckBox("CS 475: Concurrent and Distributed Systems. Concurrent programming, synchronization, multithreading, local and wide-area network protocols");
+        CheckBox box11 = new CheckBox("CS 477: Mobile Application Development. Teach principles of software development for the mobile device environment");
+        CheckBox box12 = new CheckBox("CS 480: Introduction to Artificial Intelligence. Principles and methods for knowledge representation");
+        CheckBox box13 = new CheckBox("CS 482: Computer Vision. Basic principles of visual perception and their implementation on computer systems");
+        CheckBox box14 = new CheckBox("CS 484: Data Mining. Principles and methods for data analysis and knowledge discovery");
+        CheckBox box15 = new CheckBox("CS 485: Autonomous Robotics. Covers topics in autonomous robotic");
+        CheckBox box16 = new CheckBox("CS 490: Design Exhibition. Capstone course, focuses on design and implementation of software");
+        CheckBox box17 = new CheckBox("CS 491: Industry-sponsored senior design project. Focus on design and succesful implementation of software project");
+        CheckBox box18 = new CheckBox("CS 499: Special Topics in Computer Science. Free course where undergrads can pick a topic of interest");
 
 
         layout4.getChildren().add(label4);
@@ -779,63 +814,63 @@ Button logo = new Button();
 
         button4.setOnAction(e ->
         {
-          if (box1.isSelected()){
-            wantToTake.add("CS 425");
-          }
-          if (box2.isSelected()){
-            wantToTake.add("CS 451");
-          }
-          if (box3.isSelected()){
-            wantToTake.add("CS 440");
-          }
-          if (box4.isSelected()){
-            wantToTake.add("CS 450");
-          }
-          if (box5.isSelected()){
-            wantToTake.add("CS 455");
-          }
-          if (box6.isSelected()){
-            wantToTake.add("CS 463");
-          }
-          if (box7.isSelected()){
-            wantToTake.add("CS 465");
-          }
-          if (box8.isSelected()){
-            wantToTake.add("CS 468");
-          }
-          if (box9.isSelected()){
-            wantToTake.add("CS 469");
-          }
-          if (box10.isSelected()){
-            wantToTake.add("CS 475");
-          }
-          if (box11.isSelected()){
-            wantToTake.add("CS 477");
-          }
-          if (box12.isSelected()){
-            wantToTake.add("CS 480");
-          }
-          if (box13.isSelected()){
-            wantToTake.add("CS 482");
-          }
-          if (box14.isSelected()){
-            wantToTake.add("CS 484");
-          }
-          if (box15.isSelected()){
-            wantToTake.add("CS 485");
-          }
-          if (box16.isSelected()){
-            wantToTake.add("CS 490");
-          }
-          if (box17.isSelected()){
-            wantToTake.add("CS 491");
-          }
-          if (box18.isSelected()){
-            wantToTake.add("CS 499");
-          }
+            if (box1.isSelected()){
+                wantToTake.add("CS 425");
+            }
+            if (box2.isSelected()){
+                wantToTake.add("CS 451");
+            }
+            if (box3.isSelected()){
+                wantToTake.add("CS 440");
+            }
+            if (box4.isSelected()){
+                wantToTake.add("CS 450");
+            }
+            if (box5.isSelected()){
+                wantToTake.add("CS 455");
+            }
+            if (box6.isSelected()){
+                wantToTake.add("CS 463");
+            }
+            if (box7.isSelected()){
+                wantToTake.add("CS 465");
+            }
+            if (box8.isSelected()){
+                wantToTake.add("CS 468");
+            }
+            if (box9.isSelected()){
+                wantToTake.add("CS 469");
+            }
+            if (box10.isSelected()){
+                wantToTake.add("CS 475");
+            }
+            if (box11.isSelected()){
+                wantToTake.add("CS 477");
+            }
+            if (box12.isSelected()){
+                wantToTake.add("CS 480");
+            }
+            if (box13.isSelected()){
+                wantToTake.add("CS 482");
+            }
+            if (box14.isSelected()){
+                wantToTake.add("CS 484");
+            }
+            if (box15.isSelected()){
+                wantToTake.add("CS 485");
+            }
+            if (box16.isSelected()){
+                wantToTake.add("CS 490");
+            }
+            if (box17.isSelected()){
+                wantToTake.add("CS 491");
+            }
+            if (box18.isSelected()){
+                wantToTake.add("CS 499");
+            }
 
-          primaryStage.setScene(scene5);
-          });
+            primaryStage.setScene(scene5);
+        });
 
 
         HBox logoButton4 = new HBox();
@@ -850,18 +885,18 @@ Button logo = new Button();
 
 
         layout4.getChildren().addAll(logoButton4);
-       logo4.setOnAction(e -> {
-       selected.clear();
-       canTake.clear();
-       primaryStage.close();
-      primaryStage.setScene(scene1);
-      primaryStage.show();
+        logo4.setOnAction(e -> {
+            selected.clear();
+            canTake.clear();
+            primaryStage.close();
+            primaryStage.setScene(scene1);
+            primaryStage.show();
 
-       });
+        });
 
 
 
-        scene4 = new Scene(layout4, 800, 750);
+        scene4 = new Scene(layout4, 1000, 650);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -886,22 +921,27 @@ Button logo = new Button();
         layout5.getChildren().add(interestList);
 
 
-         scene5 = new Scene(layout5, 600, 400);
+        scene5 = new Scene(layout5, 600, 400);
 
-    primaryStage.setScene(scene1);
-    primaryStage.show();}
-    
+        primaryStage.setScene(scene1);
+        primaryStage.show();}
+
+
     public boolean validateClasses(){
-         for(Course c : hasTaken.getList())
-         if(!c.hasPreReqs(hasTaken)){
-            AlertBox.display("Error", "You have not selected ALL of the classes you have taken. Please review your input and click submit again.");
-            isValidInput = false;
-            hasTaken.clear();
-            return false;}
-         isValidInput = true;
-         return true;}
+        for(Course c : hasTaken.getList())
+            if(!c.hasPreReqs(hasTaken)){
 
-  public static void main(String[] args) {
-    launch(args);
-  }
+                alertBox.setTitle("Error");
+                alertBox.setHeaderText("Mising Prerequisite Classes");
+                alertBox.setContentText("Check your selection, there are some prerequisite classes not selected. Use the Class List Resource to check all the correct corresponding classes are selected. ");
+                alertBox.showAndWait();
+                isValidInput = false;
+                hasTaken.clear();
+                return false;}
+        isValidInput = true;
+        return true;}
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
