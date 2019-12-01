@@ -962,7 +962,7 @@ Button logo = new Button();
     primaryStage.setScene(scene1);
     primaryStage.show();}
     
-  }
+  
      public boolean validateClasses(){
          for(Course c : hasTaken.getList())
          if(!c.hasPreReqs(hasTaken)){
