@@ -364,12 +364,12 @@ Button logo = new Button();
 
     GridPane.setVgrow(root, Priority.ALWAYS);
 
-    Button submit = new Button("Add");
+    Button submit = new Button("check");
      submit.setStyle("-fx-text-fill: #0000ff; -fx-font-size: 0.8em; ");
      submit.setWrapText(true);
     vbox.getChildren().add(submit);
 
-    Button cont1 = new Button("Continue");
+    Button cont1 = new Button("->");
     cont1.setStyle("-fx-text-fill: #0000ff; -fx-font-size: 0.6em; ");
      cont1.setWrapText(true);
 
@@ -379,6 +379,7 @@ Button logo = new Button();
 
     submit.setOnAction(e ->
     {
+    hasTaken.clear();
     System.out.println(selected);
     //delete below after fixing if-else statements
     Collections.sort(one);
@@ -616,7 +617,7 @@ Button logo = new Button();
 
         button3.setOnAction(e ->
         { 
-
+        
         ToggleButton selectedToggleButton =
         (ToggleButton) group.getSelectedToggle();
         System.out.println(selectedToggleButton);
