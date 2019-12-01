@@ -1,4 +1,4 @@
-iimport javafx.application.Application;
+import javafx.application.Application;
 import javafx.geometry.Orientation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -80,11 +80,13 @@ Scene scene1, scene2, scene3, scene4, scene5;
 final ObservableList<String> selected = FXCollections.observableArrayList();
 final ObservableList<String> canTake = FXCollections.observableArrayList();
 final ObservableList<String> wantToTake = FXCollections.observableArrayList();
-final ArrayList<String> one = new ArrayList<String>( Arrays.asList("CS 110", "CS 112", "MTH 113"));
-final  ArrayList<String> two = new ArrayList<String>( Arrays.asList("CS 211","MTH 114","MTH 125"));
-final ArrayList<String> three = new ArrayList<String>( Arrays.asList("MTH 114","MTH 125","CS 262","CS 306","CS 310", "CS 330","MTH 203"));
-final ArrayList<String> four = new ArrayList<String>( Arrays.asList("MTH 213","MTH 203","STAT 344", "CS 367", "CS 483"));
+final ArrayList<String> one = new ArrayList<String>( Arrays.asList("CS 110", "CS 112", "MATH 113"));
+final ArrayList<String> two = new ArrayList<String>( Arrays.asList("CS 211","MATH 114","MATH 125"));
+final ArrayList<String> three = new ArrayList<String>( Arrays.asList("MATH 114","MATH 125","CS 262","CS 306","CS 310", "CS 330","MATH 203"));
+final ArrayList<String> four = new ArrayList<String>( Arrays.asList("MATH 213","MATH 203","STAT 344", "CS 367", "CS 483"));
 final ArrayList<String> five = new ArrayList<String>( Arrays.asList("CS 471","CS 455","CS 468","CS 475"));
+ListOfCourses hasTaken = new ListOfCourses();
+boolean isValidInput = false;
 
 Button logo = new Button();
 
@@ -221,9 +223,9 @@ Button logo = new Button();
         infoStuff.getChildren().add(courseList);
 
       // a display (as a list of checkboxes) of potential weapons usable by a given opponent.
-        final VBox hasTaken= new VBox(10);
-        hasTaken.getChildren().add(new Label("No Classes"));
-        infoStuff.getChildren().add(hasTaken);
+        final VBox hasTaken1 = new VBox(10);
+        hasTaken1.getChildren().add(new Label("No Classes"));
+        infoStuff.getChildren().add(hasTaken1);
 
         // remembers the checkbox selections for a given selected item choice.
         final Map<Choice, List<CheckBox>> checkbox = new HashMap();
@@ -231,15 +233,15 @@ Button logo = new Button();
         // act on a choice.
         courseList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Choice>() {
           @Override public void changed(ObservableValue<? extends Choice> observableValue, Choice oldChoice, Choice newChoice) {
-            hasTaken.getChildren().clear();
+            hasTaken1.getChildren().clear();
             System.out.println(courseList);
 
             if (newChoice.id == null) {
-              hasTaken.getChildren().add(new Label("No Classes"));
+              hasTaken1.getChildren().add(new Label("No Classes"));
             } else {
               List<CheckBox> rememberedChecks = checkbox.get(newChoice);
               if (rememberedChecks != null) {
-                hasTaken.getChildren().addAll(rememberedChecks);
+                hasTaken1.getChildren().addAll(rememberedChecks);
               } else {
                 // lookup weapons for the animal in the database.
                 Database.DegreeReq course = db.findDegreeReq(newChoice.id);
@@ -251,7 +253,7 @@ Button logo = new Button();
                   final CheckBox hasTakenCheck = new CheckBox(courseList.name);
                   hasTakenCheck.setSelected(true);
                   hasTakenCheck.setUserData(courseList.id);
-                  hasTaken.getChildren().add(hasTakenCheck);
+                  hasTaken1.getChildren().add(hasTakenCheck);
 
                   courseChoices.add(hasTakenCheck);
                 }
@@ -306,7 +308,7 @@ Button logo = new Button();
          "CS 471",
          "CS 483",
          "ECE 445",
-         "ENGH 302",
+         "ENGHH 302",
          "HNRS 110",
          "HNRS 122",
          "HNRS 130",
@@ -362,12 +364,12 @@ Button logo = new Button();
 
     GridPane.setVgrow(root, Priority.ALWAYS);
 
-    Button submit = new Button("Add");
+    Button submit = new Button("check");
      submit.setStyle("-fx-text-fill: #0000ff; -fx-font-size: 0.8em; ");
      submit.setWrapText(true);
     vbox.getChildren().add(submit);
 
-    Button cont1 = new Button("Continue");
+    Button cont1 = new Button("->");
     cont1.setStyle("-fx-text-fill: #0000ff; -fx-font-size: 0.6em; ");
      cont1.setWrapText(true);
 
@@ -377,645 +379,163 @@ Button logo = new Button();
 
     submit.setOnAction(e ->
     {
+    hasTaken.clear();
     System.out.println(selected);
     //delete below after fixing if-else statements
-    cont1.setVisible(true);
     Collections.sort(one);
-Collections.sort(two);
-Collections.sort(three);
-Collections.sort(four);
-Collections.sort(five);
+    Collections.sort(two);
+    Collections.sort(three);
+    Collections.sort(four);
+    Collections.sort(five);
 
     Collections.sort(selected);
-/*
-//create canTake
- if (selected.isEmpty() == true){
-    canTake.addAll(one);
- }
 
- //Alert correct selection
- if (selected.contains("CS 112")){
-   if( selected.contains("MTH 113")){
-     cont1.setVisible(true);}
-    else{
-     candidates.addAll(selected);
-     Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
- }
+      //cs 110
+      if(selected.contains("CS 110")){
+         String [] cs110PR = {"none"};
+         hasTaken.addCourse(new Course ("CS 110", 3, cs110PR));}
+      //cs 112
+      if(selected.contains("CS 112")){
+         String [] cs112PR = {"MATH 113"};
+         hasTaken.addCourse(new Course("CS 112", 4, cs112PR));}
+      //cs 211
+      if(selected.contains("CS 211")){      
+         String [] cs211PR = {"CS 112", "MATH 113"};
+         hasTaken.addCourse(new Course("CS 211", 3, cs211PR));}     
+      //cs 262
+      if(selected.contains("CS 262")){
+         String [] cs262PR = {"CS 110", "CS 112", "CS 211", "MATH 113"};
+         hasTaken.addCourse(new Course("CS 262", 3, cs262PR));}             
+      //cs 306
+      if(selected.contains("CS 306")){
+         String [] cs306PR = {"CS 110"};
+         hasTaken.addCourse(new Course("CS 306", 3, cs306PR));}
+      //cs 310
+      if(selected.contains("CS 310")){
+         String [] cs310PR = {"CS 112", "CS 211", "MATH 113"};
+         hasTaken.addCourse(new Course("CS 310", 3, cs310PR));}   
+      //cs 321
+      if(selected.contains("CS 321")){
+         String [] cs321PR = {"CS 112", "CS 211", "CS 310", "MATH 113"};
+         hasTaken.addCourse(new Course ("CS 321", 3, cs321PR));}
+      //cs 330 
+      if(selected.contains("CS 330")){
+         String [] cs330PR = {"CS 112","CS 211", "MATH 113", "MATH 125"};
+         hasTaken.addCourse(new Course("CS 330", 3, cs330PR));}
+      //cs 367
+      if(selected.contains("CS 367")){
+         String [] cs367PR = {"CS 110", "CS 112", "CS 211","CS 262", "MATH 125"};
+         hasTaken.addCourse(new Course("CS 367", 4, cs367PR));}  
+      //cs 471
+      if(selected.contains("CS 471")){
+         String [] cs471PR = {"CS 110", "CS 112", "CS 211", "CS 262", "CS 310", "CS 367", "MATH 113"};
+         hasTaken.addCourse(new Course("CS 471", 3, cs471PR));}
+      //cs 483
+      if(selected.contains("CS 483")){
+         String [] cs483PR = {"CS 112", "CS 211", "CS 310", "CS 330", "MATH 113", "MATH 125"};
+         hasTaken.addCourse(new Course("CS 483", 3, cs483PR));}
+      //math 113
+      if(selected.contains("MATH 113")){
+         String [] math113PR = {"none"};
+         hasTaken.addCourse(new Course ("MATH 113", 4, math113PR));}
+      //math 114
+      if(selected.contains("MATH 114")){
+         String [] math114PR = {"MATH 113"};
+         hasTaken.addCourse(new Course ("MATH 114", 4, math114PR));}
+      //math 125
+      if(selected.contains("MATH 125")){
+         String [] math125PR = {"MATH 113"};
+         hasTaken.addCourse(new Course ("MATH 125", 3, math125PR));}
+      //math 203
+      if(selected.contains("MATH 203")){
+         String [] math203PR = {"MATH 113", "MATH 114"};
+         hasTaken.addCourse(new Course ("MATH 203", 3, math203PR));}
+      //math 213
+      if(selected.contains("MATH 213")){
+         String [] math213PR = {"MATH 113", "MATH 114"};
+         hasTaken.addCourse(new Course ("MATH 213", 3, math213PR));}
+      //stat 344
+      if(selected.contains("STAT 344")){
+         String [] stat344PR = {"MATH 113", "MATH 114"};
+         hasTaken.addCourse(new Course ("STAT 344", 3, stat344PR));}
 
-
-if (selected.contains("CS 211")){
-   if(!selected.contains("MTH 113") ||
-      !selected.contains("CS 112")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
- }
-
-if (selected.contains("CS 262")){
-   if(!selected.contains("CS 110") ||
-      !selected.contains("CS 211") ||
-      !selected.contains("CS 112")  ||
-      !selected.contains("MTH 113")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
- }
-if (selected.contains("CS 306")){
-   if(!selected.contains("ENG 302") ||
-      !selected.contains("COMM 100")  ||
-      !selected.contains("CS 110")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
-  }
- if (selected.contains("CS 310")){
-   if(!selected.contains("CS 211") ||
-      !selected.contains("MTH 113")||
-      !selected.contains("CS 112")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
-  }
- if (selected.contains("CS 321")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("ENG 302")||
-      !selected.contains("CS 211") ||
-      !selected.contains("MTH 113")||
-      !selected.contains("CS 112")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
- }
-if (selected.contains("CS 330")){
-   if(!selected.contains("CS 211") ||
-      !selected.contains("MTH 125")||
-      !selected.contains("CS 112") ||
-      !selected.contains("MTH 113")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
- }
-if (selected.contains("CS 367")){
-   if(!selected.contains("CS 262") ||
-      !selected.contains("MTH 125")||
-      !selected.contains("CS 110") ||
-      !selected.contains("MTH 113")||
-      !selected.contains("CS 211") ||
-      !selected.contains("CS 112")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
-  }
-if (selected.contains("CS 471")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("CS 367") ||
-      !selected.contains("CS 211") ||
-      !selected.contains("MTH 113")||
-      !selected.contains("CS 112") ||
-      !selected.contains("CS 262") ||
-      !selected.contains("MTH 125")||
-      !selected.contains("CS 110")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
- }
-if (selected.contains("CS 483")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("CS 330") ||
-      !selected.contains("MTH 125") ||
-      !selected.contains("CS 211")||
-      !selected.contains("MTH 113") ||
-      !selected.contains("CS 112")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
- }
-if (selected.contains("CS 455")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("CS 367") ||
-      !selected.contains("STAT 344")||
-      !selected.contains("CS 211") ||
-      !selected.contains("MTH 113")||
-      !selected.contains("CS 112")||
-      !selected.contains("CS 262") ||
-      !selected.contains("MTH 125")||
-      !selected.contains("CS 110") ||
-      !selected.contains("MTH 114")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
- }
-if (selected.contains("CS 468")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("CS 367") ||
-      !selected.contains("CS 211") ||
-      !selected.contains("MTH 113")||
-      !selected.contains("CS 112") ||
-      !selected.contains("CS 262") ||
-      !selected.contains("MTH 125")||
-      !selected.contains("CS 110")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
- }
-if (selected.contains("CS 475")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("CS 367") ||
-      !selected.contains("CS 211") ||
-      !selected.contains("MTH 113")||
-      !selected.contains("CS 112") ||
-      !selected.contains("CS 262") ||
-      !selected.contains("MTH 125")||
-      !selected.contains("CS 110")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
- }
-if (selected.contains("CS 425")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("CS 351") ||
-      !selected.contains("CS 211")||
-      !selected.contains("MTH 113") ||
-      !selected.contains("CS 112")||
-      !selected.contains("CS 262")||
-      !selected.contains("CS 110")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
-  }
-  if (selected.contains("CS 440")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("CS 330") ||
-      !selected.contains("CS 367")||
-      !selected.contains("MTH 125") ||
-      !selected.contains("CS 211")||
-      !selected.contains("MTH 113") ||
-      !selected.contains("CS 112")||
-      !selected.contains("CS 262")||
-      !selected.contains("CS 110")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
- }
-if (selected.contains("CS 450")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("CS 330") ||
-      !selected.contains("CS 211") ||
-      !selected.contains("MTH 113")||
-      !selected.contains("CS 112")||
-      !selected.contains("MTH 125")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
- }
-if (selected.contains("CS 451")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("CS 367") ||
-      !selected.contains("MTH 203")||
-      !selected.contains("CS 211") ||
-      !selected.contains("MTH 113")||
-      !selected.contains("CS 112")||
-      !selected.contains("CS 262") ||
-      !selected.contains("MTH 125")||
-      !selected.contains("CS 110") ||
-      !selected.contains("MTH 114")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
-  }
- if (selected.contains("CS 463")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("CS 330") ||
-      !selected.contains("CS 367")||
-      !selected.contains("MTH 125") ||
-      !selected.contains("CS 211")||
-      !selected.contains("MTH 113") ||
-      !selected.contains("CS 112")||
-      !selected.contains("CS 262")||
-      !selected.contains("CS 110")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
-  }
-if (selected.contains("CS 465")){
-   if(!selected.contains("CS 367") ||
-      !selected.contains("CS 262") ||
-      !selected.contains("MTH 125")||
-      !selected.contains("CS 110") ||
-      !selected.contains("MTH 113")||
-      !selected.contains("CS 211") ||
-      !selected.contains("CS 112")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
-  }
- if (selected.contains("CS 469")){
-   if(!selected.contains("CS 330") ||
-      !selected.contains("CS 367") ||
-      !selected.contains("STAT 344")||
-      !selected.contains("CS 211") ||
-     !selected.contains("MTH 125")||
-     !selected.contains("CS 112") ||
-     !selected.contains("MTH 113")||
-     !selected.contains("CS 262") ||
-     !selected.contains("CS 110") ||
-     !selected.contains("MTH 114")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
- }
-if (selected.contains("CS 477")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("CS 367") ||
-      !selected.contains("CS 211") ||
-      !selected.contains("MTH 113")||
-      !selected.contains("CS 112") ||
-      !selected.contains("CS 262") ||
-      !selected.contains("MTH 125")||
-      !selected.contains("CS 110")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-   }
-   else{
-     cont1.setVisible(true);}
-
-  }
-if (selected.contains("CS 480")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("CS 330") ||
-      !selected.contains("CS 211") ||
-      !selected.contains("MTH 113")||
-      !selected.contains("CS 112")||
-      !selected.contains("MTH 125")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
-  }
-if (selected.contains("CS 482")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("MTH 203") ||
-      !selected.contains("STAT 344") ||
-      !selected.contains("CS 211") ||
-         !selected.contains("MTH 113")||
-         !selected.contains("CS 112")||
-         !selected.contains("MTH 114")){
-           candidates.addAll(selected);
-           Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
- }
-if (selected.contains("CS 484")){
-   if(!selected.contains("CS 310") ||
-      !selected.contains("STAT 344") ||
-      !selected.contains("CS 211") ||
-         !selected.contains("MTH 113")||
-         !selected.contains("CS 112")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
- }
- if (selected.contains("CS 485")){
-   if(!selected.contains("CS 262") ||
-      !selected.contains("CS 310") ||
-      !selected.contains("MTH 203") ||
-      !selected.contains("CS 110") ||
-         !selected.contains("CS 211") ||
-         !selected.contains("CS 112")  ||
-         !selected.contains("MTH 113")||
-         !selected.contains("MTH 114")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
-  }
-if (selected.contains("CS 490")){
-   if(!selected.contains("CS 321") ||
-      !selected.contains("CS 483") ||
-      !selected.contains("CS 310") ||
-         !selected.contains("ENG 302")||
-         !selected.contains("CS 211") ||
-         !selected.contains("MTH 113")||
-         !selected.contains("CS 112")||
-         !selected.contains("CS 330") ||
-         !selected.contains("MTH 125")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
-  }
-if (selected.contains("CS 491")){
-   if(!selected.contains("CS 367") ||
-      !selected.contains("CS 321") ||
-      !selected.contains("CS 483") ||
-      !selected.contains("CS 262") ||
-         !selected.contains("MTH 125")||
-         !selected.contains("CS 110") ||
-         !selected.contains("MTH 113")||
-         !selected.contains("CS 211") ||
-         !selected.contains("ENG 302")||
-         !selected.contains("CS 310") ||
-         !selected.contains("CS 330")||
-         !selected.contains("CS 112")
-      ){
-        candidates.addAll(selected);
-        Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
- }
-if (selected.contains("CS 499")){
-      if(!selected.contains("CS 310") ||
-         !selected.contains("CS 330") ||
-         !selected.contains("CS 211") ||
-         !selected.contains("MTH 113")||
-         !selected.contains("CS 112")||
-         !selected.contains("MTH 125")
-         ){
-           candidates.addAll(selected);
-           Collections.sort(candidates);
-     selected.removeAll();
-     alertSelect.setTitle("Error");
-     alertSelect.setHeaderText("Check your selection.");
-     alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-     alertSelect.showAndWait();
-   }
-   else{
-     cont1.setVisible(true);}
-
-  }
-
-   //if both are found in selection: TRUE
-
-      /*else{
-          for( int k = 0; k <two.size();k++){
-            if(selected.get(i) != two.get(k)){
-               ans = false;
-             }
-            else{
-               ans = true;
-            }
-         }
-         if (ans == false){
-            selected.removeAll();
-            alertSelect.setTitle("You are missing a prerequsite class. ");
-            alertSelect.setHeaderText("Look, an Information Dialog");
-            alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-            alertSelect.showAndWait();
-            break;
-          }
-          else{
-            for( int m = 0; m <two.size();m++){
-              if(selected.get(i) != two.get(m)){
-                 ans = false;
-               }
-              else{
-                 ans = true;
-              }
-           }
-           if (ans == false){
-              selected.removeAll();
-              alertSelect.setTitle("You are missing a prerequsite class. ");
-              alertSelect.setHeaderText("Look, an Information Dialog");
-              alertSelect.setContentText("Please make sure that you select all the correct classes with their corresponding prerequsite classes.");
-              alertSelect.showAndWait();
-              break;
-            }
-
-          }*/
-
-
-
-
-
-
+      if(validateClasses()){
+      
+      if(isValidInput && hasTaken.size() > 0)
+         cont1.setVisible(true);
+           
+      //cs 110
+      if(!hasTaken.contains("CS 110"))
+         canTake.add("CS 110");
+      //cs 112
+      if((hasTaken.contains("MATH 104") || hasTaken.contains("MATH 105") || hasTaken.contains("MATH 113")) && !hasTaken.contains("CS 112"))
+         canTake.add("CS 112");
+      //cs 211
+      if(hasTaken.contains("CS 112") && !hasTaken.contains("CS 211"))
+         canTake.add("CS 211");
+      //cs 262
+      if( (hasTaken.contains("CS 101") || hasTaken.contains("CS 110")) && (hasTaken.contains("CS 211") || hasTaken.contains("CS 222")) && !hasTaken.contains("CS 262"))
+         canTake.add("CS 262");     
+      //cs 306
+      if( (hasTaken.contains("COMM 100") && hasTaken.contains("ENGH 302")) 
+      || (hasTaken.contains("HNRS 110") && (hasTaken.contains("HNRS 122") 
+      || hasTaken.contains("HNRS 130") || hasTaken.contains("HNRS 131")
+      || hasTaken.contains("HNRS 230") || hasTaken.contains("HNRS 240"))) 
+      && (hasTaken.contains("CS 105") || hasTaken.contains("CS 110")) 
+      && hasTaken.contains("CS 306") )
+         canTake.add("CS 306");
+      //cs 310
+      if( hasTaken.contains("CS 211") && hasTaken.contains("MATH 113") && !hasTaken.contains("CS 310"))
+         canTake.add("CS 310"); 
+      //cs 321
+      if( hasTaken.contains("CS 310") && (hasTaken.contains("ENGH 302") 
+      || (hasTaken.contains("HNRS 110") && (hasTaken.contains("HNRS 122") 
+      || hasTaken.contains("HNRS 130") || hasTaken.contains("HNRS 131")
+      || hasTaken.contains("HNRS 240"))))
+      && !hasTaken.contains("CS 321") )
+         canTake.add("CS 321");
+      //cs 330 
+      if(hasTaken.contains("CS 211") && hasTaken.contains("MATH 125") && !hasTaken.contains("CS 330") )
+         canTake.add("CS 330");
+      //cs 367
+      if( (hasTaken.contains("CS 222") || hasTaken.contains("CS 262")) && hasTaken.contains("MATH 125") && hasTaken.contains("CS 110")
+      && !hasTaken.contains("CS 367"))
+         canTake.add("CS 367");
+      //cs 471
+      if(hasTaken.contains("CS 310") && (hasTaken.contains("CS 367") || hasTaken.contains("ECE 445"))
+      && !(hasTaken.contains("CS 471")))
+         canTake.add("CS 471");
+      //cs 483
+      if( hasTaken.contains("CS 310") && hasTaken.contains("CS 330") && hasTaken.contains("MATH 125") 
+      && !hasTaken.contains("CS 483"))
+         canTake.add("CS 483");
+      //math 113
+      if( (hasTaken.contains("MATH 104") || hasTaken.contains("MATH 105"))
+      && !hasTaken.contains("MATH 113"))
+         canTake.add("MATH 113");
+      //math 114
+      if( (hasTaken.contains("MATH 104") && hasTaken.contains("MATH 105")) || hasTaken.contains("MATH 113")
+      && !hasTaken.contains("MATH 114"))
+         canTake.add("MATH 114");
+      //math 125
+      if( (hasTaken.contains("MATH 105") || hasTaken.contains("MATH 108") || hasTaken.contains("MATH 113"))
+      && !hasTaken.contains("MATH 125"))
+         canTake.add("MATH 125");
+      //math 203
+      if( (hasTaken.contains("MATH 114") || hasTaken.contains("MATH 116"))
+      && !hasTaken.contains("MATH 203"))
+         canTake.add("MATH 203");
+      //math 213
+      if( (hasTaken.contains("MATH 114") || hasTaken.contains("MATH 116"))
+      && !hasTaken.contains("MATH 213"))
+         canTake.add("MATH 213");
+      //stat 344
+      if( (hasTaken.contains("MATH 114") || hasTaken.contains("MATH 116"))
+      && !hasTaken.contains("STAT 344"))
+         canTake.add("STAT 344");
+ 
+      }        
+         
     System.out.println(canTake);
          });
 
@@ -1096,8 +616,8 @@ if (selected.contains("CS 499")){
         cont.setVisible(false);
 
         button3.setOnAction(e ->
-        {
-
+        { 
+        
         ToggleButton selectedToggleButton =
         (ToggleButton) group.getSelectedToggle();
         System.out.println(selectedToggleButton);
@@ -1293,7 +813,7 @@ if (selected.contains("CS 499")){
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-         //Scene 5: Class Output
+        //Scene 5: Class Output
         Label summary = new Label("The results are in! \n");
         Label labelresponse= new Label();
         VBox layout5 = new VBox(20);
@@ -1316,12 +836,9 @@ if (selected.contains("CS 499")){
 
          scene5 = new Scene(layout5, 600, 400);
 
-
-
-
     primaryStage.setScene(scene1);
-    primaryStage.show();
-  }
+    primaryStage.show();}
+    
  class Choice {
     Integer id; String displayString;
     Choice(Integer id)                       { this(id, null); }
@@ -1356,13 +873,13 @@ if (selected.contains("CS 499")){
       new ClassList(10, "CS 471", "Operating Systems",3),
       new ClassList(11, "CS 483", "Analysis of Algorithms", 3),
       new ClassList(12, "None", "None", 0),
-      new ClassList(13, "ENG 302", "English", 3),
-      new ClassList(14, "MTH 113", "Calc 1", 3),
-      new ClassList(15, "MTH 114", "Calc 2", 3),
-      new ClassList(16, "MTH 125", "Discrete", 3),
-      new ClassList(17, "MTH 203", "Linear", 3),
-      new ClassList(18, "MTH 213", "Calc 3", 3),
-      new ClassList(19, "MTH 203", "Linear", 3),
+      new ClassList(13, "ENGH 302", "English", 3),
+      new ClassList(14, "MATH 113", "Calc 1", 3),
+      new ClassList(15, "MATH 114", "Calc 2", 3),
+      new ClassList(16, "MATH 125", "Discrete", 3),
+      new ClassList(17, "MATH 203", "Linear", 3),
+      new ClassList(18, "MATH 213", "Calc 3", 3),
+      new ClassList(19, "MATH 203", "Linear", 3),
       new ClassList(20, "STAT 344", "STAT", 3)
     };
     private DegreeReq[] degreeReqs = {
@@ -1422,9 +939,15 @@ if (selected.contains("CS 499")){
       }
   }
   }
-
-
-
+     public boolean validateClasses(){
+         for(Course c : hasTaken.getList())
+         if(!c.hasPreReqs(hasTaken)){
+            AlertBox.display("Error", "You have not selected ALL of the classes you have taken. Please review your input and click submit again.");
+            isValidInput = false;
+            hasTaken.clear();
+            return false;}
+         isValidInput = true;
+         return true;}
 
   public static void main(String[] args) {
     launch(args);
