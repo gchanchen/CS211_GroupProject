@@ -642,7 +642,7 @@ public class Main extends Application {
                 primaryStage.setScene(scene3));
 
         logo.setOnAction(e -> {
-            selected.add(classList);
+            selected.addAll(classList);
             Collections.sort(classList);
             selected.clear();
             canTake.clear();
@@ -737,6 +737,7 @@ public class Main extends Application {
                     scene3Input.add("CS 468");}
                 else{
                     scene3Input.add("CS 475");}
+                    
                 button3.setVisible(false);
                 cont.setVisible(true);
                 System.out.println(selected);}
@@ -1301,6 +1302,8 @@ public class Main extends Application {
         VBox layout5 = new VBox(20);
         Separator separator3 = new Separator(Orientation.HORIZONTAL);
         layout5.getChildren().addAll(summary, separator3);
+        layout5.setPadding(new Insets(10));
+        layout5.setSpacing(5);
 
         Label firstResults = new Label("Next semester, you can take the following required courses: ");
         layout5.getChildren().add(firstResults);
