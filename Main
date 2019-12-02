@@ -1,7 +1,4 @@
 
-package sample;
-
-
 import javafx.application.Application;
 import javafx.geometry.Orientation;
 import javafx.collections.FXCollections;
@@ -32,7 +29,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.text.*;
 import javafx.geometry.*;
-import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.util.*;
@@ -41,9 +37,11 @@ import javafx.scene.layout.HBox;
 
 public class Main extends Application {
     Scene scene1, scene2, scene3, scene4, scene5;
+
     final ObservableList<String> selected = FXCollections.observableArrayList();
     final ObservableList<String> canTake = FXCollections.observableArrayList();
     final ObservableList<String> wantToTake = FXCollections.observableArrayList();
+    final ArrayList<String> scene3Input = new ArrayList<String>();
 
     ListOfCourses hasTaken = new ListOfCourses();
     boolean isValidInput = false;
@@ -54,33 +52,36 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        primaryStage.setTitle("GMyoUPLAN Computer Science Class Scheduler");
 
-        HBox logoButton = new HBox();
+        /*
+        https://blog.idrsolutions.com/2015/07/an-introduction-to-javafx-panes-with-code-examples/
+        Create a side panel using an AnchorPane
+        try to see if you can upload a file to display like the degree works form..etc
+        AnchorPane anchorpane = new AnchorPane();
 
-        String imageUrl = "https://live.staticflickr.com/65535/49081808031_50c82e282e_q.jpg";
-        Image image2 = new Image(imageUrl,150,150,false,true);
+        BorderPane pane = new BorderPane();
+        pane.setLeft();
+*/
+        String imageUrl = "https://live.staticflickr.com/65535/49154935676_3bb89d5517_o.png" ;
+        Image image = new Image(imageUrl,350,250,false,true);
 
         // Create the ImageView
-        ImageView imageView2 = new ImageView(image2);
+        ImageView imageView = new ImageView(image);
 
         //Logo
-        Button logo = new Button("",imageView2);
-        logoButton.setAlignment(Pos.BASELINE_CENTER);
+        Button logo = new Button("",imageView);
 
-        primaryStage.setTitle("GMyoUplan Scheduler");
+
+
 
         //scene1: Start
         VBox layout1 = new VBox();
         layout1.setSpacing(10);
         layout1.setAlignment(Pos.CENTER);
         layout1.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-font-size: 15;");
+        layout1.getChildren().add(logo);
 
-
-
-        Image image = new Image(imageUrl,150,150,false,true);
-
-        // Create the ImageView
-        ImageView imageView = new ImageView(image);
 
         // Create the HBox
         HBox root1 = new HBox();
@@ -158,13 +159,20 @@ public class Main extends Application {
         BorderPane root = new BorderPane();
         scene2 = new Scene(root, 1000, 650);
 
-       
+        HBox logo2Box = new HBox();
+        logo2Box.setPadding(new Insets(15, 12, 15, 12));
+        logo2Box.setSpacing(5);
+        logo2Box.setStyle("-fx-background-color: #fff5de;");
 
-        HBox infoStuff = new HBox();
-        root.setBottom(infoStuff);
+        root.setTop(logo2Box);
 
-        infoStuff.getChildren().addAll(logoButton);
-        logo.setOnAction(e -> {
+        Image image2 = new Image(imageUrl,100,100,false,true);
+        ImageView imageView2 = new ImageView(image2);
+        Button logo2 = new Button("",imageView2);
+        logo2Box.getChildren().add(logo2);
+
+
+        logo2.setOnAction(e -> {
             selected.clear();
             canTake.clear();
             primaryStage.close();
@@ -187,15 +195,19 @@ public class Main extends Application {
 
         TreeItem CS211Item = new TreeItem("CS 211");
         CS211Item .getChildren().add(new TreeItem("CS 112"));
+        CS211Item.getChildren().add(new TreeItem("MATH 113"));
         rootItem.getChildren().add(CS211Item);
 
         TreeItem CS262Item = new TreeItem("CS 262");
         CS262Item.getChildren().add(new TreeItem("CS 110"));
+        CS262Item.getChildren().add(new TreeItem("CS 112"));
         CS262Item.getChildren().add(new TreeItem("CS 211"));
+        CS262Item.getChildren().add(new TreeItem("MATH 113"));
         rootItem.getChildren().add(CS262Item);
 
         TreeItem CS306Item = new TreeItem("CS 306");
-        CS306Item .getChildren().add(new TreeItem("None"));
+        CS306Item .getChildren().add(new TreeItem("COMM 100"));
+        CS306Item .getChildren().add(new TreeItem("ENGH 302"));
         rootItem.getChildren().add(CS306Item);
 
         TreeItem CS310Item = new TreeItem("CS 310");
@@ -274,7 +286,7 @@ public class Main extends Application {
         rootItem.getChildren().add(CS477Item);
 
         TreeItem CS480Item = new TreeItem("CS 110");
-        CS110Item .getChildren().add(new TreeItem("None"));
+        CS480Item .getChildren().add(new TreeItem("None"));
         rootItem.getChildren().add(CS110Item);
 
         TreeItem CS482Item = new TreeItem("CS 482");
@@ -631,6 +643,8 @@ public class Main extends Application {
                 primaryStage.setScene(scene3));
 
         logo.setOnAction(e -> {
+            selected.add(classList);
+            Collections.sort(classList);
             selected.clear();
             canTake.clear();
             Collections.sort(classList);
@@ -648,8 +662,6 @@ public class Main extends Application {
         Label label3 = new Label("Answer a few questions to find out what computer science classes you are most interested in:");
         Separator separator = new Separator(Orientation.HORIZONTAL);
         Separator separator1 = new Separator(Orientation.HORIZONTAL);
-
-
         Alert alert = new Alert(AlertType.INFORMATION);
 
 
@@ -701,6 +713,7 @@ public class Main extends Application {
         Button button3 = new Button("Submit");
         Button cont = new Button("Continue");
 
+        button3.setVisible(true);
         cont.setVisible(false);
 
         button3.setOnAction(e ->
@@ -711,21 +724,21 @@ public class Main extends Application {
             System.out.println(selectedToggleButton);
             if (selectedToggleButton == null){
 
-                alert.setTitle("Error");
-                alert.setHeaderText("Selection Error");
-                alert.setContentText("Question was not answered. Please make sure to pick of one the classes before clicking submit.");
+                alert.setTitle("Selection Error");
+                alert.setHeaderText("Question was not answered.");
+                alert.setContentText("Please answer the question before clicking submit.");
 
                 alert.showAndWait();}
             else{
                 boolean isSelectedTcp = CSTcp.isSelected();
                 if (CSTcp.isSelected() == true){
-                    wantToTake.add("CS 455");
+                    scene3Input.add("CS 455");
                 }
                 else if (CSCryp.isSelected() == true){
-                    wantToTake.add("CS 468");}
+                    scene3Input.add("CS 468");}
                 else{
-                    wantToTake.add("CS 475");}
-
+                    scene3Input.add("CS 475");}
+                button3.setVisible(false);
                 cont.setVisible(true);
                 System.out.println(selected);}
         });
@@ -767,111 +780,492 @@ public class Main extends Application {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Scene 4: Question Part2
-        Label label4 = new Label("Check all the classes you most are interested in taking:");
-        Separator separator2 = new Separator(Orientation.HORIZONTAL);
-        Separator separator3 = new Separator(Orientation.HORIZONTAL);
-
 
         Alert alert4 = new Alert(AlertType.INFORMATION);
 
-        VBox layout4= new VBox(1);
-        Text q1 = new Text("Which of the following are you interested in:");
-        q1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+        VBox layout4 = new VBox(4);
+        ScrollPane scrollPane = new ScrollPane(layout4);
+        scrollPane.setFitToHeight(true);
+        BorderPane root4 = new BorderPane(scrollPane);
+        Text q4 = new Text("Are you interested in the following?");
+        q4.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 
-        layout4.getChildren().add(q1);
+        layout4.getChildren().addAll(q4);
 
-        CheckBox box1 = new CheckBox("CS 425: Game Programming I. Introduction to technologies and techniques used in modern computer games.");
-        CheckBox box2 = new CheckBox("CS 451 Computer Graphics. Basic graphics principles and programming");
-        CheckBox box3 = new CheckBox("CCS 440: Language processors and Programming Environments. Topics include design and construction of language processors, formal syntactic definition methods, parsing techniques, and code-generation techniques.");
-        CheckBox box4 = new CheckBox("CS 450: Database Concepts(entity-relationship, entity-enhanced relationship, relational algebra, SQL, oracle database)");
-        CheckBox box5 = new CheckBox("CS 455 Computer Communications and Networking. Internet protocol suite. Network performance");
-        CheckBox box6 = new CheckBox("CS 463: comparative programming Languages. Programming mechanisms");
-        CheckBox box7 = new CheckBox("CS 465: Computer Systems Architecture Memory hierarchy, cache, and virtual memory input-output processing");
-        CheckBox box8 = new CheckBox("CS 468: Secure Programming and Systems. Topics include security and cryptography basics, vulnerability analysis, secure software development, and distributed system security");
-        CheckBox box9 = new CheckBox("CS 469: Security Engineering. Covers the software subsystems that are involved in defending computer systems");
-        CheckBox box10 = new CheckBox("CS 475: Concurrent and Distributed Systems. Concurrent programming, synchronization, multithreading, local and wide-area network protocols");
-        CheckBox box11 = new CheckBox("CS 477: Mobile Application Development. Teach principles of software development for the mobile device environment");
-        CheckBox box12 = new CheckBox("CS 480: Introduction to Artificial Intelligence. Principles and methods for knowledge representation");
-        CheckBox box13 = new CheckBox("CS 482: Computer Vision. Basic principles of visual perception and their implementation on computer systems");
-        CheckBox box14 = new CheckBox("CS 484: Data Mining. Principles and methods for data analysis and knowledge discovery");
-        CheckBox box15 = new CheckBox("CS 485: Autonomous Robotics. Covers topics in autonomous robotic");
-        CheckBox box16 = new CheckBox("CS 490: Design Exhibition. Capstone course, focuses on design and implementation of software");
-        CheckBox box17 = new CheckBox("CS 491: Industry-sponsored senior design project. Focus on design and succesful implementation of software project");
-        CheckBox box18 = new CheckBox("CS 499: Special Topics in Computer Science. Free course where undergrads can pick a topic of interest");
+        //cs 425
+        ToggleGroup group1 = new ToggleGroup();
+        Text CS425txt = new Text("1. Game Programming I. Introduction to technologies and techniques used in modern computer games.");
+        RadioButton yes1 = new RadioButton("Yes");
+        RadioButton no1 = new RadioButton("No");
 
+        yes1.setToggleGroup(group1);
+        no1.setToggleGroup(group1);
+        layout4.getChildren().addAll(CS425txt, yes1, no1);
 
-        layout4.getChildren().add(label4);
-        layout4.getChildren().add(separator2);
+        //cs 454
+        ToggleGroup group2 = new ToggleGroup();
+        Text CS454txt = new Text("2. Computer Graphics. Basic graphics principles and programming");
+        RadioButton yes2 = new RadioButton("Yes");
+        RadioButton no2 = new RadioButton("No");
+
+        yes2.setToggleGroup(group2);
+        no2.setToggleGroup(group2);
+        layout4.getChildren().addAll(CS454txt, yes2, no2);
+
+        //cs 440
+        ToggleGroup group3 = new ToggleGroup();
+        Text CS440txt = new Text("3. Language processors and Programming Environments. Topics include design and construction of language processors, formal syntactic definition methods, parsing techniques, and code-generation techniques.");
+        CS440txt.setWrappingWidth(800);
+        RadioButton yes3 = new RadioButton("Yes");
+        RadioButton no3 = new RadioButton("No");
+
+        yes3.setToggleGroup(group3);
+        no3.setToggleGroup(group3);
+        layout4.getChildren().addAll(CS440txt, yes3, no3);
+
+        //cs 450
+        ToggleGroup group4 = new ToggleGroup();
+        Text CS450txt = new Text("4. Database Concepts(entity-relationship, entity-enhanced relationship, relational algebra, SQL, oracle database)");
+        RadioButton yes4 = new RadioButton("Yes");
+        RadioButton no4 = new RadioButton("No");
+
+        yes4.setToggleGroup(group4);
+        no4.setToggleGroup(group4);
+        layout4.getChildren().addAll(CS450txt, yes4, no4);
+
+        //cs 455
+        ToggleGroup group5 = new ToggleGroup();
+        Text CS455txt = new Text("5. Computer Communications and Networking. Internet protocol suite. Network performance");
+        RadioButton yes5 = new RadioButton("Yes");
+        RadioButton no5 = new RadioButton("No");
+
+        yes5.setToggleGroup(group5);
+        no5.setToggleGroup(group5);
+        layout4.getChildren().addAll(CS455txt, yes5, no5);
+
+        //cs 463
+        ToggleGroup group6 = new ToggleGroup();
+        Text CS463txt = new Text("6. Comparative programming languages. Programming mechanisms");
+        RadioButton yes6 = new RadioButton("Yes");
+        RadioButton no6 = new RadioButton("No");
+
+        yes6.setToggleGroup(group6);
+        no6.setToggleGroup(group6);
+        layout4.getChildren().addAll(CS463txt, yes6, no6);
+
+        //cs 465
+        ToggleGroup group7 = new ToggleGroup();
+        Text CS465txt = new Text("7. Computer Systems Architecture Memory hierarchy, cache, and virtual memory input-output processing");
+        RadioButton yes7 = new RadioButton("Yes");
+        RadioButton no7 = new RadioButton("No");
+
+        yes7.setToggleGroup(group7);
+        no7.setToggleGroup(group7);
+        layout4.getChildren().addAll(CS465txt, yes7, no7);
+
+        //cs 468
+        ToggleGroup group8 = new ToggleGroup();
+        Text CS468txt = new Text("8. Secure Programming and Systems. Topics include security and cryptography basics, vulnerability analysis, secure software development, and distributed system security");
+        CS468txt.setWrappingWidth(800);
+        RadioButton yes8 = new RadioButton("Yes");
+        RadioButton no8 = new RadioButton("No");
+
+        yes8.setToggleGroup(group8);
+        no8.setToggleGroup(group8);
+        layout4.getChildren().addAll(CS468txt, yes8, no8);
+
+        //cs 469
+        ToggleGroup group9 = new ToggleGroup();
+        Text CS469txt = new Text("9. Security Engineering. Covers the software subsystems that are involved in defending computer systems");
+        RadioButton yes9 = new RadioButton("Yes");
+        RadioButton no9 = new RadioButton("No");
+
+        yes9.setToggleGroup(group9);
+        no9.setToggleGroup(group9);
+        layout4.getChildren().addAll(CS469txt, yes9, no9);
+
+        //cs 475
+        ToggleGroup group10 = new ToggleGroup();
+        Text CS475txt = new Text("10. Concurrent and Distributed Systems. Concurrent programming, synchronization, multithreading, local and wide-area network protocols");
+        RadioButton yes10 = new RadioButton("Yes");
+        RadioButton no10 = new RadioButton("No");
+
+        yes10.setToggleGroup(group10);
+        no10.setToggleGroup(group10);
+        layout4.getChildren().addAll(CS475txt, yes10, no10);
+
+        //cs 477
+        ToggleGroup group11 = new ToggleGroup();
+        Text CS477txt = new Text("11. Mobile Application Development. Teach principles of software development for the mobile device environment");
+        RadioButton yes11 = new RadioButton("Yes");
+        RadioButton no11 = new RadioButton("No");
+
+        yes11.setToggleGroup(group11);
+        no11.setToggleGroup(group11);
+        layout4.getChildren().addAll(CS477txt, yes11, no11);
+
+        //cs 480
+        ToggleGroup group12 = new ToggleGroup();
+        Text CS480txt = new Text("12. Game Programming I. Introduction to technologies and techniques used in modern computer games.");
+        RadioButton yes12 = new RadioButton("Yes");
+        RadioButton no12 = new RadioButton("No");
+
+        yes12.setToggleGroup(group12);
+        no12.setToggleGroup(group12);
+        layout4.getChildren().addAll(CS480txt, yes12, no12);
+
+        //cs 482
+        ToggleGroup group13 = new ToggleGroup();
+        Text CS482txt = new Text("13. Computer Vision. Basic principles of visual perception and their implementation on computer systems");
+        RadioButton yes13 = new RadioButton("Yes");
+        RadioButton no13 = new RadioButton("No");
+
+        yes13.setToggleGroup(group13);
+        no13.setToggleGroup(group13);
+        layout4.getChildren().addAll(CS482txt, yes13, no13);
+
+        //cs 484
+        ToggleGroup group14 = new ToggleGroup();
+        Text CS484txt = new Text("14. Data Mining. Principles and methods for data analysis and knowledge discovery");
+        RadioButton yes14 = new RadioButton("Yes");
+        RadioButton no14 = new RadioButton("No");
+
+        yes14.setToggleGroup(group14);
+        no14.setToggleGroup(group14);
+        layout4.getChildren().addAll(CS484txt, yes14, no14);
+
+        //cs 485
+        ToggleGroup group15 = new ToggleGroup();
+        Text CS485txt = new Text("15. Autonomous Robotics. Covers topics in autonomous robotics");
+        RadioButton yes15 = new RadioButton("Yes");
+        RadioButton no15 = new RadioButton("No");
+
+        yes15.setToggleGroup(group15);
+        no15.setToggleGroup(group15);
+        layout4.getChildren().addAll(CS485txt, yes15, no15);
+
+        //cs 490
+        ToggleGroup group16 = new ToggleGroup();
+        Text CS490txt = new Text("16. Design Exhibition. Capstone course, focuses on design and implementation of software");
+        RadioButton yes16 = new RadioButton("Yes");
+        RadioButton no16 = new RadioButton("No");
+
+        yes16.setToggleGroup(group16);
+        no16.setToggleGroup(group16);
+        layout4.getChildren().addAll(CS490txt, yes16, no16);
+
+        //cs 491
+        ToggleGroup group17 = new ToggleGroup();
+        Text CS491txt = new Text("17. Industry-sponsored senior design project. Focus on design and succesful implementation of software project");
+        RadioButton yes17 = new RadioButton("Yes");
+        RadioButton no17 = new RadioButton("No");
+
+        yes17.setToggleGroup(group17);
+        no17.setToggleGroup(group17);
+        layout4.getChildren().addAll(CS491txt, yes17, no17);
+
+        ////////
+
         layout4.setPadding(new Insets(10));
         layout4.setSpacing(5);
-
-        layout4.getChildren().addAll(box1, box2, box3, box4, box5, box6,box7, box8, box9, box10, box11, box12, box13, box14, box15, box16, box17, box18);
-
-
 
         Button button4 = new Button("Submit");
         layout4.getChildren().add(button4);
 
-        button4.setOnAction(e ->
-        {
-            if (box1.isSelected()){
-                wantToTake.add("CS 425");
-            }
-            if (box2.isSelected()){
-                wantToTake.add("CS 451");
-            }
-            if (box3.isSelected()){
-                wantToTake.add("CS 440");
-            }
-            if (box4.isSelected()){
-                wantToTake.add("CS 450");
-            }
-            if (box5.isSelected()){
-                wantToTake.add("CS 455");
-            }
-            if (box6.isSelected()){
-                wantToTake.add("CS 463");
-            }
-            if (box7.isSelected()){
-                wantToTake.add("CS 465");
-            }
-            if (box8.isSelected()){
-                wantToTake.add("CS 468");
-            }
-            if (box9.isSelected()){
-                wantToTake.add("CS 469");
-            }
-            if (box10.isSelected()){
-                wantToTake.add("CS 475");
-            }
-            if (box11.isSelected()){
-                wantToTake.add("CS 477");
-            }
-            if (box12.isSelected()){
-                wantToTake.add("CS 480");
-            }
-            if (box13.isSelected()){
-                wantToTake.add("CS 482");
-            }
-            if (box14.isSelected()){
-                wantToTake.add("CS 484");
-            }
-            if (box15.isSelected()){
-                wantToTake.add("CS 485");
-            }
-            if (box16.isSelected()){
-                wantToTake.add("CS 490");
-            }
-            if (box17.isSelected()){
-                wantToTake.add("CS 491");
-            }
-            if (box18.isSelected()){
-                wantToTake.add("CS 499");
-            }
+        Button cont4 = new Button("Continue");
+        layout4.getChildren().add(cont4);
+        cont4.setVisible(false);
 
-            primaryStage.setScene(scene5);
-        });
+        button4.setOnAction(
+                e ->
+                {
 
+                    int counter = 0;
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Make sure all the questions are answered");
+
+                    //q1
+                    ToggleButton result1 = (ToggleButton) group1.getSelectedToggle();
+                    if (result1 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 1");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes1.isSelected() ==  true){
+                            wantToTake.add("CS 425");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+
+                    //q2
+                    ToggleButton result2 = (ToggleButton) group1.getSelectedToggle();
+                    if (result2 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 2");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes2.isSelected() ==  true){
+                            wantToTake.add("CS 454");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+
+                    //q3
+                    ToggleButton result3 = (ToggleButton) group3.getSelectedToggle();
+                    if (result3 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 3");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes3.isSelected() ==  true){
+                            wantToTake.add("CS 440");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+
+                    //q4
+                    ToggleButton result4 = (ToggleButton) group4.getSelectedToggle();
+                    if (result4 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 4");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes4.isSelected() ==  true){
+                            wantToTake.add("CS 450");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+
+                    //q5
+                    ToggleButton result5 = (ToggleButton) group5.getSelectedToggle();
+                    if (result5 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 5");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes5.isSelected() ==  true){
+                            wantToTake.add("CS 455");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+
+                    //q6
+                    ToggleButton result6 = (ToggleButton) group6.getSelectedToggle();
+                    if (result6 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 6");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes6.isSelected() ==  true){
+                            wantToTake.add("CS 463");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+
+
+                    //q7
+                    ToggleButton result7 = (ToggleButton) group7.getSelectedToggle();
+                    if (result7 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 7");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes7.isSelected() ==  true){
+                            wantToTake.add("CS 465");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+
+                    //q8
+                    ToggleButton result8 = (ToggleButton) group8.getSelectedToggle();
+                    if (result8 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 8");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes8.isSelected() ==  true){
+                            wantToTake.add("CS 468");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+
+                    //q9
+                    ToggleButton result9 = (ToggleButton) group9.getSelectedToggle();
+                    if (result9 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 9");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes9.isSelected() ==  true){
+                            wantToTake.add("CS 469");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+                    //q10
+                    ToggleButton result10 = (ToggleButton) group10.getSelectedToggle();
+                    if (result10 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 10");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes10.isSelected() ==  true){
+                            wantToTake.add("CS 475");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+
+                    //q11
+                    ToggleButton result11 = (ToggleButton) group11.getSelectedToggle();
+                    if (result11 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 11");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes11.isSelected() ==  true){
+                            wantToTake.add("CS 477");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+                    //q12
+                    ToggleButton result12 = (ToggleButton) group12.getSelectedToggle();
+                    if (result12 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 12");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes12.isSelected() ==  true){
+                            wantToTake.add("CS 480");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+                    //q13
+                    ToggleButton result13 = (ToggleButton) group13.getSelectedToggle();
+                    if (result13 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 13");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes13.isSelected() ==  true){
+                            wantToTake.add("CS 482");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+
+                    //q14
+                    ToggleButton result14 = (ToggleButton) group14.getSelectedToggle();
+                    if (result14 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 14");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes14.isSelected() ==  true){
+                            wantToTake.add("CS 484");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+
+                    //q15
+                    ToggleButton result15 = (ToggleButton) group15.getSelectedToggle();
+                    if (result15 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 15");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes15.isSelected() ==  true){
+                            wantToTake.add("CS 485");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+
+                    //q16
+                    ToggleButton result16 = (ToggleButton) group16.getSelectedToggle();
+                    if (result16 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 16");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes16.isSelected() ==  true){
+                            wantToTake.add("CS 490");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+
+                    //q17
+                    ToggleButton result17 = (ToggleButton) group17.getSelectedToggle();
+                    if (result17 == null){
+                        wantToTake.clear();
+                        alert.setContentText("Please answer Question 17");
+                        alert.showAndWait();
+                    }
+                    else{
+                        if(yes17.isSelected() ==  true){
+                            wantToTake.add("CS 491");
+                            counter++;
+                        }
+                        else
+                            counter++;
+                    }
+
+                    //continue button
+                    if(counter == 17){
+                        cont4.setVisible(true);
+                        button4.setVisible(false);
+                    }
+                });
+
+        cont4.setOnAction(
+                e -> {
+                    wantToTake.addAll(scene3Input);
+                    primaryStage.setScene(scene5);
+                });
 
         HBox logoButton4 = new HBox();
         Image image4 = new Image(imageUrl,150,150,false,true);
@@ -885,25 +1279,28 @@ public class Main extends Application {
 
 
         layout4.getChildren().addAll(logoButton4);
-        logo4.setOnAction(e -> {
-            selected.clear();
-            canTake.clear();
-            primaryStage.close();
-            primaryStage.setScene(scene1);
-            primaryStage.show();
+        logo4.setOnAction(
+                e -> {
+                    selected.clear();
+                    canTake.clear();
+                    primaryStage.close();
+                    primaryStage.setScene(scene1);
+                    primaryStage.show();
 
-        });
+                });
+
+        scene4 = new Scene(root4, 1000, 650);
 
 
-
-        scene4 = new Scene(layout4, 1000, 650);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//Scene 5: Class Output
         //Scene 5: Class Output
         Label summary = new Label("The results are in! \n");
         Label labelresponse= new Label();
         VBox layout5 = new VBox(20);
+        Separator separator3 = new Separator(Orientation.HORIZONTAL);
         layout5.getChildren().addAll(summary, separator3);
 
         Label firstResults = new Label("Next semester, you can take the following required courses: ");
@@ -923,8 +1320,13 @@ public class Main extends Application {
 
         scene5 = new Scene(layout5, 600, 400);
 
+
+
+
         primaryStage.setScene(scene1);
-        primaryStage.show();}
+        primaryStage.show();
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     public boolean validateClasses(){
