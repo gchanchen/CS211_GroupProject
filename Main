@@ -945,7 +945,7 @@ public class Main extends Application {
                     }
 
                     //q2
-                    ToggleButton result2 = (ToggleButton) group1.getSelectedToggle();
+                    ToggleButton result2 = (ToggleButton) group2.getSelectedToggle();
                     if (result2 == null){
                         wantToTake.clear();
                         alert.setContentText("Please answer Question 2");
