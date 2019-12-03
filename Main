@@ -174,30 +174,27 @@ public class Main extends Application {
         TreeItem rootItem = new TreeItem("Resource Class List");
 
         TreeItem CS110Item = new TreeItem("CS 110");
-        CS110Item .getChildren().add(new TreeItem("None"));
+        CS110Item.getChildren().add(new TreeItem("None"));
         rootItem.getChildren().add(CS110Item);
 
         TreeItem CS112Item = new TreeItem("CS 112");
-        CS112Item.getChildren().add(new TreeItem("MATH 105"));
-        CS112Item.getChildren().add(new TreeItem("MATH 113"));
+        CS112Item.getChildren().add(new TreeItem("MATH 104 or MATH 105 or MATH 113"));
         rootItem.getChildren().add(CS112Item);
 
         TreeItem CS211Item = new TreeItem("CS 211");
-        CS211Item .getChildren().add(new TreeItem("CS 112"));
+        CS211Item.getChildren().add(new TreeItem("CS 112"));
         CS211Item.getChildren().add(new TreeItem("MATH 113"));
         rootItem.getChildren().add(CS211Item);
 
         TreeItem CS262Item = new TreeItem("CS 262");
-        CS262Item.getChildren().add(new TreeItem("CS 110"));
+        CS262Item.getChildren().add(new TreeItem("CS 110 or CS 101"));
         CS262Item.getChildren().add(new TreeItem("CS 112"));
-        CS262Item.getChildren().add(new TreeItem("CS 211"));
+        CS262Item.getChildren().add(new TreeItem("CS 211 or CS 222"));
         CS262Item.getChildren().add(new TreeItem("MATH 113"));
         rootItem.getChildren().add(CS262Item);
 
         TreeItem CS306Item = new TreeItem("CS 306");
-        CS306Item .getChildren().add(new TreeItem("CS 110"));
-        CS306Item .getChildren().add(new TreeItem("COMM 100"));
-        CS306Item .getChildren().add(new TreeItem("ENGH 302"));
+        CS306Item.getChildren().add(new TreeItem("CS 110"));
         rootItem.getChildren().add(CS306Item);
 
         TreeItem CS310Item = new TreeItem("CS 310");
@@ -211,7 +208,7 @@ public class Main extends Application {
         CS321Item.getChildren().add(new TreeItem("CS 211"));
         CS321Item.getChildren().add(new TreeItem("CS 310"));
         CS321Item.getChildren().add(new TreeItem("MATH 113"));
-        CS321Item.getChildren().add(new TreeItem("ENG 302"));
+        CS321Item.getChildren().add(new TreeItem("ENGH 302 or (HNRS 110 and (HNRS 122 or 130 or 230 or 240))"));
         rootItem.getChildren().add(CS321Item);
 
         TreeItem CS330Item = new TreeItem("CS 330");
@@ -221,147 +218,63 @@ public class Main extends Application {
         CS330Item.getChildren().add(new TreeItem("MATH 125"));
         rootItem.getChildren().add(CS330Item);
 
-        //CONT.....HERE...
         TreeItem CS367Item = new TreeItem("CS 367");
-        CS367Item.getChildren().add(new TreeItem("None"));
+        CS367Item.getChildren().add(new TreeItem("CS 110"));
+        CS367Item.getChildren().add(new TreeItem("CS 112"));
+        CS367Item.getChildren().add(new TreeItem("CS 211"));
+        CS367Item.getChildren().add(new TreeItem("CS 262 or CS 222"));
+        CS367Item.getChildren().add(new TreeItem("MATH 113"));
+        CS367Item.getChildren().add(new TreeItem("MATH 125"));
         rootItem.getChildren().add(CS367Item);
 
-        TreeItem CS425Item = new TreeItem("CS 425");
-        CS425Item.getChildren().add(new TreeItem("MATH 105"));
-        CS425Item.getChildren().add(new TreeItem("MATH 113"));
-        rootItem.getChildren().add(CS425Item);
-
-        TreeItem CS440Item = new TreeItem("CS 440");
-        CS440Item.getChildren().add(new TreeItem("MATH 105"));
-        CS440Item.getChildren().add(new TreeItem("MATH 113"));
-        rootItem.getChildren().add(CS440Item);
-
-        TreeItem CS450Item = new TreeItem("CS 450");
-        CS450Item.getChildren().add(new TreeItem("None"));
-        rootItem.getChildren().add(CS450Item);
-
-        TreeItem CS451Item = new TreeItem("CS 451");
-        CS451Item.getChildren().add(new TreeItem("MATH 105"));
-        CS451Item.getChildren().add(new TreeItem("MATH 113"));
-        rootItem.getChildren().add(CS451Item);
-
-        TreeItem CS455Item = new TreeItem("CS 455");
-        CS455Item.getChildren().add(new TreeItem("None"));
-        rootItem.getChildren().add(CS455Item);
-
-        TreeItem CS463Item = new TreeItem("CS 463");
-        CS463Item.getChildren().add(new TreeItem("MATH 105"));
-        CS463Item.getChildren().add(new TreeItem("MATH 113"));
-        rootItem.getChildren().add(CS463Item);
-
-        TreeItem CS465Item = new TreeItem("CS 465");
-        CS465Item.getChildren().add(new TreeItem("MATH 105"));
-        CS465Item.getChildren().add(new TreeItem("MATH 113"));
-        rootItem.getChildren().add(CS465Item);
-
-        TreeItem CS468Item = new TreeItem("CS 468");
-        CS468Item.getChildren().add(new TreeItem("MATH 105"));
-        CS468Item.getChildren().add(new TreeItem("MATH 113"));
-        rootItem.getChildren().add(CS468Item);
-
-        TreeItem CS469Item = new TreeItem("CS 469");
-        CS469Item.getChildren().add(new TreeItem("None"));
-        rootItem.getChildren().add(CS469Item);
-
         TreeItem CS471Item = new TreeItem("CS 471");
-        CS471Item.getChildren().add(new TreeItem("MATH 105"));
+        CS471Item.getChildren().add(new TreeItem("CS 112"));
+        CS471Item.getChildren().add(new TreeItem("CS 211"));
+        CS471Item.getChildren().add(new TreeItem("CS 262 or CS 222"));
+        CS471Item.getChildren().add(new TreeItem("CS 310"));
+        CS471Item.getChildren().add(new TreeItem("CS 367 or ECE 445"));
         CS471Item.getChildren().add(new TreeItem("MATH 113"));
+        CS471Item.getChildren().add(new TreeItem("MATH 125"));
         rootItem.getChildren().add(CS471Item);
 
-        TreeItem CS475Item = new TreeItem("CS 475");
-        CS475Item.getChildren().add(new TreeItem("MATH 105"));
-        CS112Item.getChildren().add(new TreeItem("MATH 113"));
-        rootItem.getChildren().add(CS112Item);
-
-        TreeItem CS477Item = new TreeItem("CS 477");
-        CS477Item.getChildren().add(new TreeItem("MATH 105"));
-        CS477Item.getChildren().add(new TreeItem("MATH 113"));
-        rootItem.getChildren().add(CS477Item);
-
-        TreeItem CS480Item = new TreeItem("CS 110");
-        CS480Item .getChildren().add(new TreeItem("None"));
-        rootItem.getChildren().add(CS110Item);
-
-        TreeItem CS482Item = new TreeItem("CS 482");
-        CS482Item.getChildren().add(new TreeItem("MATH 105"));
-        CS482Item.getChildren().add(new TreeItem("MATH 113"));
-        rootItem.getChildren().add(CS482Item);
-
         TreeItem CS483Item = new TreeItem("CS 483");
-        CS483Item.getChildren().add(new TreeItem("MATH 105"));
+        CS483Item.getChildren().add(new TreeItem("CS 112"));
+        CS483Item.getChildren().add(new TreeItem("CS 211"));
+        CS483Item.getChildren().add(new TreeItem("CS 310"));
+        CS483Item.getChildren().add(new TreeItem("CS 330"));
         CS483Item.getChildren().add(new TreeItem("MATH 113"));
+        CS483Item.getChildren().add(new TreeItem("MATH 125"));
         rootItem.getChildren().add(CS483Item);
 
-        TreeItem CS484Item = new TreeItem("CS 484");
-        CS484Item.getChildren().add(new TreeItem("MATH 105"));
-        CS484Item.getChildren().add(new TreeItem("MATH 113"));
-        rootItem.getChildren().add(CS484Item);
-
-        TreeItem CS485Item = new TreeItem("CS 485");
-        CS485Item .getChildren().add(new TreeItem("None"));
-        rootItem.getChildren().add(CS485Item);
-
-        TreeItem CS490Item = new TreeItem("CS 490");
-        CS490Item .getChildren().add(new TreeItem("MATH 105"));
-        CS490Item.getChildren().add(new TreeItem("MATH 113"));
-        rootItem.getChildren().add(CS490Item );
-
-        TreeItem CS491Item = new TreeItem("CS 491");
-        CS491Item.getChildren().add(new TreeItem("MATH 105"));
-        CS491Item.getChildren().add(new TreeItem("MATH 113"));
-        rootItem.getChildren().add(CS491Item);
-
-        TreeItem CS499Item = new TreeItem("CS 499");
-        CS499Item.getChildren().add(new TreeItem("None"));
-        rootItem.getChildren().add(CS499Item);
-
         TreeItem MATH113Item = new TreeItem("MATH 113");
-        MATH113Item.getChildren().add(new TreeItem("MATH 105"));
-        MATH113Item.getChildren().add(new TreeItem("MATH 113"));
+        MATH113Item.getChildren().add(new TreeItem("MATH 104 or MATH 105"));
         rootItem.getChildren().add(MATH113Item);
 
         TreeItem MATH114Item = new TreeItem("MATH 114");
-        MATH114Item.getChildren().add(new TreeItem("MATH 105"));
-        MATH114Item.getChildren().add(new TreeItem("MATH 113"));
+        MATH114Item.getChildren().add(new TreeItem("(MATH 123 and MATH 125) or MATH 113"));
         rootItem.getChildren().add(MATH114Item);
 
-        TreeItem MATH125Item = new TreeItem("MATh 125");
-        MATH125Item.getChildren().add(new TreeItem("MATH 105"));
-        MATH125Item.getChildren().add(new TreeItem("MATH 113"));
+        TreeItem MATH125Item = new TreeItem("MATH 125");
+        MATH125Item.getChildren().add(new TreeItem("MATH 105 or MATH 108 or MATH 113"));
         rootItem.getChildren().add(MATH125Item);
 
         TreeItem MATH203Item = new TreeItem("MATH 203");
-        MATH203Item.getChildren().add(new TreeItem("MATH 105"));
-        MATH203Item.getChildren().add(new TreeItem("MATH 113"));
+        MATH203Item.getChildren().add(new TreeItem("(MATH 113 and MATH 114) or MATH 116)"));
         rootItem.getChildren().add(MATH203Item);
 
         TreeItem MATH213Item = new TreeItem("MATH 213");
-        MATH213Item.getChildren().add(new TreeItem("MATH 105"));
-        MATH213Item.getChildren().add(new TreeItem("MATH 113"));
+        MATH213Item.getChildren().add(new TreeItem("(MATH 113 and MATH 114) or MATH 116)"));
         rootItem.getChildren().add(MATH213Item);
 
-        TreeItem MATH446Item = new TreeItem("MATH 446");
-        MATH446Item.getChildren().add(new TreeItem("MATH 113 AND MATH 114"));
-        MATH446Item.getChildren().add(new TreeItem("OR MATH 116"));
-        MATH446Item.getChildren().add(new TreeItem("MATH 203"));
-        MATH446Item.getChildren().add(new TreeItem("CS 112"));
-        rootItem.getChildren().add(MATH446Item);
-
         TreeItem STAT344Item = new TreeItem("STAT 344");
-        STAT344Item.getChildren().add(new TreeItem("MATH 113 AND MATH 114"));
-        STAT344Item.getChildren().add(new TreeItem("OR MATH 116"));
+        STAT344Item.getChildren().add(new TreeItem("(MATH 113 and MATH 114) or MATH 116)"));
         rootItem.getChildren().add(STAT344Item);
 
-         //TreeView to Display
         TreeView treeView = new TreeView();
         treeView.setRoot(rootItem);
+        VBox treeVbox = new VBox(treeView);
 
-        VBox treeVbox = new VBox();
+        treeVbox = new VBox();
         Text classResource = new Text("Class Look Up Resource Tool");
         Font fontCR = Font.font("Verdana", FontWeight.BOLD, 20);
         classResource.setFont(fontCR);
