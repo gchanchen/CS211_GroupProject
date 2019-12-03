@@ -1,3 +1,6 @@
+package sample;
+
+
 import javafx.application.Application;
 import javafx.geometry.Orientation;
 import javafx.collections.FXCollections;
@@ -170,6 +173,8 @@ public class Main extends Application {
         logo2Box.setAlignment(Pos.CENTER_RIGHT);
         logo2Box.getChildren().add(logo2);
 
+
+
         //TreeView : Class List Resourse to look up classes
         TreeItem rootItem = new TreeItem("Resource Class List");
 
@@ -270,11 +275,12 @@ public class Main extends Application {
         STAT344Item.getChildren().add(new TreeItem("(MATH 113 and MATH 114) or MATH 116)"));
         rootItem.getChildren().add(STAT344Item);
 
+
+        //TreeView to Display
         TreeView treeView = new TreeView();
         treeView.setRoot(rootItem);
-        VBox treeVbox = new VBox(treeView);
 
-        treeVbox = new VBox();
+        VBox treeVbox = new VBox();
         Text classResource = new Text("Class Look Up Resource Tool");
         Font fontCR = Font.font("Verdana", FontWeight.BOLD, 20);
         classResource.setFont(fontCR);
@@ -959,7 +965,6 @@ public class Main extends Application {
                         else
                             counter++;
                     }
-
                     //q3
                     ToggleButton result3 = (ToggleButton) group3.getSelectedToggle();
                     if (result3 == null){
@@ -1270,20 +1275,20 @@ public class Main extends Application {
         interestList.setOrientation(Orientation.VERTICAL);
         interestList.setPrefSize(120,200);
         layout6.getChildren().add(interestList);
-        
+
         HBox logo5Box = new HBox();
         logo5Box.setPadding(new Insets(15, 12, 15, 12));
         logo5Box.setPrefHeight(200);
         logo5Box.setSpacing(5);
         logo5Box.setStyle("-fx-background-color: #1e6e17;");
-        
+
         Image image5 = new Image(imageUrl,110,95,false,true);
         ImageView imageView5 = new ImageView(image5);
         Button logo5 = new Button("",imageView5);
         logo5.setStyle("-fx-background-color: white");
         logo5Box.setAlignment(Pos.CENTER_RIGHT);
         logo5Box.getChildren().add(logo5);
-        
+
         logo5.setOnAction(e -> {
             selected.clear();
             canTake.clear();
@@ -1293,8 +1298,7 @@ public class Main extends Application {
 
         });
 
-        layout6.getChildren().add(logo5Box);
-         
+
         p.setTop(f);
         p.setCenter(layout6);
         scene5 = new Scene(p, 1800, 650);
