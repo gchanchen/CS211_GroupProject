@@ -1,3 +1,5 @@
+
+
 import javafx.application.Application;
 import javafx.geometry.Orientation;
 import javafx.collections.FXCollections;
@@ -38,7 +40,7 @@ public class Main extends Application {
 
     Button logo = new Button();
     Alert alertBox = new Alert(AlertType.INFORMATION);
-
+    String imageUrl = "https://live.staticflickr.com/65535/49154935676_3bb89d5517_o.png" ;
 
     @Override
     public void start(Stage primaryStage) {
@@ -50,7 +52,7 @@ public class Main extends Application {
         border.setHgap(5);
 
 
-        String imageUrl = "https://live.staticflickr.com/65535/49154935676_3bb89d5517_o.png" ;
+
         Image image = new Image(imageUrl,350,250,false,true);
         ImageView imageView = new ImageView(image);
         Button logo = new Button();
@@ -64,23 +66,24 @@ public class Main extends Application {
         grid.setHgap(1);
         grid.setPrefHeight(200);
 
+
         Text description = new Text("A Scheduler aimed for assisting students plan Computer Science classes.");
         description.setFill(Color.WHITE);
         Font font = Font.font("Abel", FontWeight.EXTRA_BOLD, 25);
         description.setFont(font);
-        grid.add(description, 3, 3);
+        grid.add(description, 3, 0);
 
         Text featureinfo = new Text("Features include:");
         featureinfo.setFill(Color.WHITE);
         Font font1 = Font.font("Abel",FontWeight.EXTRA_BOLD, 18);
         featureinfo.setFont(font1);
-        grid.add(featureinfo, 3, 5);
+        grid.add(featureinfo, 3, 3);
 
         Text feature = new Text("An assessment of what classes the user can take immediately next semester.");
         feature.setFill(Color.WHITE);
         Font font2 = Font.font("Abel", 17);
         feature.setFont(font2);
-        grid.add(feature, 3, 6);
+        grid.add(feature, 3, 4);
 
 
         Text feature1 = new Text("An analysis of the user’s interest and suggests what technical electives they should take.");
@@ -94,21 +97,31 @@ public class Main extends Application {
         creators.setFill(Color.WHITE);
         Font font4 = Font.font("Actor", 17);
         creators.setFont(font4);
-        grid.add(creators, 60, 10);
+        grid.add(creators, 3, 9);
         grid.setStyle("-fx-background-color: #1e6e17;");
 
         Button start = new Button("Start");
         start.setStyle("-fx-font-size: 2em; ");
-        grid.add(start,60,0);
+        grid.add(start,60,10);
+
+        //Testing Scene5, always to bypass answering 17 questions in order to test scene5
+        Button skip = new Button();
 
         BorderPane homePane = new BorderPane();
         homePane.setStyle("-fx-background-color: white");
         homePane.setCenter(logo);
         homePane.setBottom(grid);
         homePane.setTop(border);
+        homePane.setLeft(skip);
 
         start.setOnAction(e -> primaryStage.setScene(scene2));
-        scene1= new Scene(homePane, 1800, 650);
+
+
+        skip.setOnAction( e -> primaryStage.setScene(scene5)
+        );
+
+
+        scene1= new Scene(homePane, 1250, 650);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //scene2: Class Input
@@ -142,12 +155,13 @@ public class Main extends Application {
                 "Computer science majors may not use more than one."
 
                 );
-        label2.setWrappingWidth(400);
+        label2.setWrappingWidth(280);
 
         instructionsCI.getChildren().addAll(titleS2,label2);
 
         Alert alertSelect = new Alert(AlertType.INFORMATION);
         BorderPane root = new BorderPane();
+
 
         //Border on Top
         HBox top2 = new HBox();
@@ -162,6 +176,7 @@ public class Main extends Application {
         logo2Box.setStyle("-fx-background-color: #1e6e17;");
 
 
+
         //Button Logo
         Image image2 = new Image(imageUrl,110,95,false,true);
         ImageView imageView2 = new ImageView(image2);
@@ -169,6 +184,8 @@ public class Main extends Application {
         logo2.setStyle("-fx-background-color: white");
         logo2Box.setAlignment(Pos.CENTER_RIGHT);
         logo2Box.getChildren().add(logo2);
+
+
 
         //TreeView : Class List Resourse to look up classes
         TreeItem rootItem = new TreeItem("Resource Class List");
@@ -270,22 +287,23 @@ public class Main extends Application {
         STAT344Item.getChildren().add(new TreeItem("(MATH 113 and MATH 114) or MATH 116)"));
         rootItem.getChildren().add(STAT344Item);
 
+
+        //TreeView to Display
         TreeView treeView = new TreeView();
         treeView.setRoot(rootItem);
-        VBox treeVbox = new VBox(treeView);
 
-        treeVbox = new VBox();
+        VBox treeVbox = new VBox();
         Text classResource = new Text("Class Look Up Resource Tool");
-        Font fontCR = Font.font("Verdana", FontWeight.BOLD, 20);
+        Font fontCR = Font.font("Verdana", FontWeight.BOLD, 13);
         classResource.setFont(fontCR);
 
         Text classResource1 = new Text("Use this tool to look up prerequisites");
-        Font fontCR1 = Font.font("Verdana", FontWeight.THIN, 15);
+        Font fontCR1 = Font.font("Verdana", FontWeight.THIN, 13);
         classResource1.setFont(fontCR1);
         treeVbox.getChildren().addAll(classResource,classResource1);
         treeVbox.getChildren().add(treeView);
-        treeVbox.setPrefWidth(500);
-        treeVbox.setPadding(new Insets(20, 5, 10, 5));
+        treeVbox.setMaxWidth(200);
+        treeVbox.setPadding(new Insets(28, 5, 10, 5));
 
         BorderPane.setMargin(treeVbox, new Insets(10, 10, 10, 10));
 
@@ -298,10 +316,10 @@ public class Main extends Application {
         gridpane.setPadding(new Insets(45,10,5,5));
         gridpane.setHgap(10);
         gridpane.setVgap(10);
-        ColumnConstraints column1 = new ColumnConstraints(350, 350,
+        ColumnConstraints column1 = new ColumnConstraints(250, 300,
                 Double.MAX_VALUE);
         ColumnConstraints column2 = new ColumnConstraints(80);
-        ColumnConstraints column3 = new ColumnConstraints(350, 350,
+        ColumnConstraints column3 = new ColumnConstraints(200, 250,
                 Double.MAX_VALUE);
         //column1.setHgrow(Priority.ALWAYS);
         //column3.setHgrow(Priority.ALWAYS);
@@ -582,13 +600,18 @@ public class Main extends Application {
         root.setCenter(gridpane);
         root.setRight(instructionsCI);
 
-        scene2 = new Scene(root, 1800, 650);
+        scene2 = new Scene(root, 1250, 650);
+        root.prefHeightProperty().bind(scene2.heightProperty());
+        root.prefWidthProperty().bind(scene2.widthProperty());
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //Scene 3: Questions
 
         BorderPane root3 = new BorderPane();
+
+
         //Border on Top
         HBox top3 = new HBox();
         top3.setPadding(new Insets(10, 10, 10, 10));
@@ -598,9 +621,9 @@ public class Main extends Application {
         //Border on Bottom
         HBox logo3Box = new HBox();
         logo3Box.setPadding(new Insets(15, 12, 15, 12));
-        logo3Box.setPrefHeight(200);
         logo3Box.setSpacing(5);
         logo3Box.setStyle("-fx-background-color: #1e6e17;");
+
 
 
         //Button Logo
@@ -609,7 +632,10 @@ public class Main extends Application {
         Button logo3 = new Button("",imageView3);
         logo3.setStyle("-fx-background-color: white");
         logo3Box.setAlignment(Pos.CENTER_RIGHT);
-        logo3Box.getChildren().addAll(logo3);
+        logo3Box.getChildren().add(logo3);
+
+
+
 
         Label label3 = new Label("Answer a few questions to find out what computer science classes you are most interested in:");
         Separator separator = new Separator(Orientation.HORIZONTAL);
@@ -617,11 +643,13 @@ public class Main extends Application {
         Alert alert = new Alert(AlertType.INFORMATION);
 
 
+
         VBox layout3= new VBox(5);
         layout3.getChildren().add(label3);
         layout3.getChildren().add(separator1);
         layout3.setPadding(new Insets(10));
         layout3.setSpacing(5);
+
 
         Text q = new Text("Which of the following are you most interested in:");
         q.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
@@ -706,8 +734,18 @@ public class Main extends Application {
 
 
         logo3.setOnAction(e -> {
+            classList.addAll(selected);
+            Collections.sort(classList);
             selected.clear();
             canTake.clear();
+            cont1.setVisible(false);
+            check.setVisible(true);
+            button3.setVisible(true);
+            cont.setVisible(false);
+            CSTcp.setSelected(false);
+            CSCryp.setSelected(false);
+            CSSysInteg.setSelected(false);
+            scene3Input.clear();
             primaryStage.close();
             primaryStage.setScene(scene1);
             primaryStage.show();
@@ -716,16 +754,41 @@ public class Main extends Application {
 
         root3.setTop(top3);
         root3.setBottom(logo3Box);
-        root3.setLeft(layout3);
+        root3.setCenter(layout3);
 
 
 
-        scene3 = new Scene(root3, 1800, 650);
+        scene3 = new Scene(root3, 1250, 650);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Scene 4: Question Part2
 
+        BorderPane root41 = new BorderPane();
+
+
         Alert alert4 = new Alert(AlertType.INFORMATION);
+
+        //Border on Top
+        HBox top4 = new HBox();
+        top4.setPadding(new Insets(10, 10, 10, 10));
+        top4.setStyle("-fx-background-color: #1e6e17;");
+
+        //Border on Bottom
+        HBox logo4Box = new HBox();
+        logo4Box.setPadding(new Insets(15, 12, 15, 12));
+        logo4Box.setSpacing(5);
+        logo4Box.setStyle("-fx-background-color: #1e6e17;");
+
+
+
+        //Button Logo
+        Image image4 = new Image(imageUrl,110,95,false,true);
+        ImageView imageView4 = new ImageView(image4);
+        Button logo4 = new Button("",imageView4);
+        logo4.setStyle("-fx-background-color: white");
+        logo4Box.setAlignment(Pos.CENTER_RIGHT);
+        logo4Box.getChildren().add(logo4);
+
 
         VBox layout4 = new VBox(4);
         ScrollPane scrollPane = new ScrollPane(layout4);
@@ -945,7 +1008,7 @@ public class Main extends Application {
                     }
 
                     //q2
-                    ToggleButton result2 = (ToggleButton) group1.getSelectedToggle();
+                    ToggleButton result2 = (ToggleButton) group2.getSelectedToggle();
                     if (result2 == null){
                         wantToTake.clear();
                         alert.setContentText("Please answer Question 2");
@@ -959,7 +1022,6 @@ public class Main extends Application {
                         else
                             counter++;
                     }
-
                     //q3
                     ToggleButton result3 = (ToggleButton) group3.getSelectedToggle();
                     if (result3 == null){
@@ -1211,29 +1273,89 @@ public class Main extends Application {
                     primaryStage.setScene(scene5);
                 });
 
-        HBox logoButton4 = new HBox();
-        Image image4 = new Image(imageUrl,150,150,false,true);
-
-        // Create the ImageView
-        ImageView imageView4 = new ImageView(image4);
-
-        Button logo4 = new Button("",imageView4);
-        logoButton4.getChildren().add(logo3);
-        logoButton4.setAlignment(Pos.BOTTOM_RIGHT);
-
-
-        layout4.getChildren().addAll(logoButton4);
         logo4.setOnAction(
                 e -> {
+                    classList.addAll(selected);
+                    Collections.sort(classList);
                     selected.clear();
                     canTake.clear();
+                    cont1.setVisible(false);
+                    check.setVisible(true);
+                    button3.setVisible(true);
+                    cont.setVisible(false);
+                    CSTcp.setSelected(false);
+                    CSCryp.setSelected(false);
+                    CSSysInteg.setSelected(false);
+                    cont4.setVisible(false);
+                    button4.setVisible(true);
+
+                    yes1.setSelected(false);
+                    no1.setSelected(false);
+
+                    yes2.setSelected(false);
+                    no2.setSelected(false);
+
+                    yes3.setSelected(false);
+                    no3.setSelected(false);
+
+                    yes4.setSelected(false);
+                    no4.setSelected(false);
+
+                    yes5.setSelected(false);
+                    no5.setSelected(false);
+
+                    yes6.setSelected(false);
+                    no6.setSelected(false);
+
+                    yes7.setSelected(false);
+                    no7.setSelected(false);
+
+                    yes8.setSelected(false);
+                    no8.setSelected(false);
+
+                    yes9.setSelected(false);
+                    no9.setSelected(false);
+
+                    yes10.setSelected(false);
+                    no10.setSelected(false);
+
+                    yes11.setSelected(false);
+                    no11.setSelected(false);
+
+                    yes12.setSelected(false);
+                    no12.setSelected(false);
+
+                    yes13.setSelected(false);
+                    no13.setSelected(false);
+
+                    yes14.setSelected(false);
+                    no14.setSelected(false);
+
+                    yes15.setSelected(false);
+                    no15.setSelected(false);
+
+                    yes16.setSelected(false);
+                    no16.setSelected(false);
+
+                    yes17.setSelected(false);
+                    no17.setSelected(false);
+                    wantToTake.clear();
+                    scene3Input.clear();
+
+
+
+
                     primaryStage.close();
                     primaryStage.setScene(scene1);
                     primaryStage.show();
 
                 });
 
-        scene4 = new Scene(root4, 1000, 650);
+        root41.setTop(top4);
+        root41.setBottom(logo4Box);
+        root41.setCenter(root4);
+
+        scene4 = new Scene(root41, 1250, 650);
 
 
 
@@ -1248,56 +1370,133 @@ public class Main extends Application {
         f.setStyle("-fx-background-color: #1e6e17;");
         f.setHgap(5);
 
-        Label summary = new Label("The results are in! \n");
+        Text summary = new Text("The results are in! \n");
+        Font ft = Font.font("Verdana", FontWeight.BOLD, 25);
+        summary.setFont(ft);
+        summary.setFill(Color.WHITE);
+
         Label labelresponse= new Label();
-        VBox layout5 = new VBox(20);
-        Separator separator3 = new Separator(Orientation.HORIZONTAL);
-        layout5.getChildren().addAll(summary, separator3);
+
+        VBox layout5 = new VBox();
+        layout5.getChildren().add(summary);
         f.getChildren().addAll(layout5);
 
         VBox layout6 = new VBox(20);
-        Label firstResults = new Label("Next semester, you can take the following required courses: ");
+        Text firstResults = new Text("Next semester, you can take the following required courses: ");
+        Font f2 = Font.font("Verdana", FontWeight.BOLD,15);
+        firstResults.setFont(f2);
+        firstResults.setFill(Color.DARKGREEN);
         layout6.getChildren().add(firstResults);
+
         ListView<String> theList = new ListView<>(canTake);
         theList.setOrientation(Orientation.VERTICAL);
         theList.setPrefSize(120,200);
         layout6.getChildren().add(theList);
         f.getChildren().addAll(layout6);
 
-        Label secondResults = new Label("According to your interests, we recommend you take the following electives: ");
+        Text secondResults = new Text("According to your interests, we recommend you take the following electives: ");
+        Font f3 = Font.font("Verdana", 15);
+        secondResults.setFont(f3);
         layout6.getChildren().add(secondResults);
+
         ListView<String> interestList = new ListView<>(wantToTake);
         interestList.setOrientation(Orientation.VERTICAL);
         interestList.setPrefSize(120,200);
         layout6.getChildren().add(interestList);
-        
+
         HBox logo5Box = new HBox();
         logo5Box.setPadding(new Insets(15, 12, 15, 12));
         logo5Box.setPrefHeight(200);
         logo5Box.setSpacing(5);
         logo5Box.setStyle("-fx-background-color: #1e6e17;");
-        
+
         Image image5 = new Image(imageUrl,110,95,false,true);
         ImageView imageView5 = new ImageView(image5);
         Button logo5 = new Button("",imageView5);
         logo5.setStyle("-fx-background-color: white");
         logo5Box.setAlignment(Pos.CENTER_RIGHT);
         logo5Box.getChildren().add(logo5);
-        
+
         logo5.setOnAction(e -> {
+            classList.addAll(selected);
+            Collections.sort(classList);
             selected.clear();
             canTake.clear();
+            cont1.setVisible(false);
+            check.setVisible(true);
+            button3.setVisible(true);
+            cont.setVisible(false);
+            CSTcp.setSelected(false);
+            CSCryp.setSelected(false);
+            CSSysInteg.setSelected(false);
+            cont4.setVisible(false);
+            button4.setVisible(true);
+
+            yes1.setSelected(false);
+            no1.setSelected(false);
+
+            yes2.setSelected(false);
+            no2.setSelected(false);
+
+            yes3.setSelected(false);
+            no3.setSelected(false);
+
+            yes4.setSelected(false);
+            no4.setSelected(false);
+
+            yes5.setSelected(false);
+            no5.setSelected(false);
+
+            yes6.setSelected(false);
+            no6.setSelected(false);
+
+            yes7.setSelected(false);
+            no7.setSelected(false);
+
+            yes8.setSelected(false);
+            no8.setSelected(false);
+
+            yes9.setSelected(false);
+            no9.setSelected(false);
+
+            yes10.setSelected(false);
+            no10.setSelected(false);
+
+            yes11.setSelected(false);
+            no11.setSelected(false);
+
+            yes12.setSelected(false);
+            no12.setSelected(false);
+
+            yes13.setSelected(false);
+            no13.setSelected(false);
+
+            yes14.setSelected(false);
+            no14.setSelected(false);
+
+            yes15.setSelected(false);
+            no15.setSelected(false);
+
+            yes16.setSelected(false);
+            no16.setSelected(false);
+
+            yes17.setSelected(false);
+            no17.setSelected(false);
+
+            wantToTake.clear();
+            scene3Input.clear();
             primaryStage.close();
             primaryStage.setScene(scene1);
+            primaryStage.setResizable(true);
             primaryStage.show();
 
         });
 
-        layout6.getChildren().add(logo5Box);
-         
+
         p.setTop(f);
         p.setCenter(layout6);
-        scene5 = new Scene(p, 1800, 650);
+        p.setBottom(logo5Box);
+        scene5 = new Scene(p, 1300, 650);
 
 
 
